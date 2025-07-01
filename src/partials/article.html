@@ -1,5 +1,49 @@
-<section class="section">
+<section class="section article" id="article">
   <div class="container">
-   
+    <div class="article-text">
+      <h2 class="article-text-title">
+        Welcome to Booksy – your cozy corner for handpicked reads.
+      </h2>
+      <p class="article-text-paragraf">
+        We believe books are more than just stories — they’re companions,
+        doorways, and memories. Whether you’re chasing adventures or quiet
+        moments, we’re here to help you find your next favorite book.
+      </p>
+    </div>
+
+    <picture class="article-image">
+      <!-- Desktop: 1440px+ -->
+      <source
+        srcset="
+          ./img/article/article-dsk.webp    1x,
+          ./img/article/article-dsk@2x.webp 2x
+        "
+        media="(min-width: 1440px)"
+        width="640"
+        height="474"
+      />
+
+      <!-- Tablet: 768px+ -->
+      <source
+        srcset="
+          ./img/article/article-tab.webp    1x,
+          ./img/article/article-tab@2x.webp 2x
+        "
+        media="(min-width: 768px)"
+        width="704"
+        height="474"
+      />
+
+      <!-- Mobile: fallback з підтримкою високих DPI -->
+      <img
+        src="./img/article/article-mob.webp"
+        srcset="
+          ./img/article/article-mob.webp    1x,
+          ./img/article/article-mob@2x.webp 2x
+        "
+        alt="Man reads handpicked book"
+        height="248"
+      />
+    </picture>
   </div>
 </section>
