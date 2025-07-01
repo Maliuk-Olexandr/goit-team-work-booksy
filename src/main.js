@@ -4,3 +4,8 @@ import './js/books.js';
 import './js/feedback.js';
 import './js/events.js';
 import './js/footer.js';
+
+// @TODO remove before production deployment
+import { testAPI } from './js/products-api.js';
+testAPI();
+// @TODO remove before production deployment
