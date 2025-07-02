@@ -6,7 +6,7 @@
 :root {
   --background: #fceee6;
   --text-main-color: #0b0500;
-  --text-secondary-color: var(--border-card); /* "стара" ціна */
+  --text-secondary-color: #0b050026; /* "стара" ціна */
   --secondary-background: #ea8d50;
   --foraground: #0b05000d; /* inputs, textarea, кількість в BookModal, border in feedbacks */
   --color-white: #ffffff;
@@ -71,7 +71,7 @@
 }
 /* inputs */
 :root {
-  --border-card: #0b050026; /* Border color for inputs */
+  --border-card: var(--text-secondary-color); /* Border color for inputs */
   --border-card-focus: #0b050099; /* Border color for inputs on hover and focus */
 }
 input,
