@@ -7,9 +7,10 @@ body {
   color: #0b0500;
   font-family: 'Rubik', sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   line-height: 1.5;
+  background-color: #fceee6;
 }
 a,
 button,
