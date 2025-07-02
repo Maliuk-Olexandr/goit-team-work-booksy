@@ -1,21 +1,10 @@
-const mobMenuOpenBtn = document.querySelector('#mobile-menu-open');
-const mobMenu = document.querySelector('.mobile-menu');
-const mobMenuCloseBtn = document.querySelector('#mobile-menu-close');
-const mobLink = document.querySelector('.mobile-list');
+import refs from './refs';
+const toggleMobMenu = open => {
+  refs.mobMenu.classList.toggle('is-open', open);
+  refs.body.classList.toggle('no-scroll', open);
+};
 
-mobMenuOpenBtn.addEventListener('click', () => {
-  mobMenu.classList.add('is-open');
-  document.body.classList.add('no-scroll');
-});
-
-mobMenuCloseBtn.addEventListener('click', () => {
-  mobMenu.classList.remove('is-open');
-  document.body.classList.remove('no-scroll');
-});
-
-mobLink.addEventListener('click', event => {
-  if (event.target.classList.contains('mobile-link')) {
-    mobMenu.classList.remove('is-open');
-    document.body.classList.remove('no-scroll');
-  }
+document.addEventListener('click', e => {
+  if (e.target.closest('[data-menu-open]')) toggleMobMenu(true);
+  if (e.target.closest('[data-menu-close], .mobile-link')) toggleMobMenu(false);
 });

@@ -1,6 +1,5 @@
 //Обʼєкт з посиланнями на ДОМ елементи
 
-
 // const refs = {
 //   form: document.querySelector('.search-form'),
 //   categories: document.querySelector('.categories'),
