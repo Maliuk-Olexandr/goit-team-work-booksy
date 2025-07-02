@@ -1,16 +1,138 @@
 @import url(https://fonts.bunny.net/css?family=rubik:400,500,600);
 
+/* Global styles */
+
+/* Color Scheme 1 */
+:root {
+  --background: #fceee6;
+  --text-main-color: #0b0500;
+  --text-secondary-color: var(--border-card); /* "стара" ціна */
+  --secondary-background: #ea8d50;
+  --foraground: #0b05000d; /* inputs, textarea, кількість в BookModal, border in feedbacks */
+  --color-white: #ffffff;
+}
+
+/* buttons */
+:root {
+  --btn-background: #e15d05; /* Accent color */
+  --btn-background-hover-focus: var(--text-main-color); /* Accent color on hover */
+  --btn-background-active: #b44a04; /* Accent color on active */
+  --btn-background-disabled: var(--text-main-color); /* Accent color when disabled */
+  --btn-secondary-background: transparent; /* Secondary button background */
+  --btn-secondary-text: var(--text-main-color); /* Secondary button text color */
+  --btn-secondary-background-hover-focus: var(--secondary-background); /* Secondary button background on hover */
+  --btn-secondary-background-hover-focus-border: var(--text-main-color); /* Secondary button background on hover focus */
+  --btn-secondary-background-active: #dad9d8; /* Secondary button background on active */
+}
+
+.btn {
+  background-color: var(--btn-background);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--btn-background);
+  border-radius: 4px;
+  padding: 12px 24px;
+}
+.btn:hover,
+.btn:focus {
+  background-color: var(--btn-background-hover-focus);
+  border-color: var(--btn-background-hover-focus);
+}
+.btn:active {
+  background-color: var(--btn-background-active);
+  border-color: var(--btn-background-active);
+}
+.btn:disabled {
+  background-color: var(--btn-background-disabled);
+  border-color: var(--btn-background-disabled);
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+.btn-secondary {
+  background-color: var(--btn-secondary-background);
+  color: var(--btn-secondary-text);
+  border: 1px solid var(--btn-secondary-text);
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: var(--btn-secondary-background-hover-focus);
+  border-color: var(--btn-secondary-background-hover-focus-border);
+}
+.btn-secondary:active {
+  background-color: var(--btn-secondary-background-active);
+}
+.btn-secondary:disabled {
+  background-color: var(--btn-secondary-background);
+  color: var(--btn-secondary-text);
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+/* inputs */
+:root {
+  --border-card: #0b050026; /* Border color for inputs */
+  --border-card-focus: #0b050099; /* Border color for inputs on hover and focus */
+}
+input,
+textarea {
+  background-color: var(--foraground);
+  color: var(--text-main-color);
+  border: 1px solid var(--border-card);
+  border-radius: 4px;
+  padding: 8px 12px;
+  min-width: 100%;
+  outline: none;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--border-card-focus);
+}
+/* arrows */
+:root {
+  --arrow-color: var(--color-white);
+  --arrow-background: var(--btn-background);
+  --arrow-hover-color: var(--text-main-color);
+  --arrow-hover-background: var(--btn-background-hover-focus);
+  --arrow-active-color: var(--color-white);
+  --arrow-active-background: #5a2502;
+  --arrow-disabled-color: var(--text-main-color); /* need opacity: 0.2; */
+  --arrow-disabled-background: var(--btn-background); /* need opacity: 0.2; */
+}
+.arrow {
+  display: inline-block;
+  background-color: var(--arrow-background);
+  color: var(--arrow-color);
+}
+.arrow:hover,
+.arrow:focus {
+  background-color: var(--arrow-hover-background);
+  color: var(--arrow-hover-color);
+}
+.arrow:active {
+  background-color: var(--arrow-active-background);
+  color: var(--arrow-active-color);
+}
+.arrow:disabled {
+  background-color: var(--arrow-disabled-background);
+  color: var(--arrow-disabled-color);
+  opacity: 0.2;
+  cursor: not-allowed;
+}
+
+/* main settings */
 html {
   scroll-behavior: smooth;
 }
 body {
-  color: #0b0500;
+  color: var(--text-main-color);
   font-family: 'Rubik', sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
   line-height: 1.5;
-  background-color: #fceee6;
+  background-color: var(--background);
 }
 a,
 button,

@@ -1,16 +1,3 @@
-/* @TODO to teamlead: move this colors block to base.scc */
-:root {
-  /* Color Scheme 1 Variables */
-  --background: #fceee6;
-  --border: #6b656026;
-  --text: #0b0500;
-  --foreground: #f9decd;
-  --accent: #0b0500;
-
-  background-color: var(--background);
-}
-/* end of @TODO */
-
 .section {
 }
 
@@ -25,19 +12,15 @@
 }
 
 .article-text-title {
-  /* font-weight: 600; */
+  font-weight: 600;
   font-size: 36px;
   line-height: 1.2;
   letter-spacing: -0.01em;
-  color: var(--text);
   margin-bottom: 24px;
 }
 
 .article-text-paragraf {
-  font-weight: 400;
   font-size: 18px;
-  /* line-height: 1.5; */
-  color: var(--text);
 }
 
 .article-image {
@@ -64,7 +47,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 
   .article-image {
