@@ -1,0 +1,79 @@
+.modal {
+}
+.modal-contacts {
+}
+
+.modal-contacts .container {
+  position: relative;
+  width: 100%;
+}
+
+.modal-contacts .modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0px;
+}
+.modal_close-btn {
+}
+
+.modal-contacts_title {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 16px;
+}
+
+.modal-contacts_text {
+  font-size: 24px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.btn {
+}
+
+.register-btn {
+  width: 100%;
+  margin-inline: auto;
+}
+
+.modal-contacts_form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.modal-contacts_form input,
+.modal-contacts_form textarea {
+  margin-top: 8px;
+}
+
+.modal-contacts_form textarea {
+  height: 180px;
+}
+
+/* tablet */
+@media screen and (min-width: 768px) {
+  .modal-contacts .modal-content {
+    padding-inline: 32px;
+  }
+  .register-btn {
+    width: 342px;
+  }
+}
+
+/* desktop */
+@media screen and (min-width: 1440px) {
+  .modal-contacts .modal-content {
+    padding-inline: 104px;
+  }
+  .modal-contacts .container {
+    max-width: 866px;
+    padding-inline: 0;
+  }
+}
