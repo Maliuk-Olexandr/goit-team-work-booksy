@@ -1,14 +1,30 @@
 //Описана робота модалки - відкриття закриття і все що з модалкою повʼязано
 import Accordion from 'accordion-js';
 import 'accordion-js/dist/accordion.min.css';
-const modalAccordion = document.querySelector('.accordion-container');
-new Accordion(modalAccordion);
-document.body.style.overflow = 'hidden';
-const modalBooks = document.querySelector('.modal-books');
-const modalBooksCloseBtn = document.querySelector('.modal-books_close-btn');
-modalBooks.classList.toggle('is-open');
+// import refs from './refs';
 
-modalBooksCloseBtn.addEventListener('click', event => {
-  modalBooks.classList.toggle('is-open');
+const refs = {
+  modalBooks: document.querySelector('.modal-books'),
+  modalBooksCloseBtn: document.querySelector('.modal-books_close-btn'),
+  modalAccordion: document.querySelector('.accordion-container'),
+};
+new Accordion(refs.modalAccordion);
+
+function openBooksModal() {
+  document.body.style.overflow = 'hidden';
+  refs.modalBooks.classList.add('is-open');
+}
+window.openBooksModal = openBooksModal;
+
+function closeBooksModal() {
+  refs.modalBooks.classList.remove('is-open');
   document.body.style.overflow = '';
+}
+
+refs.modalBooks.addEventListener('click', event => {
+  if (event.target === event.currentTarget) closeBooksModal();
+  if (refs.modalBooksCloseBtn.contains(event.target)) {
+    closeBooksModal();
+  }
+  // console.log('modalBooks click event');
 });
