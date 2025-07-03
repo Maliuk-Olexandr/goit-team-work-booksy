@@ -20,3 +20,6 @@
 @import url('./location.css');
 /* Footer style */
 @import url('./footer.css');
+
+/* Books modal style */
+@import url('./modal-books.css');
