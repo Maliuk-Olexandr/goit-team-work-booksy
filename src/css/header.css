@@ -19,7 +19,7 @@
  .logo:hover,
  .burger-icon:hover, 
  .close-btn:hover {
-    transform: scale(1.1);
+    transform: scale(1.25);
  }
 
  .header-link{
@@ -102,7 +102,7 @@
 .mobile-window-header {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    min-width: 100%;
     padding: 14px 20px;
 }
 
@@ -114,8 +114,8 @@
 }
 
 .wrap>nav{
-    width: 100%;
-    padding-top: 16px;
+    min-width: 100%;
+    padding: 16px;
 }
 
 .mobile-link{
