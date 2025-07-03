@@ -1,12 +1,3 @@
-.section {
-}
-
-.article {
-}
-
-.container {
-}
-
 .article-text {
   margin-bottom: 32px;
 }
@@ -38,7 +29,7 @@
 
 /* desktop */
 @media screen and (min-width: 1440px) {
-  .container {
+  .article .container {
     display: flex;
     gap: 32px;
   }
