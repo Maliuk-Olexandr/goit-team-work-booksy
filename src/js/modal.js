@@ -233,6 +233,6 @@ function handleBuyNow() {
 
 //#region @TODO delete before deployment
 window.openBooksModal = openBooksModal;
-openBooksModal();
+// openBooksModal();
 window.openContactsModal = openContactsModal;
 //#endregion @TODO delete before deployment
