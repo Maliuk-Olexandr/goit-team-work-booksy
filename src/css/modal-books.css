@@ -3,7 +3,6 @@
 
 .modal-books .container {
   position: relative;
-  width: 100%;
 }
 
 .modal-books_picture {
@@ -11,7 +10,6 @@
 }
 
 .modal-books_img {
-  width: 100%;
   height: 467px;
   object-fit: cover;
   border-radius: 8px;
@@ -76,7 +74,6 @@
 .modal-books .chevron-icon {
   width: 11px;
   height: 11px;
-  transition: transform 0.3s ease;
   margin-left: auto;
 }
 
@@ -120,11 +117,11 @@
   padding-top: 0;
   padding-bottom: 24px;
 }
-/* accordeon-js style adapation END */
+/*#endregion accordeon-js style adapation END */
 
 /* tablet */
 @media screen and (min-width: 768px) {
-  .modal-books .modal-books {
+  .modal-books {
     justify-content: center;
     align-items: center;
   }
