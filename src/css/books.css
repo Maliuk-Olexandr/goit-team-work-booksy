@@ -1,10 +1,19 @@
 .gallery {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     gap: 20px;
 }
 
 .book-cover {
-    width: 227px;
-    height: 322px;
+    width: 343px;
+    height: 488px;
+}
+
+.btn-book {
+    width: 100%;
+}
+
+.btn-show-more {
+    width: 342px;
+    height: 48px;
 }

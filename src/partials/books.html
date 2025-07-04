@@ -1,5 +1,19 @@
 <section class="section">
   <div class="container">
-      <ul class="gallery"></ul>
+    <form>
+      <div class="categories-wrapper">
+        <div class="books-counter">
+          <h3>Books</h3>
+          <p>Showing <span class="visible-books"></span>of<span class="total-books"></span></p>
+        </div>
+        <label for="category-select">Оберіть категорію:</label>
+        <select id="category-select">
+        </select>
+      </div>
+      <div class="books-wrapper">
+        <ul class="gallery"></ul>
+        <button type="button" class="btn btn-show-more">Show more</button>
+      </div>
+    </form>
   </div>
 </section>

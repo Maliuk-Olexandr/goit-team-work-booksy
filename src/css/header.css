@@ -1,0 +1,132 @@
+.header {
+    padding: 14px 24px 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+ }
+
+.header-nav
+ {
+    display: none;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
+
+ .logo:hover,
+ .burger-icon:hover, 
+ .close-btn:hover {
+    transform: scale(1.25);
+ }
+
+ .header-link{
+    display: block;
+ }
+ .header-link:hover{
+    transform: scale(1.25);
+        color: #5a2502;
+        text-shadow: var(--btn-background) 0 0 3px;
+    }
+
+ .burger-btn {
+     display: flex;
+     border: none;
+     background-color: inherit;
+     align-items: center;
+     justify-content: center;
+ }
+
+@media screen and (min-width: 768px) {
+    .header {
+        padding: 16px 32px;
+     }
+    .burger-btn{
+        display: none;
+    }
+    .header-nav{
+        display: block;
+    }
+    .header-nav>ul {
+        display: flex;
+        gap: 32px;
+        font-weight: 400;
+    }
+    
+}
+
+@media screen and (min-width: 1280px) {
+    .header {
+       padding: 16px 64px;
+    }
+}
+
+/* Mobile-menu*/
+.mobile-menu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    background-color: #fceee6;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.98);
+    transition: opacity 500ms ease-in-out, transform 500ms ease-in-out;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.mobile-menu.is-open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#mobile-menu-close {
+    display: block;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    min-width: 100%;
+    align-items: center;
+
+}
+
+.mobile-window-header {
+    display: flex;
+    justify-content: space-between;
+    min-width: 100%;
+    padding: 14px 20px;
+}
+
+.mobile-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.wrap>nav{
+    min-width: 100%;
+    padding: 16px;
+}
+
+.mobile-link{
+    display: block;
+}
+.mobile-link:hover {
+    transform: scale(1.25);
+    color: #5a2502;
+    text-shadow: var(--btn-background) 0 0 3px;   }
+
+body.no-scroll {
+    overflow: hidden; 
+    touch-action: none;
+}
