@@ -159,7 +159,12 @@ export async function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
     openModal(refs.modalBooks);
     renderBookModal(refs.modalBooks, dataObj);
     new Accordion(
-      refs.modalBooks.querySelector('.modal-books .accordion-container')
+      refs.modalBooks.querySelector('.modal-books .accordion-container'),
+      {
+        showMultiple: true,
+        duration: 400,
+        collapse: true,
+      }
     );
 
     const form = document.getElementById('bookModalActionForm');
