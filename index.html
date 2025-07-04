@@ -8,7 +8,7 @@
     <script type="module" crossorigin src="/goit-team-work-booksy/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-team-work-booksy/assets/vendor-B1C9__Ow.js">
     <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/vendor-pvxkJjp9.css">
-    <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-37UAqoWk.css">
+    <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-Bg9subV1.css">
   </head>
   <body>
     <header class="section">
@@ -142,11 +142,107 @@
 </footer>
     <div class="modal modal-books">
   <div class="container">
-    <div class="modal-content"></div>
+    <div class="modal-content">
+      <!--  -->
+      <button class="modal_close-btn">
+        <svg>
+          <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-close"></use>
+        </svg>
+      </button>
+      <picture class="modal-books_picture" id="bookPicture">
+        <img class="modal-books_img" src="${bookPicture}" alt="" />
+      </picture>
+      <div
+        class="modal-books_data"
+        data-book-id="${bookId}"
+        data-book-price="${bookPrice}"
+        data-book-title="${bookTitle}"
+      >
+        <h2 class="modal-books_title">${bookTitle}</h2>
+        <p class="modal-books_author">${bookAuthor}</p>
+        <p class="modal-books_price">${bookPrice}</p>
+        <div class="modal-books_quantity-container">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-action="decrease"
+          >
+            -
+          </button>
+          <input
+            class="quantity-input"
+            id="bookQuantity"
+            value="${bookQuantity}"
+            min="1"
+            data-original-value="1"
+          />
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-action="increase"
+          >
+            +
+          </button>
+        </div>
+        <div class="modal-books_buttons-container">
+          <button class="btn">Add To Cart</button>
+          <button class="btn btn-secondary">Buy Now</button>
+        </div>
+
+        <div class="accordion-container">
+          <div class="ac">
+            <h2 class="ac-header">
+              <button type="button" class="ac-trigger">
+                Details
+                <svg class="chevron-icon">
+                  <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-chevron-up"></use>
+                </svg>
+              </button>
+            </h2>
+            <div class="ac-panel">
+              <p class="ac-text">${details}</p>
+            </div>
+          </div>
+
+          <div class="ac">
+            <h2 class="ac-header">
+              <button type="button" class="ac-trigger">
+                Shipping<svg class="chevron-icon">
+                  <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-chevron-up"></use>
+                </svg>
+              </button>
+            </h2>
+            <div class="ac-panel">
+              <p class="ac-text">${shipping}</p>
+            </div>
+          </div>
+
+          <div class="ac">
+            <h2 class="ac-header">
+              <button type="button" class="ac-trigger">
+                Returns<svg class="chevron-icon">
+                  <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-chevron-up"></use>
+                </svg>
+              </button>
+            </h2>
+            <div class="ac-panel">
+              <p class="ac-text">${returns}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--  -->
+    </div>
   </div>
 </div>
 
-    <div class="modal modal-contacts">
+    <div
+  class="modal modal-contacts"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalTitle"
+  aria-describedby="modalDesc"
+>
   <div class="container">
     <div class="modal-content">
       <button class="modal_close-btn">
