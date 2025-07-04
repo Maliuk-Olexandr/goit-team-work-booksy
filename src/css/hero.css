@@ -6,6 +6,7 @@
 .hero-container {
   display: flex;
   flex-direction: column;
+  flex-direction: column-reverse;
   gap: 24px;
 }
 
@@ -17,9 +18,7 @@
 }
 
 .swiper-hero {
-  position: relative;
   overflow: hidden;
-  order: 1;
 }
 
 .swiper-wrapper-hero {
@@ -53,11 +52,9 @@
 }
 
 .slide-btn {
-  border: 0.52px solid var(--btn-background);
-  border-radius: 2px;
-  padding: 4px 10px;
   width: 117px;
   height: 20px;
+  font-size: 8px;
 }
 
 .hero-slide-img {
@@ -76,7 +73,6 @@
   justify-content: space-between;
   flex-direction: column;
   gap: 16px;
-  order: 2;
 }
 
 .hero-slider-controls {
@@ -102,11 +98,9 @@
   }
 
   .slide-btn {
-    border: 1px solid var(--btn-background);
-    border-radius: 4px;
-    padding: 4px 20px;
     width: 164px;
     height: 32px;
+    font-size: 16px;
   }
 
   .hero-slider-controls {
@@ -116,8 +110,6 @@
 
   .hero-swiper-btn-prev,
   .hero-swiper-btn-next {
-    border: 1px solid rgba(11, 5, 0, 0.15);
-    padding: 12px;
     width: 48px;
     height: 48px;
   }
@@ -145,7 +137,6 @@
   }
 
   .slide-btn {
-    padding: 8px 20px;
     width: 227px;
     height: 40px;
   }
