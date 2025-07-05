@@ -145,3 +145,15 @@
     padding-inline: 104px;
   }
 }
+
+body .iziToast-theme-light {
+  font-family: 'Rubik', sans-serif;
+  background-color: var(--btn-background);
+  max-height: 46px;
+  min-height: 46px;
+  border-radius: 6px;
+}
+body .iziToast > .iziToast-body .iziToast-message {
+  color: white;
+  font-size: 16px;
+}

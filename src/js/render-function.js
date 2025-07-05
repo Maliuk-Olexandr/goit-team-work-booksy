@@ -64,6 +64,7 @@ function bookModalMarkup(obj) {
               data-action="increase"
             >+</button>
           </div>
+          <div class="modal-books_message-container"></div>
           <div class="modal-books_buttons-container">
             <button 
               class="btn"
