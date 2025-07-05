@@ -94,7 +94,7 @@ textarea:focus {
   --arrow-color: var(--color-white);
   --arrow-background: var(--btn-background);
   --arrow-hover-color: var(--text-main-color);
-  --arrow-hover-background: var(--btn-background-hover-focus);
+  --arrow-hover-background: var(--btn-secondary-background);
   --arrow-active-color: var(--color-white);
   --arrow-active-background: #5a2502;
   --arrow-disabled-color: var(--text-main-color); /* need opacity: 0.2; */
@@ -103,20 +103,21 @@ textarea:focus {
 .arrow {
   display: inline-block;
   background-color: var(--arrow-background);
-  color: var(--arrow-color);
+  fill: var(--color-white);
 }
 .arrow:hover,
 .arrow:focus {
   background-color: var(--arrow-hover-background);
-  color: var(--arrow-hover-color);
+  fill: var(--arrow-hover-color);
+  border: 1px solid rgba(11, 5, 0, 0.15);
 }
 .arrow:active {
   background-color: var(--arrow-active-background);
-  color: var(--arrow-active-color);
+  fill: var(--arrow-active-color);
 }
 .arrow:disabled {
   background-color: var(--arrow-disabled-background);
-  color: var(--arrow-disabled-color);
+  fill: var(--arrow-disabled-color);
   opacity: 0.2;
   cursor: not-allowed;
 }

@@ -56,17 +56,15 @@ export async function getBookByID(id) {
 // start TODO: Remove this test code before production deployment.
 export async function testAPI() {
   try {
+    const catList = await GetCategoryList();
+    const topBooks = await getTopBooks();
+    const booksByCategory = await getBooksByCategory(catList[0]);
+    const id = booksByCategory[0]._id;
     console.log('\x1b[32mtestAPI() start ------------\x1b[0m');
-    console.log('GetCategoryList():', await GetCategoryList());
-    console.log('getTopBooks():', await getTopBooks());
-    console.log(
-      'getBooksByCategory("Audio Nonfiction"):',
-      await getBooksByCategory('Audio Nonfiction')
-    );
-    console.log(
-      'getBookByID("643282b1e85766588626a0b4"):',
-      await getBookByID('643282b1e85766588626a0b4')
-    );
+    console.log('GetCategoryList():', catList);
+    console.log('getTopBooks():', topBooks);
+    console.log(`getBooksByCategory('${catList[0]}'):`, booksByCategory);
+    console.log(`getBookByID("${id}"):`, await getBookByID(id));
     console.log('\x1b[32mtestAPI() end ------------\x1b[0m');
   } catch (error) {
     console.error('API test failed:', error);
