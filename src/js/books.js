@@ -1,4 +1,4 @@
-import { getTopBooks, getBooksByCategory, GetCategoryList } from "./products-api";
+import { getTopBooks, getBooksByCategory, getCategoryList } from "./products-api";
 
 const gallery = document.querySelector(".gallery");
 const select = document.querySelector("#category-select");
@@ -11,7 +11,7 @@ let allBooks = [];
 let visibleCount = 0;
 
 // Завантажуємо категорії
-const categoryList = await GetCategoryList();
+const categoryList = await getCategoryList();
 renderCategoriesList(categoryList);
 
 // Завантажуємо топ-книги
