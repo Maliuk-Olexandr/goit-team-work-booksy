@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const BASE_URL = 'https://books-backend.p.goit.global/books';
+const apiClient = axios.create({ baseURL: BASE_URL });
 
 /**
  * Helper function to make API requests to the base URL.
@@ -10,7 +11,7 @@ const BASE_URL = 'https://books-backend.p.goit.global/books';
  */
 async function fetchURL(url = '') {
   try {
-    const { data } = await axios.get(BASE_URL + url);
+    const { data } = await apiClient.get(url);
     return data;
   } catch (error) {
     console.error('Error fetching data:', error.message);
@@ -22,7 +23,7 @@ async function fetchURL(url = '') {
  * Fetches the list of book categories from the API
  * @returns {Promise<Array>} Array of category names (list_name property from each category object)
  */
-export async function GetCategoryList() {
+export async function getCategoryList() {
   const list = await fetchURL('/category-list');
   return list.map(e => e.list_name);
 }
@@ -41,6 +42,11 @@ export async function getTopBooks() {
  * @returns {Promise<Object>} Object of books in that category
  */
 export async function getBooksByCategory(category) {
+  if (!category) {
+    const error = new Error('Valid category must be provided.');
+    console.error(error);
+    throw error;
+  }
   return await fetchURL(`/category?category=${category}`);
 }
 
@@ -50,22 +56,30 @@ export async function getBooksByCategory(category) {
  * @returns {Promise<Object>} An object containing the book's details.
  */
 export async function getBookByID(id) {
+  if (!id) {
+    const error = new Error('Valid book ID must be provided.');
+    console.error(error);
+    throw error;
+  }
   return await fetchURL(`/${id}`);
 }
 
 // start TODO: Remove this test code before production deployment.
 export async function testAPI() {
   try {
-    const catList = await GetCategoryList();
+    const catList = await getCategoryList();
     const topBooks = await getTopBooks();
     const booksByCategory = await getBooksByCategory(catList[0]);
     const id = booksByCategory[0]._id;
     console.log('\x1b[32mtestAPI() start ------------\x1b[0m');
-    console.log('GetCategoryList():', catList);
-    console.log('getTopBooks():', topBooks);
-    console.log(`getBooksByCategory('${catList[0]}'):`, booksByCategory);
-    console.log(`getBookByID("${id}"):`, await getBookByID(id));
-    console.log('\x1b[32mtestAPI() end ------------\x1b[0m');
+    console.log('\x1b[32m1. getCategoryList():\x1b[0m', catList);
+    console.log('\x1b[32m2. getTopBooks():\x1b[0m', topBooks);
+    console.log(
+      `\x1b[32m3. getBooksByCategory('${catList[0]}'):\x1b[0m`,
+      booksByCategory
+    );
+    console.log(`\x1b[32m4. getBookByID("${id}"):`, await getBookByID(id));
+    console.log('\x1b[32mtestAPI() end ------------\x1b[\x1b[0m');
   } catch (error) {
     console.error('API test failed:', error);
   }
