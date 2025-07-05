@@ -1,14 +1,7 @@
-.section {
-}
-
-.article {
-}
-
-.container {
-}
-
-.article-text {
-  margin-bottom: 32px;
+.article-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 }
 
 .article-text-title {
@@ -38,9 +31,8 @@
 
 /* desktop */
 @media screen and (min-width: 1440px) {
-  .container {
-    display: flex;
-    gap: 32px;
+  .article-container {
+    flex-direction: row;
   }
 
   .article-text {
