@@ -22,7 +22,7 @@ renderBooks();
 // Рендер селекту та списку категорій
 function renderCategoriesList(categories) {
   select.innerHTML = '<option selected value="All categories">All categories</option>';
-  list.innerHTML = '<li><button class="category-btn active" value="All categories">All categories</button></li>';
+  list.innerHTML = '<li><button class="category-btn active-category" value="All categories">All categories</button></li>';
 
   categories.forEach(cat => {
     const option = document.createElement("option");
@@ -47,7 +47,7 @@ async function selectCategory(category) {
 
   // Активна кнопка
   list.querySelectorAll(".category-btn").forEach(btn =>
-    btn.classList.toggle("active", btn.value === category)
+    btn.classList.toggle("active-category", btn.value === category)
   );
 
   if (category === "All categories") {
