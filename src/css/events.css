@@ -1,0 +1,167 @@
+.section-name {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.events-title {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.events-text {
+  font-size: 18px;
+  margin-bottom: 32px;
+}
+
+.events-list {
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 0px;
+}
+
+.events-item {
+  flex: 0 0 100%;
+}
+
+.events-image img {
+  border-radius: 16px;
+  width: 342px;
+  height: 277px;
+  margin-bottom: 24px;
+}
+
+.events-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 220px;
+}
+
+.events-description {
+  font-size: 24px;
+  line-height: 1.4;
+}
+
+.event-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.event-location::after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background-color: var(--text-main-color);
+  margin: 0 8px;
+}
+
+.events-register-wrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.events-btn {
+  border: none;
+}
+
+.events-controls-wrapper {
+  display: flex;
+  align-items: center;
+  margin-top: 56px;
+}
+
+.swiper-pagination {
+  position: static !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: top;
+  gap: 8px;
+  color: var(--text-main-color);
+}
+
+.swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-main-color) !important;
+  border-radius: 50%;
+  opacity: 0.3;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: var(--text-main-color);
+  opacity: 1;
+}
+
+.events-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-size {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 0%;
+}
+
+.events-prev,
+.events-next {
+  padding: 0;
+}
+
+/* Tablet: 2 карточки */
+@media screen and (min-width: 768px) {
+  .events-item {
+    flex: 0 0 calc((100% - 24px) / 2);
+  }
+
+  .events-image img {
+    width: 340px;
+  }
+
+  .events-text {
+    width: 560px;
+  }
+}
+
+/* Desktop: 3 карточки */
+@media screen and (min-width: 1440px) {
+  .events-title {
+    font-size: 48px;
+  }
+
+  .events-image img {
+    width: 421px;
+  }
+
+  .events-item {
+    box-sizing: border-box;
+    flex: 0 0 calc((100% - 48px) / 3);
+  }
+
+  .events-buttons-wrapper {
+    display: none;
+  }
+
+  .swiper,
+  .swiper-wrapper,
+  .swiper-slide {
+    all: unset;
+  }
+
+  .events-item {
+    flex: 1;
+  }
+
+  .swiper-pagination,
+  .events-prev,
+  .events-next {
+    display: none;
+  }
+}
