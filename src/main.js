@@ -10,3 +10,9 @@ import './js/modal.js';
 import { testAPI } from './js/products-api.js';
 testAPI();
 // @TODO remove before production deployment
+
+import { initHeroSlider } from './js/hero.js';
+
+document.addEventListener('DOMContentLoaded', () => {
+  initHeroSlider();
+});
