@@ -251,10 +251,10 @@
   </div>
 </section>
 
-      <section class="section" id="article">
+      <section class="section" id="article" aria-labelledby="article-title">
   <div class="container article-container">
     <div class="article-text">
-      <h2 class="article-text-title">
+      <h2 class="article-text-title" id="article-title">
         Welcome to Booksy – your cozy corner for handpicked reads.
       </h2>
       <p class="article-text-paragraf">
@@ -265,7 +265,7 @@
     </div>
 
     <picture class="article-image">
-      <!-- Desktop: 1440px+ -->
+      <!-- Desktop -->
       <source
         srcset="/goit-team-work-booksy/assets/article-dsk-DiVJe_xk.webp 1x, /goit-team-work-booksy/assets/article-dsk@2x-DStVilN0.webp 2x"
         media="(min-width: 1440px)"
@@ -273,7 +273,7 @@
         height="474"
       />
 
-      <!-- Tablet: 768px+ -->
+      <!-- Tablet -->
       <source
         srcset="/goit-team-work-booksy/assets/article-tab-D_Gl7oCK.webp 1x, /goit-team-work-booksy/assets/article-tab@2x-pwu3nB6E.webp 2x"
         media="(min-width: 768px)"
@@ -281,11 +281,13 @@
         height="474"
       />
 
-      <!-- Mobile: fallback з підтримкою високих DPI -->
+      <!-- Mobile: fallback for hi DPI -->
       <img
         src="/goit-team-work-booksy/assets/article-mob-DskFg4Jg.webp"
         srcset="/goit-team-work-booksy/assets/article-mob-DskFg4Jg.webp 1x, /goit-team-work-booksy/assets/article-mob@2x-C0oO5ef8.webp 2x"
-        alt="Man reads handpicked book"
+        loading="lazy"
+        decoding="async"
+        alt="Reader with handpicked books, enjoying a cozy moment."
         width="343"
         height="248"
       />
