@@ -18,13 +18,17 @@
 
  .logo:hover,
  .burger-icon:hover, 
- #mobile-menu-close:hover {
-    transform: scale(1.1);
+ .close-btn:hover {
+    transform: scale(1.25);
  }
 
- .header-item:hover{
-    transform: scale(1.1);
-    font-weight: 500;
+ .header-link{
+    display: block;
+ }
+ .header-link:hover{
+    transform: scale(1.25);
+        color: #5a2502;
+        text-shadow: var(--btn-background) 0 0 3px;
     }
 
  .burger-btn {
@@ -98,7 +102,7 @@
 .mobile-window-header {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    min-width: 100%;
     padding: 14px 20px;
 }
 
@@ -110,13 +114,17 @@
 }
 
 .wrap>nav{
-    width: 100%;
-    padding-top: 16px;
+    min-width: 100%;
+    padding: 16px;
 }
 
-.mobile-list>li:hover {
-    transform: scale(1.1);
+.mobile-link{
+    display: block;
 }
+.mobile-link:hover {
+    transform: scale(1.25);
+    color: #5a2502;
+    text-shadow: var(--btn-background) 0 0 3px;   }
 
 body.no-scroll {
     overflow: hidden; 
