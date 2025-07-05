@@ -1,125 +1,3 @@
-// import {getTopBooks, getBooksByCategory, GetCategoryList} from "./products-api"
-
-// const gallery = document.querySelector(".gallery");
-// const select = document.querySelector("#category-select");
-// const showMore = document.querySelector(".btn-show-more")
-// const visibleBooks = document.querySelector(".visible-books")
-// const totalBooks = document.querySelector(".total-books")
-
-// const categoryList = await GetCategoryList();
-
-// const topBooks = await getTopBooks();
-// ("Trade Fiction Paperback")
-
-// function renderCategoriesList(categories) {
-//   select.innerHTML = '<option disabled selected>Choose category</option>';
-
-//   categories.forEach(cat => {
-//     const option = document.createElement("option");
-//     option.value = cat;
-//     option.textContent = cat;
-//     select.appendChild(option)
-//   })
-// }
-
-// renderCategoriesList(categoryList)
-
-// select.addEventListener("change", handleChange);
-
-// let allBooksByCategory = [];
-// let visibleCount = 0;
-// const initialCount = window.innerWidth < 768 ? 10 : 24;
-// const step = 4;
-
-// async function handleChange(event) {
-//   event.preventDefault();
-//   showMore.classList.remove("btn-show-more-hidden")
-//   const selected = event.target.value;
-//   const booksbyCategories = await getBooksByCategory(selected);
-  
-//   allBooksByCategory = booksbyCategories;
-  
-//   visibleCount = initialCount;
-//   visibleBooks.textContent = visibleCount;
-//   totalBooks.textContent = allBooksByCategory.length;
-
-//   gallery.innerHTML = renderVisibleBooksByCategory();
-// }
-
-// function renderVisibleBooksByCategory() {
-//   const visibleBooks = allBooksByCategory.slice(0, visibleCount);
-//   return createMarkupByCategory(visibleBooks);
-// }
-
-// showMore.addEventListener("click", handleClick)
-
-// function handleClick() {
-//   const nextBooks = allBooksByCategory.slice(visibleCount, visibleCount + step);
-//   gallery.insertAdjacentHTML("beforeend", createMarkupByCategory(nextBooks));
-
-//   visibleCount += nextBooks.length;
-//   visibleBooks.textContent = visibleCount;
-
-//   const nextTopBooks = allTopBooks.slice(visibleCount, visibleCount + step)
-//   gallery.insertAdjacentHTML("beforeend", createMarkup(nextTopBooks))
-
-//   if (visibleCount >= allBooksByCategory.length) {
-//     visibleBooks.textContent = allBooksByCategory.length;
-//     showMore.classList.add("btn-show-more-hidden")
-//   }
-// }
-
-// function createMarkupByCategory(data) {
-//   const markup = data.map(({ title, author, book_image, price }) => `
-//         <li class="book-card">
-//           <img class="book-cover" src="${book_image}" alt="${title}" width="150" />
-//           <h3>${title}</h3>
-//           <p>${author}</p>
-//           <p>$${price}</p>
-//           <button class="btn-secondary btn-book">Learn more</button>
-//         </li>
-//       `
-//   ).join('');
-
-//   return markup;
-// }
-
-// function createMarkup(books) {
-//   const markup = books.map(book => `
-//         <li>
-//           <img class="book-cover" src="${book.book_image}" alt="${book.title}" width="150" />
-//           <h3>${book.title}</h3>
-//           <p>by ${book.author}</p>
-//           <a href="${book.amazon_product_url}" target="_blank">Buy on Amazon</a>
-//         </li>
-//       `)
-//   .join('');
-
-//   return markup;
-// }
-
-// let allTopBooks = [];
-
-// function createTopBooks() {
-//   const topBooksData = topBooks.flatMap(({ books }) => books)
-//   allTopBooks = topBooksData;
-//   visibleCount = initialCount;
-
-//   visibleBooks.textContent = visibleCount;
-//   totalBooks.textContent = allTopBooks.length;
-
-//   gallery.innerHTML = renderVisibleTopBooks()
-// }
-
-// function renderVisibleTopBooks() {
-//   const visibleBooks = allTopBooks.slice(0, visibleCount);
-//   return createMarkup(visibleBooks);
-// }
-
-// createTopBooks();
-
-
-import { document } from "postcss";
 import { getTopBooks, getBooksByCategory, GetCategoryList } from "./products-api";
 
 const gallery = document.querySelector(".gallery");
@@ -127,25 +5,126 @@ const select = document.querySelector("#category-select");
 const showMore = document.querySelector(".btn-show-more");
 const visibleCounter = document.querySelector(".visible-books");
 const totalCounter = document.querySelector(".total-books");
-
-const initialCount = window.innerWidth < 768 ? 10 : 24;
-const step = 4;
+const list = document.querySelector(".categories-list");
 
 let allBooks = [];
 let visibleCount = 0;
-let isCategorySelected = false;
 
+// Завантажуємо категорії
 const categoryList = await GetCategoryList();
-renderCategoriesList(categoryList)
+renderCategoriesList(categoryList);
 
+// Завантажуємо топ-книги
+const topBooksData = await getTopBooks();
+allBooks = topBooksData.flatMap(({ books }) => books);
+renderBooks();
+
+// Рендер селекту та списку категорій
 function renderCategoriesList(categories) {
+  select.innerHTML = '<option selected value="All categories">All categories</option>';
+  list.innerHTML = '<li><button class="category-btn active" value="All categories">All categories</button></li>';
+
   categories.forEach(cat => {
-    const option = document.createElement("option")
-    option.textContent = cat;
+    const option = document.createElement("option");
     option.value = cat;
-    select.appendChild(option)
-    }
-  )
+    option.textContent = cat;
+    select.appendChild(option);
+
+    const item = document.createElement("li");
+    item.classList.add("category-item")
+    const button = document.createElement("button");
+    button.value = cat;
+    button.textContent = cat;
+    button.classList.add("category-btn");
+    item.appendChild(button);
+    list.appendChild(item);
+  });
 }
 
-console.log(typeof document.querySelector);
+// Універсальний обробник вибору категорії
+async function selectCategory(category) {
+  select.value = category;
+
+  // Активна кнопка
+  list.querySelectorAll(".category-btn").forEach(btn =>
+    btn.classList.toggle("active", btn.value === category)
+  );
+
+  if (category === "All categories") {
+    const topBooksData = await getTopBooks();
+    allBooks = topBooksData.flatMap(({ books }) => books);
+  } else {
+    allBooks = await getBooksByCategory(category);
+  }
+
+  renderBooks();
+}
+
+// Вибір через select
+select.addEventListener("change", e => {
+  const category = e.target.value;
+  selectCategory(category);
+});
+
+// Вибір через список кнопок
+list.addEventListener("click", e => {
+  if (e.target.tagName !== "BUTTON") return;
+  const category = e.target.value;
+  selectCategory(category);
+});
+
+// Кнопка Show More
+showMore.addEventListener("click", () => {
+  visibleCount += 4;
+  updateBooksList();
+  showMore.blur();
+});
+
+// Рендер книг
+function renderBooks() {
+  showMore.classList.remove("btn-show-more-hidden");
+  visibleCount = getInitialCount();
+  updateBooksList();
+  if (visibleCount >= allBooks.length) {
+    showMore.classList.add("btn-show-more-hidden");
+  }
+  totalCounter.textContent = allBooks.length;
+}
+
+// Оновлення списку книг
+function updateBooksList() {
+  const currentSlice = allBooks.slice(0, visibleCount);
+  gallery.innerHTML = createMarkup(currentSlice);
+  visibleCounter.textContent = Math.min(visibleCount, allBooks.length);
+  showMore.disabled = false;
+  if (visibleCount >= allBooks.length) {
+    showMore.classList.add("btn-show-more-hidden");
+  }
+}
+
+// Стартова кількість книжок
+function getInitialCount() {
+  return window.innerWidth < 768 ? 10 : 24;
+}
+
+// Перерендер при зміні ширини екрана
+window.addEventListener("resize", () => {
+  renderBooks();
+});
+
+// HTML-розмітка однієї книги
+function createMarkup(data) {
+  return data.map(({ title, author, book_image, price }) => `
+    <li class="book-card">
+      <img class="book-cover" src="${book_image}" alt="${title}" width="150" />
+      <div class="book-card-info">
+        <div class="book-card-descriptions">
+          <h3 class="book-card-title">${title.toLowerCase()}</h3>
+          <h4 class="book-card-author">${author}</h4>
+        </div>
+        <p class="book-price">$${price}</p>
+      </div>
+      <button class="btn-secondary btn-book">Learn more</button>
+    </li>
+  `).join('');
+}

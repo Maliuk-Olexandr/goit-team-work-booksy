@@ -1,14 +1,17 @@
 <section class="section">
-  <div class="container">
-    <form>
+  <div class="container" id="books">
+    <form class="books-form">
       <div class="categories-wrapper">
         <div class="books-counter">
-          <h3>Books</h3>
-          <p>Showing <span class="visible-books"></span> of <span class="total-books"></span></p>
+          <h3 class="subtitle">Books</h3>
+          <p class="counter-books">Showing <span class="visible-books"></span> of <span class="total-books"></span></p>
         </div>
-        <label for="category-select">Оберіть категорію:</label>
+        <ul class="categories-list"></ul>
+        <div class="select-wrapper">
         <select id="category-select">
         </select>
+        <svg class="categories-arrow" width="12" height="8"><use href="../img/icons.svg#icon-chevron-down" /></svg>
+        </div>
       </div>
       <div class="books-wrapper">
         <ul class="gallery"></ul>
