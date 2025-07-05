@@ -3,7 +3,7 @@ import Accordion from 'accordion-js';
 import 'accordion-js/dist/accordion.min.css';
 import { renderBookModal } from './render-function';
 import { getBookByID } from './products-api';
-// import refs from './refs';
+import { addToCart, getFromCartByID } from './storage';
 
 const refs = {
   modalBooks: document.querySelector('.modal-books'),
@@ -11,6 +11,16 @@ const refs = {
 };
 
 function openModal(reference) {
+  if (!reference) {
+    console.error('Modal reference is not found');
+    return;
+  }
+
+  if (reference.escapeHandler) {
+    document.removeEventListener('keydown', reference.escapeHandler);
+    reference.removeEventListener('click', handleModalCloseClick);
+  }
+
   // Створюю функцію з замиканням і зберігаю в DOM елементі який отримую як параметр
   reference.escapeHandler = event => {
     if (event.key === 'Escape') closeModal(reference);
@@ -22,17 +32,30 @@ function openModal(reference) {
 
   // Відкриваю модальне вікно
   reference.classList.add('is-open');
+
   // Виключаю скрол під модалкою
   document.body.style.overflow = 'hidden';
 }
 
 function closeModal(reference) {
+  if (!reference) {
+    console.error('Modal reference is not found');
+    return;
+  }
+
   // Видаляю обробники подій
   reference.removeEventListener('click', handleModalCloseClick);
   document.removeEventListener('keydown', reference.escapeHandler);
 
+  const form = document.getElementById('bookModalActionForm');
+  if (form) {
+    form.removeEventListener('submit', handleFormSubmit);
+    form.removeEventListener('click', handleBooksModalButtons);
+  }
+
   // Закриваю модальне вікно
   reference.classList.remove('is-open');
+
   // Включаю скрол під модалкою
   document.body.style.overflow = '';
 }
@@ -42,6 +65,7 @@ function handleModalCloseClick(event) {
   const closeBtn = currentModal.querySelector('.modal_close-btn');
   const closeBtnClick = closeBtn.contains(event.target);
   const overlayClick = event.target === currentModal;
+
   if (closeBtnClick || overlayClick) closeModal(currentModal);
 }
 
@@ -87,9 +111,7 @@ class ContactForm {
   }
 
   async submitForm(data) {
-    // додати код відправки
     console.log('Form data:', data);
-    // Структура data: { user_name: "Ann", user_email: "hello@booksy.com", user_message: "Hello!" }
   }
 }
 
@@ -103,47 +125,114 @@ export function openContactsModal(obj) {
  * @param {string} bookId - book id.
  */
 export async function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
-  const responce = await getBookByID(bookId);
-  const dataObj = {
-    bookPicture: responce.book_image,
-    bookTitle: responce.title,
-    bookAuthor: responce.author,
-    bookPrice: responce.price,
-    bookQuantity: 1,
-    details: testObj.details, //@TODO teamlid/mentor ansver
-    shipping: testObj.shipping, //@TODO teamlid/mentor ansver
-    returns: testObj.returns, //@TODO teamlid/mentor ansver
-  };
-  openModal(refs.modalBooks);
-  renderBookModal(refs.modalBooks, dataObj);
-  new Accordion(
-    refs.modalBooks.querySelector('.modal-books .accordion-container')
-  );
-}
-
-//#region @TODO delete before deployment
-const testObj = {
-  bookPicture: `https://storage.googleapis.com/du-prd/books/images/9781982185824.jpg`,
-  bookTitle: `I will find you`,
-  bookAuthor: `Harlan Coben2`,
-  bookPrice: `15`,
-  bookQuantity: 8,
-  details: `I Will Find You is a gripping thriller by the master of
+  try {
+    const responce = await getBookByID(bookId);
+    const dataObj = {
+      bookId: responce._id,
+      bookPicture: responce.book_image,
+      bookTitle: responce.title,
+      bookAuthor: responce.author,
+      bookPrice: responce.price,
+      bookQuantity: 1,
+      details:
+        responce.details ||
+        `I Will Find You is a gripping thriller by the master of
                 suspense, Harlan Coben. The story follows David Burroughs, a
                 former prisoner wrongfully convicted of murdering his own son.
                 When he discovers a clue suggesting his son might still be
                 alive, David escapes from prison to uncover the truth.
                 Fast-paced, emotional, and full of unexpected twists — this
-                novel will keep you hooked until the very last page.`,
-  shipping: `We ship across the United States within 2–5 business days. All
+                novel will keep you hooked until the very last page.`, //@TODO teamlid/mentor ansver
+      shipping:
+        responce.shipping ||
+        `We ship across the United States within 2–5 business days. All
                 orders are processed through USPS or a reliable courier service.
-                Enjoy free standard shipping on orders over $50.`,
-  returns: `You can return an item within 14 days of receiving your order,
+                Enjoy free standard shipping on orders over $50.`, //@TODO teamlid/mentor ansver
+      returns:
+        responce.returns ||
+        `You can return an item within 14 days of receiving your order,
                 provided it hasn’t been used and is in its original condition.
                 To start a return, please contact our support team — we’ll guide
-                you through the process quickly and hassle-free.`,
-};
+                you through the process quickly and hassle-free.`, //@TODO teamlid/mentor ansver
+    };
 
+    openModal(refs.modalBooks);
+    renderBookModal(refs.modalBooks, dataObj);
+    new Accordion(
+      refs.modalBooks.querySelector('.modal-books .accordion-container')
+    );
+
+    const form = document.getElementById('bookModalActionForm');
+    if (!form) {
+      console.error('Form bookModalActionForm not found');
+      return;
+    }
+
+    form.addEventListener('submit', handleFormSubmit);
+    form.addEventListener('click', handleBooksModalButtons);
+  } catch (error) {
+    console.error('Error loading  with getBookByID:', error);
+  }
+}
+
+//#region books modal logic
+function handleFormSubmit(event) {
+  event.preventDefault();
+  handleBuyNow();
+}
+
+function handleBooksModalButtons(event) {
+  const action = event.target.dataset.action;
+
+  switch (action) {
+    case 'decrease':
+      handleQuantityDecrease(event.target);
+      break;
+    case 'increase':
+      handleQuantityIncrease(event.target);
+      break;
+    case 'add-to-cart':
+      handleAddToCart(event.target);
+      break;
+  }
+}
+
+function handleQuantityDecrease(button) {
+  const container = button.closest('[data-min-quantity]');
+  const input = container.querySelector('.quantity-input');
+  const minQuantity = parseInt(container.dataset.minQuantity);
+  const currentValue = parseInt(input.value);
+
+  if (currentValue > minQuantity) input.value = currentValue - 1;
+}
+
+function handleQuantityIncrease(button) {
+  const container = button.closest('[data-max-quantity]');
+  const input = container.querySelector('.quantity-input');
+  const maxQuantity = parseInt(container.dataset.maxQuantity);
+  const currentValue = parseInt(input.value);
+
+  if (currentValue < maxQuantity) input.value = currentValue + 1;
+}
+
+function handleAddToCart(button) {
+  const modalData = button.closest('[data-book-id]');
+  const bookId = modalData.dataset.bookId;
+  const quantity = parseInt(modalData.querySelector('.quantity-input').value);
+
+  addToCart(bookId, quantity);
+
+  console.log(`Book with ID'${bookId}' in q-ty '${quantity}' added to Cart`);
+  console.log(`Total ID'${bookId}' in Cart ${getFromCartByID(bookId)}`);
+}
+
+function handleBuyNow() {
+  console.log('Thanks for bying');
+}
+//#endregion books modal logic
+
+//#region @TODO delete before deployment
 window.openBooksModal = openBooksModal;
+// openBooksModal();
 window.openContactsModal = openContactsModal;
 //#endregion @TODO delete before deployment
