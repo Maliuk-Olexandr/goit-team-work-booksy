@@ -8,7 +8,7 @@
     <script type="module" crossorigin src="/goit-team-work-booksy/index.js"></script>
     <link rel="modulepreload" crossorigin href="/goit-team-work-booksy/assets/vendor-C50cUb4q.js">
     <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/vendor-BKNjvBT9.css">
-    <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-CsaXyM6w.css">
+    <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-3OJUo9jO.css">
   </head>
   <body>
     <header class="section">
@@ -325,10 +325,118 @@
 
   </div>
 </footer>
-    <div class="modal modal-books">
+    <div
+  class="modal modal-books"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="bookModalTitle"
+>
   <div class="container">
     <div class="modal-content">
       <!-- render func injection  -->
+      <button class="modal_close-btn" aria-label="Close book details modal">
+        <svg>
+          <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-close"></use>
+        </svg>
+      </button>
+      <picture class="modal-books_picture" id="bookPicture">
+        <img class="modal-books_img" src="" alt="" />
+      </picture>
+      <div
+        class="modal-books_data"
+        data-book-id=""
+        data-book-price=""
+        data-book-title=""
+      >
+        <h2 class="modal-books_title" id="bookModalTitle"></h2>
+        <p class="modal-books_author"></p>
+        <p class="modal-books_price"></p>
+
+        <form class="book-action-form" id="bookModalActionForm">
+          <div
+            class="modal-books_quantity-container"
+            data-min-quantity="1"
+            data-max-quantity="999"
+            data-step="1"
+          >
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-action="decrease"
+            >
+              -
+            </button>
+            <label for="bookQuantity" class="visually-hidden"
+              >Book quantity</label
+            >
+
+            <input class="quantity-input" id="bookQuantity" value="" min="1" />
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-action="increase"
+            >
+              +
+            </button>
+          </div>
+          <div class="modal-books_message-container"></div>
+          <div class="modal-books_buttons-container">
+            <button class="btn" type="button" data-action="add-to-cart">
+              Add To Cart
+            </button>
+            <button
+              type="submit"
+              class="btn btn-secondary"
+              data-action="buy-now"
+            >
+              Buy Now
+            </button>
+          </div>
+        </form>
+
+        <div class="accordion-container">
+          <div class="ac">
+            <h2 class="ac-header">
+              <button type="button" class="ac-trigger">
+                Details
+                <svg class="chevron-icon">
+                  <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-chevron-up"></use>
+                </svg>
+              </button>
+            </h2>
+            <div class="ac-panel">
+              <p class="ac-text" data-ac="details"></p>
+            </div>
+          </div>
+
+          <div class="ac">
+            <h2 class="ac-header">
+              <button type="button" class="ac-trigger">
+                Shipping<svg class="chevron-icon">
+                  <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-chevron-up"></use>
+                </svg>
+              </button>
+            </h2>
+            <div class="ac-panel">
+              <p class="ac-text" data-ac="shipping"></p>
+            </div>
+          </div>
+
+          <div class="ac">
+            <h2 class="ac-header">
+              <button type="button" class="ac-trigger">
+                Returns<svg class="chevron-icon">
+                  <use xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-chevron-up"></use>
+                </svg>
+              </button>
+            </h2>
+            <div class="ac-panel">
+              <p class="ac-text" data-ac="returns"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- --- -->
     </div>
   </div>
 </div>
@@ -342,18 +450,21 @@
 >
   <div class="container">
     <div class="modal-content">
-      <button class="modal_close-btn">
+      <button class="modal_close-btn" aria-label="Close Contacts form modal">
         <svg>
           <use class="mc" xlink:href="/goit-team-work-booksy/assets/icons-DcRuJ5RQ.svg#icon-close"></use>
         </svg>
       </button>
 
-      <h2 class="modal-contacts_title">Register</h2>
-      <p class="modal-contacts_text">Cozy Book Club — “The Midnight Library”</p>
-      <form class="modal-contacts_form" action="#" id="contactForm">
-        <label>
-          Name*
+      <h2 class="modal-contacts_title" id="modalTitle">Register</h2>
+      <p class="modal-contacts_text" id="modalDesc">
+        Cozy Book Club — “The Midnight Library”
+      </p>
+      <form class="modal-contacts_form" id="contactForm" novalidate>
+        <label class="contact-form-name">
+          Name* <span class="validation-error"></span>
           <input
+            class="form-control"
             type="text"
             id="user_name"
             name="user_name"
@@ -362,8 +473,10 @@
             autocomplete="name"
             data-validate="required"
         /></label>
-        <label
-          >Email*<input
+        <label class="contact-form-email"
+          >Email* <span class="validation-error"></span>
+          <input
+            class="form-control"
             type="email"
             name="user_email"
             id="user_email"
@@ -372,9 +485,10 @@
             autocomplete="email"
             data-validate="email"
         /></label>
-        <label
-          >Message
+        <label class="contact-form-message"
+          >Message <span class="validation-error"></span>
           <textarea
+            class="form-control"
             name="user_message"
             id="user_message"
             placeholder="Type your message..."
