@@ -97,7 +97,7 @@
 .location-map iframe {
   width: 100%;
   height: 395px;
-  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  border: none; 
 }
 
 @media (min-width: 768px) {
@@ -148,12 +148,10 @@
   .info-label {
     font-size: 20px;
   }
-  .location-map{
-    border: 1px solid #000;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  }
+
   .location-map iframe {
     width: 1312px;
     height: 738px;
+    border: none;
   }
 }
