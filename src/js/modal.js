@@ -15,11 +15,14 @@ const DEFAULT_BOOK_DETAILS = {
 };
 
 // initialise modal-books accordeon
-new Accordion(document.querySelector('.accordion-container'), {
-  showMultiple: true,
-  duration: 400,
-  collapse: true,
-});
+const booksAccordion = new Accordion(
+  document.querySelector('.accordion-container'),
+  {
+    showMultiple: true,
+    duration: 400,
+    collapse: true,
+  }
+);
 
 class Modal {
   constructor(modalElement) {
@@ -206,6 +209,8 @@ class BooksModal extends Modal {
       const dataObj = this.prepareData(bookData);
       renderBookModal(dataObj);
 
+      if (booksAccordion) booksAccordion.closeAll();
+
       super.open(); // Call open from the base class after content is ready
 
       this.form = this.modalElement.querySelector('#bookModalActionForm');
@@ -336,15 +341,25 @@ if (booksModalElement) {
   booksModal = new BooksModal(booksModalElement);
 }
 
-// functions to interact with the modals from other scripts.
-export function openContactsModal() {
+/**
+ * Opens the contacts modal and dynamically sets its description text.
+ * If no event name is provided, it will use a default string.
+ * @param {string} booksyEvent - The name of the event or context to display in the modal's description.
+ */
+export function openContactsModal(booksyEvent = `Children’s Story Hour`) {
   if (contactModal) {
+    document.querySelector('#modalDesc').textContent = booksyEvent;
     contactModal.open();
   } else {
     console.error('Contact modal is not initialized.');
   }
 }
 
+/**
+ * Opens the books modal and fetches the details for a specific book.
+ * If no id is provided, it will use a default string.
+ * @param {string} bookId - The unique ID of the book to display.
+ */
 export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
   if (booksModal) {
     booksModal.open(bookId);
