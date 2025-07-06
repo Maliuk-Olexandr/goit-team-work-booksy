@@ -1,7 +1,8 @@
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
 
-export function initHeroSlider() {
+initHeroSlider();
+function initHeroSlider() {
   const root = document.querySelector('.swiper');
   if (!root) {
     console.warn('Swiper-контейнер не знайдено');
@@ -22,7 +23,7 @@ export function initHeroSlider() {
       prevEl: prevBtn,
     },
     autoplay: {
-      delay: 5000,
+      delay: 10000,
       disableOnInteraction: true,
       pauseOnMouseEnter: true,
     },
@@ -41,8 +42,6 @@ export function initHeroSlider() {
       },
     },
   });
-
-  console.log('Swiper запускається');
 
   // Функція оновлення стану стрілок
   function updateArrows(sw) {
