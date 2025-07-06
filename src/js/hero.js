@@ -15,8 +15,7 @@ function initHeroSlider() {
   // ініціалізація Swiper
   const swiper = new Swiper(root, {
     loop: false,
-    effect: 'fade',
-    fadeEffect: { crossFade: true },
+    effect: 'slide',
     parallax: true,
     navigation: {
       nextEl: nextBtn,
@@ -64,7 +63,7 @@ function initHeroSlider() {
   document.querySelectorAll('.slide-btn[href="#books"]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      document.querySelector('#books')?.scrollIntoView({ behavior: 'smooth' });
+      document.querySelector('#books')?.scrollIntoView();
     });
   });
 }
