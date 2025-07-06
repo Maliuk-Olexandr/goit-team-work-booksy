@@ -63,6 +63,7 @@
 .book-cover {
     width: 343px;
     height: 488px;
+    border-radius: 8px;
 }
 
 .book-card-info {
