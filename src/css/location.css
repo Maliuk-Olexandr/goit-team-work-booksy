@@ -91,16 +91,19 @@
 
 .location-map {
   width: 100%;
-  margin-top: 32px;
+  margin-top: 0;
   border-radius: 16px;
-  overflow: hidden; /* Добавлено для правильного отображения border-radius */
+  overflow: hidden;
+  width: 343px;
+height: 395px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* Добавлена тень */
 }
 
 .location-map iframe {
   width: 100%;
   height: 395px;
   border: none;
-  border-radius: 16px; /* Добавлен border-radius */
+  border-radius: 16px;
 }
 
 @media (min-width: 768px) {
@@ -119,6 +122,12 @@
   .location-info-wrapper {
     flex: 0 0 296px;
     border-radius: 16px;
+  }
+
+  .location-map {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* Тень на планшете */
+    width: 704px;
+    height: 395px;
   }
 
   .location-map iframe {
@@ -151,6 +160,12 @@
 
   .info-label {
     font-size: 20px;
+  }
+
+  .location-map {
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    width: 1312px;
+    height: 738px;
   }
 
   .location-map iframe {
