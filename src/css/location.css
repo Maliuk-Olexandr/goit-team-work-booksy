@@ -1,52 +1,33 @@
-
 .location-header-row {
   display: flex;
   flex-direction: column;
   gap: 32px;
-  align-items: flex-start;
   margin-bottom: 32px;
 }
 
-.location-header {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
 .location-header-text {
+  display: block;
   text-transform: capitalize;
-  margin: 0;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
 .location-title {
   font-weight: 600;
   font-size: 48px;
-  line-height: 120%;
+  line-height: 1.2;
   letter-spacing: -0.01em;
-  margin: 0;
-}
-
-.location-description-wrapper {
-  margin-top: 0;
+  margin-bottom: 24px;
 }
 
 .location-description {
   font-size: 18px;
-  line-height: 150%;
-  margin: 0;
 }
-
 .location-info-wrapper {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-self: flex-start;
+  font-style: normal;
 }
 
 .location-info {
-  list-style: none;
-  padding: 0;
-  margin: 0;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -54,119 +35,62 @@
 
 .location-item {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 4px;
+  gap: 16px;
 }
 
 .location-item-header {
   display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.location-icon {
-  flex-shrink: 0;
-  width: 24px;
-  height: 24px;
-
+  flex-direction: column;
+  gap: 8px;
 }
 
 .info-label {
   font-size: 20px;
-  line-height: 140%;
+  line-height: 1.4;
   letter-spacing: -0.01em;
 }
 
 .info-value {
-  font-size: 16px;
-  line-height: 150%;
   text-decoration: underline;
-  margin-left: 36px;
   display: block;
+}
+.info-address {
+  text-decoration: none;
 }
 
 .location-map {
-  width: 100%;
-  margin-top: 0;
   border-radius: 16px;
+  width: 100%;
+  height: 395px;
   overflow: hidden;
-  width: 343px;
-height: 395px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* Добавлена тень */
 }
 
-.location-map iframe {
-  width: 100%;
-  height: 395px;
-  border: none;
-  border-radius: 16px;
-}
-
-@media (min-width: 768px) {
+/* Tablet */
+@media screen and  (min-width: 768px) {
   .location-header-row {
     flex-direction: row;
     justify-content: space-between;
-    gap: 72px;
-    margin-bottom: 32px;
+    margin-bottom: 80px;
   }
 
-  .location-header {
-    flex: 0 0 336px;
-    gap: 16px;
-  }
-
+  .location-header,
   .location-info-wrapper {
-    flex: 0 0 296px;
-    border-radius: 16px;
-  }
-
-  .location-map {
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* Тень на планшете */
-    width: 704px;
-    height: 395px;
-  }
-
-  .location-map iframe {
-    height: 395px;
+    width: 336px;
   }
 }
 
 /* Desktop */
-@media (min-width: 1440px) {
-  .location-header-row {
-    gap: 80px;
-    margin-bottom: 32px;
-  }
-
+@media screen and  (min-width: 1440px) {
+ 
   .location-header {
-    flex: 0 0 732px;
-    gap: 24px;
-  }
-
-  .location-description {
-    font-size: 20px;
-    line-height: 140%;
-    letter-spacing: -0.01em;
     width: 732px;
   }
 
   .location-info-wrapper {
-    flex: 0 0 500px;
+    width: 500px;
   }
-
-  .info-label {
-    font-size: 20px;
-  }
-
   .location-map {
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    width: 1312px;
-    height: 738px;
-  }
-
-  .location-map iframe {
-    width: 1312px;
     height: 738px;
   }
 }

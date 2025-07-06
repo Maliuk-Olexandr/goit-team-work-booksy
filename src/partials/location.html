@@ -1,68 +1,64 @@
-<section class="section-location" id="location">
+<section id="location">
   <div class="container">
     <div class="location-header-row">
       <div class="location-header">
-        <p class="location-header-text">Location</p>
+        <span class="location-header-text">Location</span>
         <h2 class="location-title">How to find us</h2>
-        <div class="location-description-wrapper">
-          <p class="location-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse varius enim in eros elementum tristique.
-          </p>
-        </div>
+        <p class="location-description">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          varius enim in eros elementum tristique.
+        </p>
       </div>
 
-      <div class="location-info-wrapper">
+      <address class="location-info-wrapper" aria-label="Contact information">
         <ul class="location-info">
-
           <li class="location-item">
+            <svg width="24" height="24">
+              <use href="/img/icons.svg#icon-mail"></use>
+            </svg>
             <div class="location-item-header">
-              <div class="location-icon">
-                <svg width="24" height="24">
-                  <use href="/img/icons.svg#icon-mail"></use>
-                </svg>
-              </div>
               <span class="info-label">Email</span>
+              <a href="mailto:hello@booksy.com" class="info-value"
+                >hello@booksy.com</a
+              >
             </div>
-            <a href="mailto:hello@booksy.com" class="info-value">hello@booksy.com</a>
           </li>
 
           <li class="location-item">
+            <svg width="24" height="24">
+              <use href="/img/icons.svg#icon-phone"></use>
+            </svg>
             <div class="location-item-header">
-              <div class="location-icon">
-                <svg width="24" height="24">
-                  <use href="/img/icons.svg#icon-phone"></use>
-                </svg>
-              </div>
-              <span class="info-label">Phone</span>
+              <span class="info-label">Phone</span
+              ><a href="tel:+612413043012" class="info-value"
+                >+61 (241) 304-3012</a
+              >
             </div>
-            <a href="tel:+612413043012" class="info-value">+61 (241) 304-3012</a>
           </li>
 
           <li class="location-item">
+            <svg width="24" height="24">
+              <use href="/img/icons.svg#icon-map"></use>
+            </svg>
             <div class="location-item-header">
-              <div class="location-icon">
-                <svg width="24" height="24">
-                  <use href="/img/icons.svg#icon-map"></use>
-                </svg>
-              </div>
               <span class="info-label">Office</span>
+              <span class="info-value info-address"
+                >123 Books St, Sydney NSW 2000 AU</span
+              >
             </div>
-            <span class="info-value">123 Books St, Sydney NSW 2000 AU</span>
           </li>
         </ul>
-      </div>
+      </address>
     </div>
 
-    <div class="location-map">
-      <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52995.98284859287!2d151.11943244934082!3d-33.883242329269606!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12ae2a3f0307d3%3A0xcda527941ab9b09a!2sGleebooks!5e0!3m2!1sen!2sua!4v1751797862054!5m2!1sen!2sua"
-        width="600"
-        height="450"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-    </div>
+    <iframe
+      class="location-map"
+      title="Booksy location map"
+      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3318.043707472254!2d150.8555598!3d-33.7336859!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b129be22dc8ad15%3A0xf31fa2c6393900ac!2sBooks%20St%2C%20Dean%20Park%20NSW%202761%2C%20Australia!5e0!3m2!1sen!2sua!4v1751839842188!5m2!1sen!2sua"
+      style="border: 0"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+    ></iframe>
   </div>
 </section>
