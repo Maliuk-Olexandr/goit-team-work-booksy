@@ -77,3 +77,13 @@
     padding-inline: 0;
   }
 }
+
+/* --- Form Validation Highlighting --- */
+.form-control.invalid {
+  outline: 1px solid #ef4444; /* A clear red border */
+  box-shadow: 0 0 0 1px #ef4444;
+}
+
+.validation-error {
+  color: darkred;
+}

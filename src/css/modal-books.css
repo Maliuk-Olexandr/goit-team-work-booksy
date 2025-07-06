@@ -70,7 +70,7 @@
   width: 100%;
 }
 
-/* accordeon-js style adapation START */
+/* #region accordeon-js style adapation */
 .modal-books .chevron-icon {
   width: 11px;
   height: 11px;
@@ -117,7 +117,7 @@
   padding-top: 0;
   padding-bottom: 24px;
 }
-/*#endregion accordeon-js style adapation END */
+/*#endregion accordeon-js style adapation */
 
 /* tablet */
 @media screen and (min-width: 768px) {
@@ -146,6 +146,7 @@
   }
 }
 
+/*#region izitoast style adapation */
 body .iziToast-theme-light {
   font-family: 'Rubik', sans-serif;
   background-color: var(--btn-background);
@@ -157,3 +158,4 @@ body .iziToast > .iziToast-body .iziToast-message {
   color: white;
   font-size: 16px;
 }
+/*#endregion izitoast style adapation */
