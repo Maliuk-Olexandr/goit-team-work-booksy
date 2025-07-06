@@ -184,19 +184,14 @@ class BooksModal extends Modal {
     const quantity = parseInt(this.form.querySelector('.quantity-input').value);
 
     //TODO add message
-    iziToast.success({
-      title: 'OK',
-      balloon: true,
-      message: 'Successfully inserted record!',
-      position: 'topRight', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
-    });
-    iziToast.show({
-      theme: 'dark',
-      icon: 'icon-style',
-      title: 'Position',
-      message: 'topRight',
-      position: 'topRight',
-    });
+    // iziToast.show({
+    //   theme: 'dark',
+    //   iconUrl: '/img/shopping_basket.svg',
+    //   icon: 'icon-style',
+    //   // title: 'Position',
+    //   message: 'Book (qty: ${quantity}) added',
+    //   position: 'topRight',
+    // });
     iziToast.show({
       //color: '#fff',
       iconUrl: '/img/shopping_basket.svg',
@@ -290,7 +285,7 @@ export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
 
 //#region @TODO delete before deployment
 window.openBooksModal = openBooksModal;
-openBooksModal();
+//openBooksModal();
 // openBooksModal();
 window.openContactsModal = openContactsModal;
 //#endregion @TODO delete before deployment
