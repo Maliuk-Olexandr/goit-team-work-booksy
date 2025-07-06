@@ -4,16 +4,22 @@
       <div class="categories-wrapper">
         <div class="books-counter">
           <h3 class="subtitle">Books</h3>
-          <p class="counter-books">Showing <span class="visible-books"></span> of <span class="total-books"></span></p>
+          <p class="counter-books">
+            Showing <span class="visible-books"></span> of
+            <span class="total-books"></span>
+          </p>
         </div>
         <ul class="categories-list"></ul>
         <div class="select-wrapper">
-        <select id="category-select">
-        </select>
-        <svg class="categories-arrow" width="12" height="8"><use href="../img/icons.svg#icon-chevron-down" /></svg>
+          <select id="category-select"></select>
+          <svg class="categories-arrow" width="12" height="8">
+            <use href="../img/icons.svg#icon-chevron-down" />
+          </svg>
         </div>
       </div>
       <div class="books-wrapper">
+        <div id="loader" class="loader hidden"></div>
+        <!-- ⬅️ СПІНЕР -->
         <ul class="gallery"></ul>
         <button type="button" class="btn btn-show-more">Show more</button>
       </div>

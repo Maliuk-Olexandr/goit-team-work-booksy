@@ -223,3 +223,32 @@
         text-shadow: var(--btn-background) 0 0 3px;
     }
 }
+
+/* === Loader styles === */
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #5a2502; /* Колір згідно макету Booksy */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+  z-index: 100;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Забезпечує позиціювання .loader всередині books-wrapper */
+.books-wrapper {
+  position: relative;
+}

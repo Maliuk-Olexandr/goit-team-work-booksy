@@ -1,16 +1,30 @@
-import { getTopBooks, getBooksByCategory, getCategoryList } from "./products-api";
+import {
+  getTopBooks,
+  getBooksByCategory,
+  getCategoryList,
+} from './products-api';
 
-const gallery = document.querySelector(".gallery");
-const select = document.querySelector("#category-select");
-const showMore = document.querySelector(".btn-show-more");
-const visibleCounter = document.querySelector(".visible-books");
-const totalCounter = document.querySelector(".total-books");
-const list = document.querySelector(".categories-list");
+const gallery = document.querySelector('.gallery');
+const select = document.querySelector('#category-select');
+const showMore = document.querySelector('.btn-show-more');
+const visibleCounter = document.querySelector('.visible-books');
+const totalCounter = document.querySelector('.total-books');
+const list = document.querySelector('.categories-list');
+const loader = document.querySelector('#loader'); // Loader
 
 let allBooks = [];
 let visibleCount = 0;
 
+function showLoader() {
+  loader.classList.remove('hidden'); // Loader
+}
+
+function hideLoader() {
+  loader.classList.add('hidden'); // Loader
+}
+
 // Завантажуємо категорії
+showLoader(); // Loader
 const categoryList = await getCategoryList();
 renderCategoriesList(categoryList);
 
@@ -18,24 +32,27 @@ renderCategoriesList(categoryList);
 const topBooksData = await getTopBooks();
 allBooks = topBooksData.flatMap(({ books }) => books);
 renderBooks();
+hideLoader(); // Loader
 
 // Рендер селекту та списку категорій
 function renderCategoriesList(categories) {
-  select.innerHTML = '<option selected value="All categories">All categories</option>';
-  list.innerHTML = '<li><button class="category-btn active-category" value="All categories">All categories</button></li>';
+  select.innerHTML =
+    '<option selected value="All categories">All categories</option>';
+  list.innerHTML =
+    '<li><button class="category-btn active-category" value="All categories">All categories</button></li>';
 
   categories.forEach(cat => {
-    const option = document.createElement("option");
+    const option = document.createElement('option');
     option.value = cat;
     option.textContent = cat;
     select.appendChild(option);
 
-    const item = document.createElement("li");
-    item.classList.add("category-item")
-    const button = document.createElement("button");
+    const item = document.createElement('li');
+    item.classList.add('category-item');
+    const button = document.createElement('button');
     button.value = cat;
     button.textContent = cat;
-    button.classList.add("category-btn");
+    button.classList.add('category-btn');
     item.appendChild(button);
     list.appendChild(item);
   });
@@ -43,14 +60,17 @@ function renderCategoriesList(categories) {
 
 // Універсальний обробник вибору категорії
 async function selectCategory(category) {
+  showLoader(); // Loader
   select.value = category;
 
   // Активна кнопка
-  list.querySelectorAll(".category-btn").forEach(btn =>
-    btn.classList.toggle("active-category", btn.value === category)
-  );
+  list
+    .querySelectorAll('.category-btn')
+    .forEach(btn =>
+      btn.classList.toggle('active-category', btn.value === category)
+    );
 
-  if (category === "All categories") {
+  if (category === 'All categories') {
     const topBooksData = await getTopBooks();
     allBooks = topBooksData.flatMap(({ books }) => books);
   } else {
@@ -58,23 +78,24 @@ async function selectCategory(category) {
   }
 
   renderBooks();
+  hideLoader(); // Loader
 }
 
 // Вибір через select
-select.addEventListener("change", e => {
+select.addEventListener('change', e => {
   const category = e.target.value;
   selectCategory(category);
 });
 
 // Вибір через список кнопок
-list.addEventListener("click", e => {
-  if (e.target.tagName !== "BUTTON") return;
+list.addEventListener('click', e => {
+  if (e.target.tagName !== 'BUTTON') return;
   const category = e.target.value;
   selectCategory(category);
 });
 
 // Кнопка Show More
-showMore.addEventListener("click", () => {
+showMore.addEventListener('click', () => {
   visibleCount += 4;
   updateBooksList();
   showMore.blur();
@@ -82,11 +103,11 @@ showMore.addEventListener("click", () => {
 
 // Рендер книг
 function renderBooks() {
-  showMore.classList.remove("btn-show-more-hidden");
+  showMore.classList.remove('btn-show-more-hidden');
   visibleCount = getInitialCount();
   updateBooksList();
   if (visibleCount >= allBooks.length) {
-    showMore.classList.add("btn-show-more-hidden");
+    showMore.classList.add('btn-show-more-hidden');
   }
   totalCounter.textContent = allBooks.length;
 }
@@ -98,7 +119,7 @@ function updateBooksList() {
   visibleCounter.textContent = Math.min(visibleCount, allBooks.length);
   showMore.disabled = false;
   if (visibleCount >= allBooks.length) {
-    showMore.classList.add("btn-show-more-hidden");
+    showMore.classList.add('btn-show-more-hidden');
   }
 }
 
@@ -108,13 +129,15 @@ function getInitialCount() {
 }
 
 // Перерендер при зміні ширини екрана
-window.addEventListener("resize", () => {
+window.addEventListener('resize', () => {
   renderBooks();
 });
 
 // HTML-розмітка однієї книги
 function createMarkup(data) {
-  return data.map(({ title, author, book_image, price }) => `
+  return data
+    .map(
+      ({ title, author, book_image, price }) => `
     <li class="book-card">
       <img class="book-cover" src="${book_image}" alt="${title}" width="150" />
       <div class="book-card-info">
@@ -126,5 +149,7 @@ function createMarkup(data) {
       </div>
       <button class="btn-secondary btn-book">Learn more</button>
     </li>
-  `).join('');
+  `
+    )
+    .join('');
 }
