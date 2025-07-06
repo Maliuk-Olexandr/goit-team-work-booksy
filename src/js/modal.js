@@ -14,6 +14,13 @@ const DEFAULT_BOOK_DETAILS = {
   returns: `You can return an item within 14 days of receiving your order, provided it hasn’t been used and is in its original condition. To start a return, please contact our support team — we’ll guide you through the process quickly and hassle-free.`,
 };
 
+// initialise modal-books accordeon
+new Accordion(document.querySelector('.accordion-container'), {
+  showMultiple: true,
+  duration: 400,
+  collapse: true,
+});
+
 class Modal {
   constructor(modalElement) {
     if (!modalElement) throw new Error('Modal Element not found');
@@ -206,12 +213,6 @@ class BooksModal extends Modal {
         this.form.addEventListener('click', this.eventHandler);
         this.form.addEventListener('submit', this.eventHandler);
       }
-
-      new Accordion(this.modalElement.querySelector('.accordion-container'), {
-        showMultiple: true,
-        duration: 400,
-        collapse: true,
-      });
     } catch (error) {
       console.error(`Error loading book with ID ${bookId}:`, error);
       iziToast.show({
