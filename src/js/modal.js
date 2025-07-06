@@ -14,6 +14,16 @@ const DEFAULT_BOOK_DETAILS = {
   returns: `You can return an item within 14 days of receiving your order, provided it hasn’t been used and is in its original condition. To start a return, please contact our support team — we’ll guide you through the process quickly and hassle-free.`,
 };
 
+// initialise modal-books accordeon
+const booksAccordion = new Accordion(
+  document.querySelector('.accordion-container'),
+  {
+    showMultiple: true,
+    duration: 400,
+    collapse: true,
+  }
+);
+
 class Modal {
   constructor(modalElement) {
     if (!modalElement) throw new Error('Modal Element not found');
@@ -52,19 +62,104 @@ class ContactModal extends Modal {
   constructor(modalElement) {
     super(modalElement);
     this.form = this.modalElement.querySelector('#contactForm');
+    this.nameInput = this.form.querySelector('#user_name');
+    this.emailInput = this.form.querySelector('#user_email');
+    this.messageInput = this.form.querySelector('#user_message');
+    this.nameErrorContainer = this.form.querySelector(
+      '.contact-form-name .validation-error'
+    );
+    this.emailErrorContainer = this.form.querySelector(
+      '.contact-form-email .validation-error'
+    );
+    this.messageErrorContainer = this.form.querySelector(
+      '.contact-form-message .validation-error'
+    );
+
     if (!this.form) throw new Error('Contact form not found in the modal');
     this.submitHandler = this.handleSubmit.bind(this);
+    this.handleNameInput = this.clearErrorContainer.bind(
+      this,
+      this.nameInput,
+      this.nameErrorContainer
+    );
+    this.handleEmailInput = this.clearErrorContainer.bind(
+      this,
+      this.emailInput,
+      this.emailErrorContainer
+    );
+    this.handleMessageInput = this.clearErrorContainer.bind(
+      this,
+      this.messageInput,
+      this.messageErrorContainer
+    );
+  }
+
+  clearErrorContainer(inputElement, errorContainer) {
+    inputElement.classList.remove('invalid');
+    errorContainer.innerText = '';
   }
 
   open() {
     super.open();
     this.form.addEventListener('submit', this.submitHandler);
+    this.nameInput.addEventListener('focus', this.handleNameInput);
+    this.emailInput.addEventListener('focus', this.handleEmailInput);
+    this.messageInput.addEventListener('focus', this.handleMessageInput);
   }
 
   close() {
     super.close();
     this.form.removeEventListener('submit', this.submitHandler);
+    this.nameInput.removeEventListener('focus', this.handleNameInput);
+    this.emailInput.removeEventListener('focus', this.handleEmailInput);
+    this.messageInput.removeEventListener('focus', this.handleMessageInput);
     this.form.reset();
+  }
+
+  validate() {
+    const errorsArr = [];
+    const errorMessage = {
+      name: '❌ Please enter valid Name',
+      email: {
+        valid: '❌ Please enter valid Email',
+        required: '❌ Email is a required field',
+      },
+      message: '❌ Message can not be empty',
+    };
+    // Reset previous validation states
+    this.nameInput.classList.remove('invalid');
+    this.emailInput.classList.remove('invalid');
+    this.messageInput.classList.remove('invalid');
+
+    // Name validation
+    if (this.nameInput.value.trim() === '') {
+      errorsArr.push(errorMessage.name);
+      this.nameInput.classList.add('invalid');
+      this.nameErrorContainer.innerText = errorMessage.name;
+    }
+
+    // simple Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (this.emailInput.value.trim() === '') {
+      // if empty
+      errorsArr.push(errorMessage.email.required);
+      this.emailInput.classList.add('invalid');
+      this.emailErrorContainer.innerText = errorMessage.email.required;
+    } else if (!emailPattern.test(this.emailInput.value)) {
+      // if invalid
+      errorsArr.push(errorMessage.email.valid);
+      this.emailInput.classList.add('invalid');
+      this.emailErrorContainer.innerText = errorMessage.email.valid;
+    }
+
+    // Message validation
+    if (this.messageInput.value.trim() === '') {
+      errorsArr.push(errorMessage.message);
+      this.messageInput.classList.add('invalid');
+      this.messageErrorContainer.innerText = errorMessage.message;
+    }
+
+    return errorsArr;
   }
 
   async handleSubmit(event) {
@@ -72,23 +167,32 @@ class ContactModal extends Modal {
     const formData = new FormData(this.form);
     const data = Object.fromEntries(formData.entries());
 
+    // Call the validate method
+    const validationErrors = this.validate();
+    if (validationErrors.length > 0) {
+      return; // Stop the submission
+    }
+
     try {
       await this.submitForm(data);
-      // TODO to replace with a good looking notification (e.g., a toast)
-      alert('Your registration has been submitted.');
+      iziToast.show({
+        position: 'center',
+        theme: 'light',
+        message: `❤︎ Your registration has been submitted.`,
+      });
       this.close();
     } catch (error) {
-      // TODO: Display an error message within the form or  good looking notification
       console.error('Form submission error:', error);
-      alert(
-        'There was an error submitting your registration. Please try again.'
-      );
+      iziToast.show({
+        position: 'center',
+        theme: 'light',
+        message: `✖ 'There was an error submitting your registration. Please try again.'`,
+      });
     }
   }
 
   async submitForm(data) {
     console.log('Submitting form data:', data);
-    // return new Promise(resolve => setTimeout(resolve, 500));
   }
 }
 
@@ -103,7 +207,9 @@ class BooksModal extends Modal {
     try {
       const bookData = await getBookByID(bookId);
       const dataObj = this.prepareData(bookData);
-      renderBookModal(this.modalElement, dataObj);
+      renderBookModal(dataObj);
+
+      if (booksAccordion) booksAccordion.closeAll();
 
       super.open(); // Call open from the base class after content is ready
 
@@ -112,16 +218,13 @@ class BooksModal extends Modal {
         this.form.addEventListener('click', this.eventHandler);
         this.form.addEventListener('submit', this.eventHandler);
       }
-
-      new Accordion(this.modalElement.querySelector('.accordion-container'), {
-        showMultiple: true,
-        duration: 400,
-        collapse: true,
-      });
     } catch (error) {
       console.error(`Error loading book with ID ${bookId}:`, error);
-      this.modalElement.innerHTML = `<div class="modal-content"><p>Sorry, we couldn't load the book details. Please try again later.</p></div>`;
-      super.open();
+      iziToast.show({
+        position: 'center',
+        theme: 'light',
+        message: `✖ 'Sorry, couldn't load the book details. Please try again later.'`,
+      });
     }
   }
 
@@ -183,29 +286,12 @@ class BooksModal extends Modal {
     const bookId = modalData.dataset.bookId;
     const quantity = parseInt(this.form.querySelector('.quantity-input').value);
 
-    //TODO add message
-    // iziToast.show({
-    //   theme: 'dark',
-    //   iconUrl: '/img/shopping_basket.svg',
-    //   icon: 'icon-style',
-    //   // title: 'Position',
-    //   message: 'Book (qty: ${quantity}) added',
-    //   position: 'topRight',
-    // });
     iziToast.show({
-      //color: '#fff',
       iconUrl: '/img/shopping_basket.svg',
       iconColor: 'white',
-      //messageSize: '18',
-      // messageLineHeight: '1',
       balloon: false,
-      // close: true,
       theme: 'light',
       progressBar: true,
-      //backgroundColor: '#e15d05',
-      //progressBarColor: 'white',
-      //color: 'white',
-      // title: 'Target',
       message: `Book (qty: ${quantity}) added`,
       transitionIn: 'flipInX',
       transitionInMobile: 'flipInX',
@@ -213,7 +299,6 @@ class BooksModal extends Modal {
       targetFirst: false,
       timeout: 3000,
       animateInside: true,
-      //class: 'btn',
     });
     console.log(`Book with ID '${bookId}' (qty: ${quantity}) added to Cart.`);
     console.log(`Total ID '${bookId}' in Cart: ${getFromCartByID(bookId)}`);
@@ -224,28 +309,18 @@ class BooksModal extends Modal {
   handleBuyNow() {
     console.log('"Buy Now" clicked.');
     iziToast.show({
-      //color: '#fff',
       iconUrl: '/img/shopping_basket.svg',
       iconColor: 'white',
-      position: 'center', // bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter, center
-      //messageSize: '18',
-      // messageLineHeight: '1',
+      position: 'center',
       balloon: false,
-      // close: true,
       theme: 'light',
       progressBar: true,
-      //backgroundColor: '#e15d05',
-      //progressBarColor: 'white',
-      //color: 'white',
-      // title: 'Target',
       message: `Thanks for buying!`,
       transitionIn: 'flipInX',
       transitionInMobile: 'flipInX',
-      // target: '.modal-books_message-container',
       targetFirst: false,
       timeout: 5000,
       animateInside: true,
-      //class: 'btn',
     });
 
     this.close();
@@ -266,15 +341,25 @@ if (booksModalElement) {
   booksModal = new BooksModal(booksModalElement);
 }
 
-// functions to interact with the modals from other scripts.
-export function openContactsModal() {
+/**
+ * Opens the contacts modal and dynamically sets its description text.
+ * If no event name is provided, it will use a default string.
+ * @param {string} booksyEvent - The name of the event or context to display in the modal's description.
+ */
+export function openContactsModal(booksyEvent = `Children’s Story Hour`) {
   if (contactModal) {
+    document.querySelector('#modalDesc').textContent = booksyEvent;
     contactModal.open();
   } else {
     console.error('Contact modal is not initialized.');
   }
 }
 
+/**
+ * Opens the books modal and fetches the details for a specific book.
+ * If no id is provided, it will use a default string.
+ * @param {string} bookId - The unique ID of the book to display.
+ */
 export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
   if (booksModal) {
     booksModal.open(bookId);
@@ -285,7 +370,7 @@ export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
 
 //#region @TODO delete before deployment
 window.openBooksModal = openBooksModal;
-//openBooksModal();
 // openBooksModal();
+// openContactsModal();
 window.openContactsModal = openContactsModal;
 //#endregion @TODO delete before deployment
