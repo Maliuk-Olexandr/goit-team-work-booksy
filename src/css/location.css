@@ -1,0 +1,159 @@
+.container.location {
+  display: flex;
+  flex-direction: column;
+}
+
+.location-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.location-header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.location-header-text {
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.location-title {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 120%;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.location-description-wrapper {
+  margin-top: 0;
+}
+
+.location-description {
+  font-size: 18px;
+  line-height: 150%;
+  margin: 0;
+}
+
+.location-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-self: flex-start;
+}
+
+.location-info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.location-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.location-item-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.location-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.info-label {
+  font-size: 20px;
+  line-height: 140%;
+  letter-spacing: -0.01em;
+}
+
+.info-value {
+  font-size: 16px;
+  line-height: 150%;
+  text-decoration: underline;
+  margin-left: 36px;
+  display: block;
+}
+
+.location-map {
+  width: 100%;
+  margin-top: 32px;
+}
+
+.location-map iframe {
+  width: 100%;
+  height: 395px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 768px) {
+  .location-header-row {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 72px;
+    margin-bottom: 32px;
+  }
+
+  .location-header {
+    flex: 0 0 336px;
+    gap: 16px;
+  }
+
+  .location-info-wrapper {
+    flex: 0 0 296px;
+  }
+
+  .location-map iframe {
+    height: 395px;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1440px) {
+  .location-header-row {
+    gap: 80px;
+    margin-bottom: 32px;
+  }
+
+  .location-header {
+    flex: 0 0 732px;
+    gap: 24px;
+  }
+
+  .location-description {
+    font-size: 20px;
+    line-height: 140%;
+    letter-spacing: -0.01em;
+    width: 732px;
+  }
+
+  .location-info-wrapper {
+    flex: 0 0 500px;
+  }
+
+  .info-label {
+    font-size: 20px;
+  }
+  .location-map{
+    border: 1px solid #000;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  }
+  .location-map iframe {
+    width: 1312px;
+    height: 738px;
+  }
+}
