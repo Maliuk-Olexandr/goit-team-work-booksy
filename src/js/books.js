@@ -8,19 +8,31 @@ const visibleCounter = document.querySelector(".visible-books");
 const totalCounter = document.querySelector(".total-books");
 const list = document.querySelector(".categories-list");
 const arrow = document.querySelector(".categories-arrow");
+const loader = document.querySelector("#loader");
 
 let allBooks = [];
 let visibleCount = 0;
+
+function showLoader() {
+  loader.classList.remove("hidden");
+}
+function hideLoader() {
+  loader.classList.add("hidden");
+}
+
 let currentBreakpoint = window.innerWidth < 768 ? "mobile" : "desktop";
 
 // Завантаження категорій
+showLoader();
 const categoryList = await GetCategoryList();
 renderCategoriesList(categoryList);
+
 
 // Завантаження топ-книг
 const topBooksData = await getTopBooks();
 allBooks = topBooksData.flatMap(({ books }) => books);
 renderBooks();
+hideLoader();
 
 function renderCategoriesList(categories) {
   select.innerHTML = '<option selected value="All categories">All categories</option>';
@@ -44,19 +56,30 @@ function renderCategoriesList(categories) {
 }
 
 async function selectCategory(category) {
+  showLoader(); // показуємо лоадер
+
   select.value = category;
+
   list.querySelectorAll(".category-btn").forEach(btn =>
     btn.classList.toggle("active-category", btn.value === category)
   );
 
-  if (category === "All categories") {
-    const topBooksData = await getTopBooks();
-    allBooks = topBooksData.flatMap(({ books }) => books);
-  } else {
-    allBooks = await getBooksByCategory(category);
-  }
+  try {
+    if (category === "All categories") {
+      const topBooksData = await getTopBooks();
+      allBooks = topBooksData.flatMap(({ books }) => books);
+    } else {
+      allBooks = await getBooksByCategory(category);
+    }
 
-  renderBooks();
+    visibleCount = getInitialCount();
+    renderBooks();
+  } catch (error) {
+    console.error("Помилка при завантаженні книг:", error);
+    gallery.innerHTML = '<li class="no-books">Failed to load books</li>';
+  } finally {
+    hideLoader(); // ховаємо лоадер завжди — навіть якщо сталася помилка
+  }
 }
 
 select.addEventListener("change", e => {
