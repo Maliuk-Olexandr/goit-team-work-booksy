@@ -4,15 +4,11 @@
     font-size: 36px;
     line-height: 1.2;
     letter-spacing: -0.01em;
-    color: #0b0500;
     margin-bottom: 24px;
 }
 
 .title-text-feedbacks {
-    font-weight: 400;
     font-size: 18px;
-    line-height: 1.5;
-    color: #0b0500;
     margin-bottom: 80px;
 }
 
@@ -26,8 +22,9 @@
 
 .list-feedbacks {
     display: flex;
+    gap: 24px;
     transition: transform 0.4s ease-in-out;
-    will-change: transform;
+    will-change: transform; 
 }
 
 .item-feedbacks {
@@ -44,10 +41,7 @@
 }
 
 .text-item-feedbacks {
-    font-weight: 400;
     font-size: 18px;
-    line-height: 1.5;
-    color: #0b0500;
     margin-bottom: 24px;
 }
 
@@ -71,16 +65,9 @@
 
 .client-name-feedback {
     font-weight: 600;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #0b0500;
 }
 
 .client-position-feedback {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #0b0500;
 }
 
 .slider-bottom-feedbacks {
@@ -153,7 +140,6 @@
 .swiper-button-next-feedbacks:hover svg path,
 .swiper-button-next-feedbacks:focus svg path {
     fill: #0B0500;
-    /* например, теплый оранжевый */
 }
 
 .swiper-button-prev-feedbacks:active,
@@ -171,7 +157,6 @@
 
 .slider-navigation-feedbacks .slider-button-disabled {
     background: #e15d05;
-    /* Оставляем твой фон */
     opacity: 0.2;
     /* Делает кнопку прозрачной, чтобы показать неактивность */
     border: 1px solid rgba(11, 5, 0, 0.15);
@@ -197,37 +182,28 @@
 /* Цвет стрелок в disabled состоянии */
 .slider-navigation-feedbacks .slider-button-disabled svg path {
     fill: #0b0500;
-    /* Темный цвет, который ты указала */
 }
 
-.swiper-slide {
-    height: 314px !important;
-    /* Принудительно задаём нужную ширину */
-    flex-shrink: 0;
-    /* Запрещаем уменьшение карточки */ 
+.slider-feedbacks .swiper-slide {
+    height: 314px; 
 }
 
 .feedbacks-desktop-only {
     display: none;
 }
 
-    
+
 @media (min-width: 768px) {
-    
-    .swiper-slide {
-        height: 244px !important;
-        flex-shrink: 0;
-    }
- 
-}
+    .slider-feedbacks .swiper-slide {
+        height: 244px;
+    } }
 
 
 @media screen and (min-width: 1440px) {
-    .feedbacks-container {
-        display: block !important;
+    section .feedbacks-container {
+        display: block;
     }
-    
+
     .feedbacks-desktop-only {
-        display: flex;  
-    }
-}
+        display: flex;
+    } }
