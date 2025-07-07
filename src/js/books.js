@@ -8,7 +8,10 @@ const visibleCounter = document.querySelector(".visible-books");
 const totalCounter = document.querySelector(".total-books");
 const list = document.querySelector(".categories-list");
 const arrow = document.querySelector(".categories-arrow");
-const loader = document.querySelector("#loader");
+const booksWrapper = document.querySelector(".books-wrapper");
+
+const loader = document.querySelector(".loader")
+
 
 let allBooks = [];
 let visibleCount = 0;
@@ -115,25 +118,32 @@ function renderBooks() {
 
 function updateBooksList() {
   const currentSlice = allBooks.slice(0, visibleCount);
+  showLoader();
 
-  if (currentSlice.length === 0) {
-    gallery.innerHTML = '<li class="no-books">No books found</li>';
-    visibleCounter.textContent = 0;
-    showMore.classList.add("btn-show-more-hidden");
-    return;
-  }
+  // Відкласти важке оновлення DOM, щоб лоадер промалювався
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      if (currentSlice.length === 0) {
+        gallery.innerHTML = '<li class="no-books">No books found</li>';
+        visibleCounter.textContent = 0;
+        showMore.classList.add("btn-show-more-hidden");
+        hideLoader();
+        return;
+      }
 
-  gallery.innerHTML = createMarkup(currentSlice);
-  visibleCounter.textContent = Math.min(visibleCount, allBooks.length);
-  showMore.disabled = false;
+      gallery.innerHTML = createMarkup(currentSlice);
+      visibleCounter.textContent = Math.min(visibleCount, allBooks.length);
+      showMore.disabled = false;
 
-  if (visibleCount >= allBooks.length) {
-    showMore.classList.add("btn-show-more-hidden");
-  }
+      if (visibleCount >= allBooks.length) {
+        showMore.classList.add("btn-show-more-hidden");
+      } else {
+        showMore.classList.remove("btn-show-more-hidden");
+      }
 
-  if (visibleCount < allBooks.length) {
-    showMore.classList.remove("btn-show-more-hidden");
-  }
+      hideLoader();
+    }, 100); // ця затримка потрібна, щоб браузер встиг показати лоадер
+  });
 }
 
 function getInitialCount() {
