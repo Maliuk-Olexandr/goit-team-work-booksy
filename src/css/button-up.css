@@ -1,0 +1,19 @@
+.scroll-top {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  z-index: 1100;
+  display: none; /* початково приховано */
+  justify-content: center;
+  align-items: center;
+}
+
+.scroll-top.show {
+  display: flex;
+  opacity: 1;
+  transform: scale(1);
+}
+
