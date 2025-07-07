@@ -1,0 +1,144 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+.footer {
+    background: #ea8d50;
+    color: black;
+    padding: 40px 60px;
+}
+
+
+.footer-container {
+    min-width: 320px;
+    max-width: 375px;
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+.section {
+    padding: 80px 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .container {
+        padding: 0 32px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .container {
+        padding: 0 64px;
+    }
+}
+
+.icon-logo {
+    color: black;
+}
+
+.logo-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+
+}
+
+
+.nav-links-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+@media only screen and (min-width: 768px) {
+    .nav-links-list {
+        flex-direction: row;
+    }
+}
+
+.nav-link {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #0b0500;
+}
+
+.join-text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #0b0500;
+    margin-bottom: 16px;
+}
+
+.email-form-footer {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.footer-text {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #0b0500;
+}
+
+.email-input {
+    border: 1px solid rgba(11, 5, 0, 0.15);
+    border-radius: 4px;
+    padding: 8px 12px;
+    width: 221px;
+    height: 48px;
+    background: rgba(11, 5, 0, 0.05);
+}
+
+.email-input::placeholder {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: rgba(11, 5, 0, 0.6);
+}
+
+.join-btn {
+    display: block;
+    border: 1px solid #0b0500;
+    border-radius: 4px;
+    padding: 12px 24px;
+    min-width: 106px;
+    height: 48px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #0b0500;
+}
+
+.required-note {
+    margin-top: 12px;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #0b0500;
+    margin-bottom: 80px;
+}
+
+.footer-bottom {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #0b0500;
+}
