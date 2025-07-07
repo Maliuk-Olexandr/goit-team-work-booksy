@@ -287,19 +287,18 @@ class BooksModal extends Modal {
     const quantity = parseInt(this.form.querySelector('.quantity-input').value);
 
     iziToast.show({
-      iconUrl: '/img/shopping_basket.svg',
-      iconColor: 'white',
-      balloon: false,
+      iconUrl: '/img/icons.svg',
       theme: 'light',
       progressBar: true,
-      message: `Book (qty: ${quantity}) added`,
-      transitionIn: 'flipInX',
-      transitionInMobile: 'flipInX',
+      message: `Book (${quantity} pcs) added`,
       target: '.modal-books_message-container',
-      targetFirst: false,
       timeout: 3000,
-      animateInside: true,
+      // replace izitost image tag to use sprite
+      onOpening: function (instance, toast) {
+        replaceIziToastIcon(toast, '/img/icons.svg#icon-shopping-basket');
+      },
     });
+
     console.log(`Book with ID '${bookId}' (qty: ${quantity}) added to Cart.`);
     console.log(`Total ID '${bookId}' in Cart: ${getFromCartByID(bookId)}`);
 
@@ -309,21 +308,49 @@ class BooksModal extends Modal {
   handleBuyNow() {
     console.log('"Buy Now" clicked.');
     iziToast.show({
-      iconUrl: '/img/shopping_basket.svg',
-      iconColor: 'white',
+      iconUrl: '/img/icons.svg',
       position: 'center',
-      balloon: false,
       theme: 'light',
-      progressBar: true,
       message: `Thanks for buying!`,
-      transitionIn: 'flipInX',
-      transitionInMobile: 'flipInX',
-      targetFirst: false,
-      timeout: 5000,
-      animateInside: true,
+      timeout: 3000,
+      onOpening: function (instance, toast) {
+        replaceIziToastIcon(toast, '/img/icons.svg#icon-shopping-basket');
+      },
     });
 
     this.close();
+  }
+}
+
+/**  * Replaces the default <img> icon in an iziToast notification with a
+  custom <svg> element that uses a sprite icon.
+*
+* This function is a workaround to use SVG sprites with iziToast, which natively  
+* only supports direct image URLs. It finds the <img> icon element within the toast
+* and replaces it with a programmatically created <svg> and <use> element.  
+* It is critical to call this function within the `onOpening` callback of `iziToast.show()`,
+* as this guarantees the toast element exists in the DOM and is ready for manipulation.
+*
+* @private
+* @param {HTMLElement} toastElement - The toast DOM element, provided by the `onOpening` callback.
+* @param {string} iconHref - The full path to the SVG icon within the sprite file (e.g., '/img/icons.svg#icon-shopping-basket').
+* @returns {void}
+*/
+function replaceIziToastIcon(toastElement, iconHref) {
+  const imgElement = toastElement.querySelector('.iziToast-icon');
+  if (imgElement) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute(
+      'class',
+      `${imgElement.getAttribute('class')} revealIn customIziToastIcon`
+    );
+    svg.setAttribute('width', '24');
+    svg.setAttribute('height', '24');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', iconHref);
+
+    svg.appendChild(use);
+    imgElement.parentNode.replaceChild(svg, imgElement);
   }
 }
 

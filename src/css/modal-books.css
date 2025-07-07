@@ -1,6 +1,3 @@
-.modal-books {
-}
-
 .modal-books .container {
   position: relative;
 }
@@ -157,5 +154,10 @@ body .iziToast-theme-light {
 body .iziToast > .iziToast-body .iziToast-message {
   color: white;
   font-size: 16px;
+}
+
+.customIziToastIcon {
+  fill: white;
+  padding-bottom: 6px;
 }
 /*#endregion izitoast style adapation */
