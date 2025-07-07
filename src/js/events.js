@@ -1,11 +1,5 @@
-// Імпортуємо Swiper і модулі Navigation, Pagination
-import Swiper from 'swiper';
-import { Navigation, Pagination } from 'swiper/modules';
-
-// Імпортуємо стилі Swiper
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import Swiper from 'swiper/bundle';
+import 'swiper/css/bundle';
 
 let eventsSwiper = null;
 
@@ -13,8 +7,7 @@ function initEventsSwiper() {
   const screenWidth = window.innerWidth;
 
   if (screenWidth < 1440 && !eventsSwiper) {
-    eventsSwiper = new Swiper('.events-swiper', {
-      modules: [Navigation, Pagination],
+    eventsSwiper = new Swiper('.swiper', {
       slidesPerView: 1,
       spaceBetween: 24,
       pagination: {
@@ -23,8 +16,8 @@ function initEventsSwiper() {
       },
 
       navigation: {
-        nextEl: '.events-next',
-        prevEl: '.events-prev',
+        nextEl: '.events-swiper-btn-next',
+        prevEl: '.events-swiper-btn-prev',
       },
       watchOverflow: true,
       breakpoints: {

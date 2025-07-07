@@ -6,9 +6,10 @@
       Discover readings, workshops, and bookish gatherings — online and offline.
       Everyone’s welcome.
     </p>
-    <div class="swiper events-swiper">
-      <ul class="events-list swiper-wrapper">
-        <li class="events-item swiper-slide">
+    <div class="swiper">
+      <ul class="swiper-wrapper events-list">
+        <!-- slide 1 -->
+        <li class="swiper-slide events-item">
           <picture class="events-image">
             <source
               srcset="
@@ -48,27 +49,16 @@
               </p>
             </div>
 
-            <div class="events-register-wrapper">
+            <button class="btn-secondary events-btn" type="button">
               <p>Register</p>
-              <button class="btn-secondary events-btn">
-                <svg
-                  width="8"
-                  height="12"
-                  viewBox="0 0 8 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.70697 11.789L7.41397 6.082L1.70697 0.375L0.292969 1.789L4.58597 6.082L0.292969 10.375L1.70697 11.789Z"
-                    fill="#0B0500"
-                  />
-                </svg>
-              </button>
-            </div>
+              <svg class="icon-chevron-right" width="14" height="14">
+                <use href="/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
           </div>
         </li>
-
-        <li class="events-item swiper-slide">
+        <!-- slide 2 -->
+        <li class="swiper-slide events-item">
           <picture class="events-image">
             <source
               srcset="
@@ -99,27 +89,19 @@
               </p>
             </div>
 
-            <div class="events-register-wrapper">
+            <button
+              class="events-register-wrapper btn-secondary events-btn"
+              type="button"
+            >
               <p>Register</p>
-              <button class="btn-secondary events-btn">
-                <svg
-                  width="8"
-                  height="12"
-                  viewBox="0 0 8 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.70697 11.789L7.41397 6.082L1.70697 0.375L0.292969 1.789L4.58597 6.082L0.292969 10.375L1.70697 11.789Z"
-                    fill="#0B0500"
-                  />
-                </svg>
-              </button>
-            </div>
+              <svg class="icon-chevron-right" width="14" height="14">
+                <use href="/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
           </div>
         </li>
-
-        <li class="events-item swiper-slide">
+        <!-- slide 3 -->
+        <li class="swiper-slide events-item">
           <picture class="events-image">
             <img
               src="./img/events/pc-events-children.webp"
@@ -143,63 +125,38 @@
               </p>
             </div>
 
-            <div class="events-register-wrapper">
+            <button
+              class="events-register-wrapper btn-secondary events-btn"
+              type="button"
+            >
               <p>Register</p>
-              <button class="btn-secondary events-btn">
-                <svg
-                  width="8"
-                  height="12"
-                  viewBox="0 0 8 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.70697 11.789L7.41397 6.082L1.70697 0.375L0.292969 1.789L4.58597 6.082L0.292969 10.375L1.70697 11.789Z"
-                    fill="#0B0500"
-                  />
-                </svg>
-              </button>
-            </div>
+              <svg class="icon-chevron-right" width="14" height="14">
+                <use href="/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
           </div>
         </li>
       </ul>
-
+      <!-- Navigation buttons -->
       <div class="events-controls-wrapper">
-        <div class="swiper-pagination"></div>
+        <div class="swiper-pagination events-pagination"></div>
         <div class="events-buttons-wrapper">
           <button
-            class="btn btn-size events-prev"
+            class="events-swiper-btn-prev arrow btn btn-size"
             type="button"
             aria-label="Previous slide"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12.707 17.5049L8.414 13.2119H18V11.2119H8.414L12.707 6.91888L11.293 5.50488L4.586 12.2119L11.293 18.9189L12.707 17.5049Z"
-                fill="white"
-              />
+            <svg class="arrow-icon" width="14" height="14">
+              <use href="/img/icons.svg#icon-left-arrow"></use>
             </svg>
           </button>
           <button
-            class="btn btn-size events-next"
+            class="events-swiper-btn-next arrow btn btn-size"
             type="button"
             aria-label="Next slide"
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="red"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M11.793 18.1328L13.207 19.5468L19.914 12.8398L13.207 6.13281L11.793 7.54681L16.086 11.8398H6.5V13.8398H16.086L11.793 18.1328Z"
-                fill="white"
-              />
+            <svg class="arrow-icon" width="14" height="14">
+              <use href="/img/icons.svg#icon-right-arrow"></use>
             </svg>
           </button>
         </div>
