@@ -1,25 +1,23 @@
 <section class="section">
   <div class="container" id="books">
-    <h2 class="visually-hidden">Trending books</h2>
     <form class="books-form">
       <div class="categories-wrapper">
         <div class="books-counter">
-          <h3 class="subtitle" id="books-subtitle">Books</h3>
+          <h3 class="subtitle">Books</h3>
           <p class="counter-books">Showing <span class="visible-books"></span> of <span class="total-books"></span></p>
         </div>
         <ul class="categories-list"></ul>
         <div class="select-wrapper">
-          <label for="category-select" class="visually-hidden">Choose category</label>
-          <select id="category-select" aria-label="Select book category">
-          </select>
-          <svg class="categories-arrow" width="12" height="8">
-            <use href="/img/icons.svg#icon-chevron-down" />
-          </svg>
+        <select id="category-select" aria-label="Book category">
+        </select>
+        <svg class="categories-arrow" width="12" height="8"><use href="./img/icons.svg#icon-chevron-down" /></svg>
         </div>
       </div>
       <div class="books-wrapper">
-        <ul class="gallery"></ul>
-        <button type="button" class="btn btn-show-more" aria-label="Show more books">Show more</button>
+        <div id="loader" class="loader hidden"></div>
+        <ul class="gallery">
+        </ul>
+        <button type="button" class="btn btn-show-more btn-show-more-hidden" aria-label="Show more books">Show more</button>
       </div>
     </form>
   </div>
