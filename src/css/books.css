@@ -63,6 +63,7 @@
 .book-cover {
     width: 343px;
     height: 488px;
+    border-radius: 8px;
 }
 
 .book-card-info {
@@ -122,6 +123,33 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 1.5;
+}
+
+/* === Loader styles === */
+.loader {
+  position: fixed;
+  display: block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #5A2502; /* Колір згідно макету Booksy */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+  z-index: 100;
+}
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+.hidden {
+  display: none !important;
+}
+/* Забезпечує позиціювання .loader всередині books-wrapper */
+.books-wrapper {
+  position: relative;
 }
 
 @media only screen and (min-width: 768px) {
@@ -190,7 +218,7 @@
     }
 
     .gallery {
-        width: 980px;
+        max-width: 980px;
         gap: 40px 24px;
     }
 
@@ -221,5 +249,8 @@
         transform: scale(1.25);
         color: #5a2502;
         text-shadow: var(--btn-background) 0 0 3px;
+    }
+    .loader {
+        left: 60.7%;
     }
 }

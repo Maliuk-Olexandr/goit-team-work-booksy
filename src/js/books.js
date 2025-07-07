@@ -1,4 +1,5 @@
 import { getTopBooks, getBooksByCategory, getCategoryList } from "./products-api";
+import { openBooksModal } from "./modal";
 
 const gallery = document.querySelector(".gallery");
 const select = document.querySelector("#category-select");
@@ -6,20 +7,34 @@ const showMore = document.querySelector(".btn-show-more");
 const visibleCounter = document.querySelector(".visible-books");
 const totalCounter = document.querySelector(".total-books");
 const list = document.querySelector(".categories-list");
+const arrow = document.querySelector(".categories-arrow");
+
+const loader = document.querySelector(".loader")
 
 let allBooks = [];
 let visibleCount = 0;
 
-// Завантажуємо категорії
+function showLoader() {
+  loader.classList.remove("hidden");
+}
+function hideLoader() {
+  loader.classList.add("hidden");
+}
+
+let currentBreakpoint = window.innerWidth < 768 ? "mobile" : "desktop";
+
+// Завантаження категорій
+showLoader();
 const categoryList = await getCategoryList();
 renderCategoriesList(categoryList);
 
-// Завантажуємо топ-книги
+
+// Завантаження топ-книг
 const topBooksData = await getTopBooks();
 allBooks = topBooksData.flatMap(({ books }) => books);
 renderBooks();
+hideLoader();
 
-// Рендер селекту та списку категорій
 function renderCategoriesList(categories) {
   select.innerHTML = '<option selected value="All categories">All categories</option>';
   list.innerHTML = '<li><button class="category-btn active-category" value="All categories">All categories</button></li>';
@@ -31,7 +46,7 @@ function renderCategoriesList(categories) {
     select.appendChild(option);
 
     const item = document.createElement("li");
-    item.classList.add("category-item")
+    item.classList.add("category-item");
     const button = document.createElement("button");
     button.value = cat;
     button.textContent = cat;
@@ -41,80 +56,147 @@ function renderCategoriesList(categories) {
   });
 }
 
-// Універсальний обробник вибору категорії
 async function selectCategory(category) {
+  showLoader(); // показуємо лоадер
+
   select.value = category;
 
-  // Активна кнопка
   list.querySelectorAll(".category-btn").forEach(btn =>
     btn.classList.toggle("active-category", btn.value === category)
   );
 
-  if (category === "All categories") {
-    const topBooksData = await getTopBooks();
-    allBooks = topBooksData.flatMap(({ books }) => books);
-  } else {
-    allBooks = await getBooksByCategory(category);
-  }
+  try {
+    if (category === "All categories") {
+      const topBooksData = await getTopBooks();
+      allBooks = topBooksData.flatMap(({ books }) => books);
+    } else {
+      allBooks = await getBooksByCategory(category);
+    }
 
-  renderBooks();
+    visibleCount = getInitialCount();
+    renderBooks();
+  } catch (error) {
+    console.error("Помилка при завантаженні книг:", error);
+    gallery.innerHTML = '<li class="no-books">Failed to load books</li>';
+  } finally {
+    hideLoader(); // ховаємо лоадер завжди — навіть якщо сталася помилка
+  }
 }
 
-// Вибір через select
 select.addEventListener("change", e => {
   const category = e.target.value;
   selectCategory(category);
 });
 
-// Вибір через список кнопок
 list.addEventListener("click", e => {
   if (e.target.tagName !== "BUTTON") return;
   const category = e.target.value;
   selectCategory(category);
 });
 
-// Кнопка Show More
 showMore.addEventListener("click", () => {
   visibleCount += 4;
   updateBooksList();
   showMore.blur();
 });
 
-// Рендер книг
 function renderBooks() {
-  showMore.classList.remove("btn-show-more-hidden");
   visibleCount = getInitialCount();
   updateBooksList();
+  totalCounter.textContent = allBooks.length;
+
   if (visibleCount >= allBooks.length) {
     showMore.classList.add("btn-show-more-hidden");
   }
-  totalCounter.textContent = allBooks.length;
+
+  if (visibleCount < allBooks.length) {
+    showMore.classList.remove("btn-show-more-hidden");
+  }
 }
 
-// Оновлення списку книг
 function updateBooksList() {
   const currentSlice = allBooks.slice(0, visibleCount);
-  gallery.innerHTML = createMarkup(currentSlice);
-  visibleCounter.textContent = Math.min(visibleCount, allBooks.length);
-  showMore.disabled = false;
-  if (visibleCount >= allBooks.length) {
-    showMore.classList.add("btn-show-more-hidden");
-  }
+  showLoader();
+
+  // Відкласти важке оновлення DOM, щоб лоадер промалювався
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      if (currentSlice.length === 0) {
+        gallery.innerHTML = '<li class="no-books">No books found</li>';
+        visibleCounter.textContent = 0;
+        showMore.classList.add("btn-show-more-hidden");
+        hideLoader();
+        return;
+      }
+
+      gallery.innerHTML = createMarkup(currentSlice);
+      visibleCounter.textContent = Math.min(visibleCount, allBooks.length);
+      showMore.disabled = false;
+
+      if (visibleCount >= allBooks.length) {
+        showMore.classList.add("btn-show-more-hidden");
+      } else {
+        showMore.classList.remove("btn-show-more-hidden");
+      }
+
+      hideLoader();
+    }, 100); // ця затримка потрібна, щоб браузер встиг показати лоадер
+  });
 }
 
-// Стартова кількість книжок
 function getInitialCount() {
   return window.innerWidth < 768 ? 10 : 24;
 }
 
-// Перерендер при зміні ширини екрана
-window.addEventListener("resize", () => {
-  renderBooks();
+window.addEventListener("resize", debounce(() => {
+  const newBreakpoint = window.innerWidth < 768 ? "mobile" : "desktop";
+  if (newBreakpoint !== currentBreakpoint) {
+    currentBreakpoint = newBreakpoint;
+    renderBooks();
+  }
+}, 300));
+
+function debounce(func, wait) {
+  let timeout;
+  return (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+gallery.addEventListener("click", event => {
+  const btn = event.target.closest(".btn-book");
+  if (!btn) return;
+  const bookId = btn.dataset.id;
+  openBooksModal(bookId);
 });
 
-// HTML-розмітка однієї книги
+// SVG стрілка обертання при фокусі
+select.addEventListener("focus", () => {
+  arrow.style.transform = "translateY(-50%) rotate(180deg)";
+});
+
+select.addEventListener("blur", () => {
+  arrow.style.transform = "translateY(-50%)";
+});
+
+select.addEventListener("change", () => {
+  arrow.style.transform = "translateY(-50%)";
+});
+
 function createMarkup(data) {
-  return data.map(({ title, author, book_image, price }) => `
+  return data.map(({ title, author, book_image, price, _id }) => {
+    let displayPrice;
+
+    if (typeof price === 'string' && price.trim() !== '0.00') {
+      displayPrice = price.trim();
+    } else if (typeof price === 'number') {
+      displayPrice = price.toFixed(2);
+    } else {
+      displayPrice = '9.99';
+    }
+
+    return `
     <li class="book-card">
       <img class="book-cover" src="${book_image}" alt="${title}" width="150" />
       <div class="book-card-info">
@@ -122,9 +204,9 @@ function createMarkup(data) {
           <h3 class="book-card-title">${title.toLowerCase()}</h3>
           <h4 class="book-card-author">${author}</h4>
         </div>
-        <p class="book-price">$${price}</p>
+        <p class="book-price">$${displayPrice}</p>
       </div>
-      <button class="btn-secondary btn-book">Learn more</button>
+      <button type="button" class="btn-secondary btn-book" data-id="${_id}">Learn more</button>
     </li>
-  `).join('');
+  `}).join('');
 }
