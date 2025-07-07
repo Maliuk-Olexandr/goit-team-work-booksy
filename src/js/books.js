@@ -1,4 +1,4 @@
-import { getTopBooks, getBooksByCategory, GetCategoryList } from "./products-api";
+import { getTopBooks, getBooksByCategory, getCategoryList } from "./products-api";
 import { openBooksModal } from "./modal";
 
 const gallery = document.querySelector(".gallery");
@@ -24,7 +24,7 @@ let currentBreakpoint = window.innerWidth < 768 ? "mobile" : "desktop";
 
 // Завантаження категорій
 showLoader();
-const categoryList = await GetCategoryList();
+const categoryList = await getCategoryList();
 renderCategoriesList(categoryList);
 
 
