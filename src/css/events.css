@@ -1,0 +1,128 @@
+.section-name {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.events-title {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.events-text {
+  font-size: 18px;
+  margin-bottom: 32px;
+}
+.events-image img {
+  border-radius: 16px;
+  width: 342px;
+  height: 277px;
+  margin-bottom: 24px;
+}
+.events-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 220px;
+  width: 100%;
+}
+.events-description {
+  font-size: 24px;
+  line-height: 1.4;
+}
+.event-meta {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.event-location::after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 14px;
+  background-color: var(--text-main-color);
+  margin: 0 8px;
+}
+.events-btn {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  border: none;
+  width: 95px;
+  height: 32px;
+  padding: 8px 0 8px 0;
+}
+.events-controls-wrapper {
+  position: relative;
+  height: 48px;
+  margin-top: 56px;
+  text-align: center;
+}
+.swiper-pagination.events-pagination {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-125%);
+  width: auto;
+  text-align: left;
+  display: flex;
+  gap: 8px;
+  z-index: 1;
+}
+.events-pagination .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background-color: var(--text-main-color);
+  border-radius: 50%;
+  opacity: 0.3;
+}
+.events-pagination .swiper-pagination-bullet-active {
+  background-color: var(--text-main-color);
+  opacity: 1;
+}
+.events-buttons-wrapper {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  gap: 16px;
+  z-index: 2;
+}
+.btn-size {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+}
+.arrow-icon {
+  fill: var(--arrow-color);
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .events-image img {
+    width: 340px;
+  }
+  .events-text {
+    width: 560px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .events-title {
+    font-size: 48px;
+  }
+  .events-image img {
+    width: 421px;
+  }
+  .events-controls-wrapper {
+    display: none;
+  }
+  .events-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .events-item {
+    flex: 1;
+  }
+}

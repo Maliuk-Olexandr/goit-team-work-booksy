@@ -1,5 +1,141 @@
-<section class="section">
+<section class="section events">
   <div class="container">
-   
+    <p class="section-name">Events</p>
+    <h2 class="events-title">Upcoming Events at Booksy</h2>
+    <p class="events-text">
+      Discover readings, workshops, and bookish gatherings — online and offline.
+      Everyone’s welcome.
+    </p>
+    <div class="swiper">
+      <ul class="swiper-wrapper events-list">
+        <!-- slide 1 -->
+        <li class="swiper-slide events-item">
+          <picture class="events-image">
+            <source srcset="
+                          ./img/pc-events-club.webp    1x,
+                          ./img/pc-events-club@2x.webp 2x" media="(min-width: 1440px)" width="421" height="277" />
+            <source srcset="
+                      ./img/tab-events-club.webp    1x,
+                      ./img/tab-events-club@2x.webp 2x" media="(min-width: 768px)" width="340" height="277" />
+            <img src="./img/mob-events-club.webp" srcset="
+                                    
+                                    ././img/mob-events-club.webp    1x,
+                                    ./img/mob-events-club@2x.webp 2x
+                                  " width="343" height="248" alt="Cozy Book Club" loading="lazy" decoding="async" />
+          </picture>
+          </picture>
+          <div class="events-content-wrapper">
+            <div>
+              <p class="events-description">
+                Cozy Book Club — “The Midnight Library”
+              </p>
+              <div class="event-meta">
+                <span class="event-location">In-store</span>
+                <span>June 5, 6:30 PM</span>
+              </div>
+              <p class="events-content">
+                Join us for an evening of tea, thoughtful conversation, and
+                shared reflections as we dive into Matt Haig’s bestseller.
+              </p>
+            </div>
+            <button class="btn-secondary events-btn event-register-btn" data-event="book-registration" type="button">
+              <p>Register</p>
+              <svg class="icon-chevron-right" width="14" height="14">
+                <use href="/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
+          </div>
+        </li>
+        <!-- slide 2 -->
+        <li class="swiper-slide events-item">
+          <alt= class="events-image">
+            <source srcset="
+                                    /img/pc-events-children.webp    1x,
+                                    /img/pc-events-children@2x.webp 2x" media="(min-width: 1440px)" width="421"
+              height="277" />
+            <source srcset="
+                                /img/tab-events-children.webp    1x,
+                                /img/tab-events-children@2x.webp 2x" media="(min-width: 768px)" width="340"
+              height="277" />
+            <img src="/img/mob-events-children.webp" srcset="
+                                              
+                                              /img/mob-events-children.webp    1x,
+                                              /img/mob-events-children@2x.webp 2x
+                                            " width="343" height="248" loading="lazy" decoding="async"
+              alt="Book Cover Design Workshop" />
+            </picture>
+            <div class="events-content-wrapper">
+              <div>
+                <p class="events-description">Book Cover Design Workshop</p>
+                <div class="event-meta">
+                  <span class="event-location">Online</span>
+                  <span class="event-date">June 12, 7:00 PM</span>
+                </div>
+                <p class="events-content">
+                  A hands-on session for aspiring designers and curious readers.
+                  Learn what makes a cover stand out — from concept to print.
+                </p>
+              </div>
+              <button class="btn-secondary events-btn event-register-btn" data-event="book-registration" type="button">
+                <p>Register</p>
+                <svg class="icon-chevron-right" width="14" height="14">
+                  <use href="/img/icons.svg#icon-chevron-right"></use>
+                </svg>
+              </button>
+            </div>
+        </li>
+        <!-- slide 3 -->
+        <li class="swiper-slide events-item">
+          <picture class="events-image">
+            <source srcset="
+                                    /img/pc-events-workshop.webp    1x,
+                                    /img/pc-events-workshop@2x.webp 2x" media="(min-width: 1440px)" width="421" height="277" />
+            <source srcset="
+                                /img/tab-events-workshop.webp    1x,
+                                /img/tab-events-workshop@2x.webp 2x" media="(min-width: 768px)" width="340" height="277" />
+            <img src="/img/mob-events-workshop.webp" srcset="
+                                              
+                                              /img/mob-events-workshop.webp    1x,
+                                              /img/mob-events-workshop@2x.webp 2x
+                                            " width="343" height="248" loading="lazy" decoding="async" alt="Children’s Story Hour" />
+          </picture>
+          <div class="events-content-wrapper">
+            <div>
+              <p class="events-description">Children’s Story Hour</p>
+              <div class="event-meta">
+                <span class="event-location">Online</span>
+                <span class="event-date">June 12, 7:00 PM</span>
+              </div>
+              <p class="events-content">
+                A magical morning of stories, games, and imagination for our
+                youngest book lovers (ages 4–8).
+              </p>
+            </div>
+            <button class="btn-secondary events-btn event-register-btn" data-event="book-registration" type="button">
+              <p>Register</p>
+              <svg class="icon-chevron-right" width="14" height="14">
+                <use href="/img/icons.svg#icon-chevron-right"></use>
+              </svg>
+            </button>
+          </div>
+        </li>
+      </ul>
+      <!-- Navigation buttons -->
+      <div class="events-controls-wrapper">
+        <div class="swiper-pagination events-pagination"></div>
+        <div class="events-buttons-wrapper">
+          <button class="events-swiper-btn-prev arrow btn btn-size" type="button" aria-label="Previous slide">
+            <svg class="arrow-icon" width="14" height="14">
+              <use href="/img/icons.svg#icon-left-arrow"></use>
+            </svg>
+          </button>
+          <button class="events-swiper-btn-next arrow btn btn-size" type="button" aria-label="Next slide">
+            <svg class="arrow-icon" width="14" height="14">
+              <use href="/img/icons.svg#icon-right-arrow"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
