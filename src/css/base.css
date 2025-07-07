@@ -74,6 +74,7 @@
   --border-card: var(--text-secondary-color); /* Border color for inputs */
   --border-card-focus: #0b050099; /* Border color for inputs on hover and focus */
 }
+select,
 input,
 textarea {
   background-color: var(--foraground);
