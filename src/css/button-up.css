@@ -9,10 +9,6 @@
   display: none; /* початково приховано */
   justify-content: center;
   align-items: center;
-}
-
-.scroll-top.show {
-  display: flex;
   opacity: 1;
   transform: scale(1);
 }
