@@ -1,51 +1,71 @@
-<div class="modal modal-books">
+<div
+  class="modal modal-books"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="bookModalTitle"
+>
   <div class="container">
     <div class="modal-content">
-      <!--  -->
-      <button class="modal_close-btn">
+      <!-- render func injection  -->
+      <button class="modal_close-btn" aria-label="Close book details modal">
         <svg>
           <use xlink:href="/img/icons.svg#icon-close"></use>
         </svg>
       </button>
       <picture class="modal-books_picture" id="bookPicture">
-        <img class="modal-books_img" src="${bookPicture}" alt="" />
+        <img class="modal-books_img" src="" alt="" />
       </picture>
       <div
         class="modal-books_data"
-        data-book-id="${bookId}"
-        data-book-price="${bookPrice}"
-        data-book-title="${bookTitle}"
+        data-book-id=""
+        data-book-price=""
+        data-book-title=""
       >
-        <h2 class="modal-books_title">${bookTitle}</h2>
-        <p class="modal-books_author">${bookAuthor}</p>
-        <p class="modal-books_price">$${bookPrice}</p>
-        <div class="modal-books_quantity-container">
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-action="decrease"
+        <h2 class="modal-books_title" id="bookModalTitle"></h2>
+        <p class="modal-books_author"></p>
+        <p class="modal-books_price"></p>
+
+        <form class="book-action-form" id="bookModalActionForm">
+          <div
+            class="modal-books_quantity-container"
+            data-min-quantity="1"
+            data-max-quantity="999"
+            data-step="1"
           >
-            -
-          </button>
-          <input
-            class="quantity-input"
-            id="bookQuantity"
-            value="${bookQuantity}"
-            min="1"
-            data-original-value="1"
-          />
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-action="increase"
-          >
-            +
-          </button>
-        </div>
-        <div class="modal-books_buttons-container">
-          <button class="btn">Add To Cart</button>
-          <button class="btn btn-secondary">Buy Now</button>
-        </div>
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-action="decrease"
+            >
+              -
+            </button>
+            <label for="bookQuantity" class="visually-hidden"
+              >Book quantity</label
+            >
+
+            <input class="quantity-input" id="bookQuantity" value="" min="1" />
+            <button
+              class="btn btn-secondary"
+              type="button"
+              data-action="increase"
+            >
+              +
+            </button>
+          </div>
+          <div class="modal-books_message-container"></div>
+          <div class="modal-books_buttons-container">
+            <button class="btn" type="button" data-action="add-to-cart">
+              Add To Cart
+            </button>
+            <button
+              type="submit"
+              class="btn btn-secondary"
+              data-action="buy-now"
+            >
+              Buy Now
+            </button>
+          </div>
+        </form>
 
         <div class="accordion-container">
           <div class="ac">
@@ -58,7 +78,7 @@
               </button>
             </h2>
             <div class="ac-panel">
-              <p class="ac-text">${details}</p>
+              <p class="ac-text" data-ac="details"></p>
             </div>
           </div>
 
@@ -71,7 +91,7 @@
               </button>
             </h2>
             <div class="ac-panel">
-              <p class="ac-text">${shipping}</p>
+              <p class="ac-text" data-ac="shipping"></p>
             </div>
           </div>
 
@@ -84,12 +104,12 @@
               </button>
             </h2>
             <div class="ac-panel">
-              <p class="ac-text">${returns}</p>
+              <p class="ac-text" data-ac="returns"></p>
             </div>
           </div>
         </div>
       </div>
-      <!--  -->
+      <!-- --- -->
     </div>
   </div>
 </div>

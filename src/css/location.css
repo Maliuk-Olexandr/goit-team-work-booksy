@@ -1,0 +1,96 @@
+.location-header-row {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.location-header-text {
+  display: block;
+  text-transform: capitalize;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.location-title {
+  font-weight: 600;
+  font-size: 48px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.location-description {
+  font-size: 18px;
+}
+.location-info-wrapper {
+  font-style: normal;
+}
+
+.location-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.location-item {
+  display: flex;
+  gap: 16px;
+}
+
+.location-item-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-label {
+  font-size: 20px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+
+.info-value {
+  text-decoration: underline;
+  display: block;
+}
+.info-address {
+  text-decoration: none;
+}
+
+.location-map {
+  border-radius: 16px;
+  width: 100%;
+  height: 395px;
+  overflow: hidden;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25); /* Добавлена тень */
+}
+
+/* Tablet */
+@media screen and  (min-width: 768px) {
+  .location-header-row {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 80px;
+  }
+
+  .location-header,
+  .location-info-wrapper {
+    width: 336px;
+  }
+}
+
+/* Desktop */
+@media screen and  (min-width: 1440px) {
+ 
+  .location-header {
+    width: 732px;
+  }
+
+  .location-info-wrapper {
+    width: 500px;
+  }
+  .location-map {
+    height: 738px;
+  }
+}

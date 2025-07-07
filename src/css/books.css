@@ -1,0 +1,225 @@
+.gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 0;
+}
+
+.books-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.categories-list {
+    display: none;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+#category-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: rgba(11, 5, 0, 0.05);
+  font-size: 18px;
+  line-height: 1.5;
+  padding: 8px 40px 8px 12px; /* відступ справа для іконки */
+  width: 100%;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  border-radius: 8px;
+  position: relative;
+  z-index: 1; /* переконайся, що select не перекриває іконку */
+  background-image: none; /* на всякий випадок */
+}
+
+.categories-arrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  pointer-events: none;
+  transform: translateY(-50%);
+  fill: #333;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.books-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.book-card {
+    flex-basis: calc((100% - 24px) / 2);
+}
+
+.book-cover {
+    width: 343px;
+    height: 488px;
+}
+
+.book-card-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 0;
+}
+
+.book-card-title {
+    font-weight: 600;
+    width: 260px;
+    font-size: 16px;
+    line-height: 1.5;
+    text-transform: capitalize;
+    white-space: nowrap;       
+    overflow: hidden;            
+    text-overflow: ellipsis;
+}
+.book-card-author {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    width: 260px;
+    white-space: nowrap;         
+    overflow: hidden;            
+    text-overflow: ellipsis;
+}
+
+.book-price {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.btn-book {
+    width: 100%;
+    height: 40px;
+    border-radius: 4px;
+}
+
+.btn-show-more {
+    width: 342px;
+    height: 48px;
+}
+
+.btn-show-more-hidden {
+    display: none;
+}
+
+.subtitle {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+.counter-books {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+@media only screen and (min-width: 768px) {
+    .gallery {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    .book-cover {
+    width: 340px;
+    height: 480px;
+    }
+
+    .categories-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+    }
+
+    #category-select {
+        width: 243px;
+        height: 43px;
+    }
+
+    .select-wrapper {
+        width: 243px;
+        height: 43px;
+    }
+
+    .books-counter {
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    .books-form {
+        display: flex;
+        flex-direction: row;
+        align-items: start;
+        gap: 24px;
+    }
+
+    .categories-wrapper {
+        width: 308px;
+        flex-direction: column;
+        align-items: start;
+    }
+
+    .select-wrapper {
+        display: none;
+    }
+
+    .categories-list {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 8px
+    }
+
+    .book-cover {
+    width: 100%;
+    height: 322px;
+    }
+
+    .gallery {
+        width: 980px;
+        gap: 40px 24px;
+    }
+
+    .book-card {
+        flex-basis: calc((100% - 72px) / 4);
+    }
+
+    .book-card-title {
+        width: 140px;
+    }
+    .book-card-author {
+        width: 140px;
+    }
+
+    .category-item {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+    }
+
+    .category-btn {
+        font-size: 18px;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    .active-category {
+        transform: scale(1.25);
+        color: #5a2502;
+        text-shadow: var(--btn-background) 0 0 3px;
+    }
+}
