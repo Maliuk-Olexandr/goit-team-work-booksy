@@ -1,243 +1,402 @@
-//Описана робота модалки - відкриття закриття і все що з модалкою повʼязано
 import Accordion from 'accordion-js';
 import 'accordion-js/dist/accordion.min.css';
 import { renderBookModal } from './render-function';
 import { getBookByID } from './products-api';
 import { addToCart, getFromCartByID } from './storage';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
-const refs = {
-  modalBooks: document.querySelector('.modal-books'),
-  modalContacts: document.querySelector('.modal-contacts'),
+// --- Constants for default text ---
+const DEFAULT_BOOK_DETAILS = {
+  details: `I Will Find You is a gripping thriller by the master of suspense, Harlan Coben. The story follows David Burroughs, a former prisoner wrongfully convicted of murdering his own son. When he discovers a clue suggesting his son might still be alive, David escapes from prison to uncover the truth. Fast-paced, emotional, and full of unexpected twists — this novel will keep you hooked until the very last page.`,
+  shipping: `We ship across the United States within 2–5 business days. All orders are processed through USPS or a reliable courier service. Enjoy free standard shipping on orders over $50.`,
+  returns: `You can return an item within 14 days of receiving your order, provided it hasn’t been used and is in its original condition. To start a return, please contact our support team — we’ll guide you through the process quickly and hassle-free.`,
 };
 
-function openModal(reference) {
-  if (!reference) {
-    console.error('Modal reference is not found');
-    return;
+// initialise modal-books accordeon
+const booksAccordion = new Accordion(
+  document.querySelector('.accordion-container'),
+  {
+    showMultiple: true,
+    duration: 400,
+    collapse: true,
+  }
+);
+
+class Modal {
+  constructor(modalElement) {
+    if (!modalElement) throw new Error('Modal Element not found');
+    this.modalElement = modalElement;
+    this.escapeHandler = this.handleEscape.bind(this);
+    this.closeClickHandler = this.handleCloseClick.bind(this);
   }
 
-  if (reference.escapeHandler) {
-    document.removeEventListener('keydown', reference.escapeHandler);
-    reference.removeEventListener('click', handleModalCloseClick);
+  open() {
+    this.modalElement.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', this.escapeHandler);
+    this.modalElement.addEventListener('click', this.closeClickHandler);
   }
 
-  // Створюю функцію з замиканням і зберігаю в DOM елементі який отримую як параметр
-  reference.escapeHandler = event => {
-    if (event.key === 'Escape') closeModal(reference);
-  };
+  close() {
+    this.modalElement.classList.remove('is-open');
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', this.escapeHandler);
+    this.modalElement.removeEventListener('click', this.closeClickHandler);
+  }
 
-  // Додаю обробники подій
-  document.addEventListener('keydown', reference.escapeHandler);
-  reference.addEventListener('click', handleModalCloseClick);
+  handleEscape(event) {
+    if (event.key === 'Escape') this.close();
+  }
 
-  // Відкриваю модальне вікно
-  reference.classList.add('is-open');
-
-  // Виключаю скрол під модалкою
-  document.body.style.overflow = 'hidden';
+  handleCloseClick(event) {
+    const closeBtn = this.modalElement.querySelector('.modal_close-btn');
+    const isCloseButtonClick = closeBtn && closeBtn.contains(event.target);
+    const isOverlayClick = event.target === this.modalElement;
+    if (isCloseButtonClick || isOverlayClick) this.close();
+  }
 }
 
-function closeModal(reference) {
-  if (!reference) {
-    console.error('Modal reference is not found');
-    return;
+class ContactModal extends Modal {
+  constructor(modalElement) {
+    super(modalElement);
+    this.form = this.modalElement.querySelector('#contactForm');
+    this.nameInput = this.form.querySelector('#user_name');
+    this.emailInput = this.form.querySelector('#user_email');
+    this.messageInput = this.form.querySelector('#user_message');
+    this.nameErrorContainer = this.form.querySelector(
+      '.contact-form-name .validation-error'
+    );
+    this.emailErrorContainer = this.form.querySelector(
+      '.contact-form-email .validation-error'
+    );
+    this.messageErrorContainer = this.form.querySelector(
+      '.contact-form-message .validation-error'
+    );
+
+    if (!this.form) throw new Error('Contact form not found in the modal');
+    this.submitHandler = this.handleSubmit.bind(this);
+    this.handleNameInput = this.clearErrorContainer.bind(
+      this,
+      this.nameInput,
+      this.nameErrorContainer
+    );
+    this.handleEmailInput = this.clearErrorContainer.bind(
+      this,
+      this.emailInput,
+      this.emailErrorContainer
+    );
+    this.handleMessageInput = this.clearErrorContainer.bind(
+      this,
+      this.messageInput,
+      this.messageErrorContainer
+    );
   }
 
-  // Видаляю обробники подій
-  reference.removeEventListener('click', handleModalCloseClick);
-  document.removeEventListener('keydown', reference.escapeHandler);
-
-  const form = document.getElementById('bookModalActionForm');
-  if (form) {
-    form.removeEventListener('submit', handleFormSubmit);
-    form.removeEventListener('click', handleBooksModalButtons);
+  clearErrorContainer(inputElement, errorContainer) {
+    inputElement.classList.remove('invalid');
+    errorContainer.innerText = '';
   }
 
-  // Закриваю модальне вікно
-  reference.classList.remove('is-open');
-
-  // Включаю скрол під модалкою
-  document.body.style.overflow = '';
-}
-
-function handleModalCloseClick(event) {
-  const currentModal = event.currentTarget;
-  const closeBtn = currentModal.querySelector('.modal_close-btn');
-  const closeBtnClick = closeBtn.contains(event.target);
-  const overlayClick = event.target === currentModal;
-
-  if (closeBtnClick || overlayClick) closeModal(currentModal);
-}
-
-class ContactForm {
-  constructor(formId) {
-    this.form = document.getElementById(formId);
-    this.submitBtn = this.form.querySelector('#submitBtn');
-    this.form.addEventListener('submit', event => {
-      event.preventDefault();
-      this.handleSubmit();
-    });
+  open() {
+    super.open();
+    this.form.addEventListener('submit', this.submitHandler);
+    this.nameInput.addEventListener('focus', this.handleNameInput);
+    this.emailInput.addEventListener('focus', this.handleEmailInput);
+    this.messageInput.addEventListener('focus', this.handleMessageInput);
   }
 
-  getFormData() {
-    const formData = new FormData(this.form);
-    const data = {};
-
-    for (let [key, value] of formData.entries()) {
-      data[key] = value.trim();
-    }
-
-    return data;
-  }
-
-  showSuccess(message) {
-    console.log(message);
-  }
-
-  resetForm() {
+  close() {
+    super.close();
+    this.form.removeEventListener('submit', this.submitHandler);
+    this.nameInput.removeEventListener('focus', this.handleNameInput);
+    this.emailInput.removeEventListener('focus', this.handleEmailInput);
+    this.messageInput.removeEventListener('focus', this.handleMessageInput);
     this.form.reset();
   }
 
-  async handleSubmit() {
-    const formData = this.getFormData();
+  validate() {
+    const errorsArr = [];
+    const errorMessage = {
+      name: '❌ Please enter valid Name',
+      email: {
+        valid: '❌ Please enter valid Email',
+        required: '❌ Email is a required field',
+      },
+      message: '❌ Message can not be empty',
+    };
+    // Reset previous validation states
+    this.nameInput.classList.remove('invalid');
+    this.emailInput.classList.remove('invalid');
+    this.messageInput.classList.remove('invalid');
+
+    // Name validation
+    if (this.nameInput.value.trim() === '') {
+      errorsArr.push(errorMessage.name);
+      this.nameInput.classList.add('invalid');
+      this.nameErrorContainer.innerText = errorMessage.name;
+    }
+
+    // simple Email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (this.emailInput.value.trim() === '') {
+      // if empty
+      errorsArr.push(errorMessage.email.required);
+      this.emailInput.classList.add('invalid');
+      this.emailErrorContainer.innerText = errorMessage.email.required;
+    } else if (!emailPattern.test(this.emailInput.value)) {
+      // if invalid
+      errorsArr.push(errorMessage.email.valid);
+      this.emailInput.classList.add('invalid');
+      this.emailErrorContainer.innerText = errorMessage.email.valid;
+    }
+
+    // Message validation
+    if (this.messageInput.value.trim() === '') {
+      errorsArr.push(errorMessage.message);
+      this.messageInput.classList.add('invalid');
+      this.messageErrorContainer.innerText = errorMessage.message;
+    }
+
+    return errorsArr;
+  }
+
+  async handleSubmit(event) {
+    event.preventDefault();
+    const formData = new FormData(this.form);
+    const data = Object.fromEntries(formData.entries());
+
+    // Call the validate method
+    const validationErrors = this.validate();
+    if (validationErrors.length > 0) {
+      return; // Stop the submission
+    }
 
     try {
-      await this.submitForm(formData);
-      this.showSuccess('Your registration has been submitted.');
-      this.resetForm();
+      await this.submitForm(data);
+      iziToast.show({
+        position: 'center',
+        theme: 'light',
+        message: `❤︎ Your registration has been submitted.`,
+      });
+      this.close();
     } catch (error) {
       console.error('Form submission error:', error);
+      iziToast.show({
+        position: 'center',
+        theme: 'light',
+        message: `✖ 'There was an error submitting your registration. Please try again.'`,
+      });
     }
   }
 
   async submitForm(data) {
-    console.log('Form data:', data);
+    console.log('Submitting form data:', data);
   }
 }
 
-export function openContactsModal(obj) {
-  openModal(refs.modalContacts);
-  const contactForm = new ContactForm('contactForm');
+// --- Books Modal Class ---
+class BooksModal extends Modal {
+  constructor(modalElement) {
+    super(modalElement);
+    this.eventHandler = this.handleEvents.bind(this);
+  }
+
+  async open(bookId) {
+    try {
+      const bookData = await getBookByID(bookId);
+      const dataObj = this.prepareData(bookData);
+      renderBookModal(dataObj);
+
+      if (booksAccordion) booksAccordion.closeAll();
+
+      super.open(); // Call open from the base class after content is ready
+
+      this.form = this.modalElement.querySelector('#bookModalActionForm');
+      if (this.form) {
+        this.form.addEventListener('click', this.eventHandler);
+        this.form.addEventListener('submit', this.eventHandler);
+      }
+    } catch (error) {
+      console.error(`Error loading book with ID ${bookId}:`, error);
+      iziToast.show({
+        position: 'center',
+        theme: 'light',
+        message: `✖ 'Sorry, couldn't load the book details. Please try again later.'`,
+      });
+    }
+  }
+
+  close() {
+    super.close();
+    if (this.form) {
+      this.form.removeEventListener('click', this.eventHandler);
+      this.form.removeEventListener('submit', this.eventHandler);
+    }
+  }
+
+  prepareData(response) {
+    return {
+      bookId: response._id,
+      bookPicture: response.book_image,
+      bookTitle: response.title,
+      bookAuthor: response.author,
+      bookPrice: response.price,
+      bookQuantity: 1,
+      details: response.details || DEFAULT_BOOK_DETAILS.details,
+      shipping: response.shipping || DEFAULT_BOOK_DETAILS.shipping,
+      returns: response.returns || DEFAULT_BOOK_DETAILS.returns,
+    };
+  }
+
+  handleEvents(event) {
+    event.preventDefault();
+    const target = event.target;
+    const action = target.dataset.action;
+
+    switch (action) {
+      case 'decrease':
+        this.updateQuantity(-1);
+        break;
+      case 'increase':
+        this.updateQuantity(1);
+        break;
+      case 'add-to-cart':
+        this.handleAddToCart(target);
+        break;
+      case 'buy-now':
+        this.handleBuyNow();
+        break;
+    }
+
+    if (event.type === 'submit') this.handleBuyNow();
+  }
+
+  updateQuantity(change) {
+    const quantityInput = this.form.querySelector('.quantity-input');
+    let currentValue = parseInt(quantityInput.value);
+    const newValue = currentValue + change;
+
+    if (newValue >= 1) quantityInput.value = newValue;
+  }
+
+  handleAddToCart(button) {
+    const modalData = button.closest('[data-book-id]');
+    const bookId = modalData.dataset.bookId;
+    const quantity = parseInt(this.form.querySelector('.quantity-input').value);
+
+    iziToast.show({
+      iconUrl: '/img/icons.svg',
+      theme: 'light',
+      progressBar: true,
+      message: `Book (${quantity} pcs) added`,
+      target: '.modal-books_message-container',
+      timeout: 3000,
+      // replace izitost image tag to use sprite
+      onOpening: function (instance, toast) {
+        replaceIziToastIcon(toast, '/img/icons.svg#icon-shopping-basket');
+      },
+    });
+
+    console.log(`Book with ID '${bookId}' (qty: ${quantity}) added to Cart.`);
+    console.log(`Total ID '${bookId}' in Cart: ${getFromCartByID(bookId)}`);
+
+    addToCart(bookId, quantity);
+  }
+
+  handleBuyNow() {
+    console.log('"Buy Now" clicked.');
+    iziToast.show({
+      iconUrl: '/img/icons.svg',
+      position: 'center',
+      theme: 'light',
+      message: `Thanks for buying!`,
+      timeout: 3000,
+      onOpening: function (instance, toast) {
+        replaceIziToastIcon(toast, '/img/icons.svg#icon-shopping-basket');
+      },
+    });
+
+    this.close();
+  }
+}
+
+/**  * Replaces the default <img> icon in an iziToast notification with a
+  custom <svg> element that uses a sprite icon.
+*
+* This function is a workaround to use SVG sprites with iziToast, which natively  
+* only supports direct image URLs. It finds the <img> icon element within the toast
+* and replaces it with a programmatically created <svg> and <use> element.  
+* It is critical to call this function within the `onOpening` callback of `iziToast.show()`,
+* as this guarantees the toast element exists in the DOM and is ready for manipulation.
+*
+* @private
+* @param {HTMLElement} toastElement - The toast DOM element, provided by the `onOpening` callback.
+* @param {string} iconHref - The full path to the SVG icon within the sprite file (e.g., '/img/icons.svg#icon-shopping-basket').
+* @returns {void}
+*/
+function replaceIziToastIcon(toastElement, iconHref) {
+  const imgElement = toastElement.querySelector('.iziToast-icon');
+  if (imgElement) {
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute(
+      'class',
+      `${imgElement.getAttribute('class')} revealIn customIziToastIcon`
+    );
+    svg.setAttribute('width', '24');
+    svg.setAttribute('height', '24');
+    const use = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+    use.setAttributeNS('http://www.w3.org/1999/xlink', 'href', iconHref);
+
+    svg.appendChild(use);
+    imgElement.parentNode.replaceChild(svg, imgElement);
+  }
+}
+
+// --- Initialization ---
+const contactModalElement = document.querySelector('.modal-contacts');
+const booksModalElement = document.querySelector('.modal-books');
+
+let contactModal, booksModal;
+
+if (contactModalElement) {
+  contactModal = new ContactModal(contactModalElement);
+}
+
+if (booksModalElement) {
+  booksModal = new BooksModal(booksModalElement);
 }
 
 /**
- * Opens a modal displaying book information.
- * @param {string} bookId - book id.
+ * Opens the contacts modal and dynamically sets its description text.
+ * If no event name is provided, it will use a default string.
+ * @param {string} booksyEvent - The name of the event or context to display in the modal's description.
  */
-export async function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
-  try {
-    const responce = await getBookByID(bookId);
-    const dataObj = {
-      bookId: responce._id,
-      bookPicture: responce.book_image,
-      bookTitle: responce.title,
-      bookAuthor: responce.author,
-      bookPrice: responce.price,
-      bookQuantity: 1,
-      details:
-        responce.details ||
-        `I Will Find You is a gripping thriller by the master of
-                suspense, Harlan Coben. The story follows David Burroughs, a
-                former prisoner wrongfully convicted of murdering his own son.
-                When he discovers a clue suggesting his son might still be
-                alive, David escapes from prison to uncover the truth.
-                Fast-paced, emotional, and full of unexpected twists — this
-                novel will keep you hooked until the very last page.`, //@TODO teamlid/mentor ansver
-      shipping:
-        responce.shipping ||
-        `We ship across the United States within 2–5 business days. All
-                orders are processed through USPS or a reliable courier service.
-                Enjoy free standard shipping on orders over $50.`, //@TODO teamlid/mentor ansver
-      returns:
-        responce.returns ||
-        `You can return an item within 14 days of receiving your order,
-                provided it hasn’t been used and is in its original condition.
-                To start a return, please contact our support team — we’ll guide
-                you through the process quickly and hassle-free.`, //@TODO teamlid/mentor ansver
-    };
-
-    openModal(refs.modalBooks);
-    renderBookModal(refs.modalBooks, dataObj);
-    new Accordion(
-      refs.modalBooks.querySelector('.modal-books .accordion-container'),
-      {
-        showMultiple: true,
-        duration: 400,
-        collapse: true,
-      }
-    );
-
-    const form = document.getElementById('bookModalActionForm');
-    if (!form) {
-      console.error('Form bookModalActionForm not found');
-      return;
-    }
-
-    form.addEventListener('submit', handleFormSubmit);
-    form.addEventListener('click', handleBooksModalButtons);
-  } catch (error) {
-    console.error('Error loading  with getBookByID:', error);
+export function openContactsModal(booksyEvent = `Children’s Story Hour`) {
+  if (contactModal) {
+    document.querySelector('#modalDesc').textContent = booksyEvent;
+    contactModal.open();
+  } else {
+    console.error('Contact modal is not initialized.');
   }
 }
 
-//#region books modal logic
-function handleFormSubmit(event) {
-  event.preventDefault();
-  handleBuyNow();
-}
-
-function handleBooksModalButtons(event) {
-  const action = event.target.dataset.action;
-
-  switch (action) {
-    case 'decrease':
-      handleQuantityDecrease(event.target);
-      break;
-    case 'increase':
-      handleQuantityIncrease(event.target);
-      break;
-    case 'add-to-cart':
-      handleAddToCart(event.target);
-      break;
+/**
+ * Opens the books modal and fetches the details for a specific book.
+ * If no id is provided, it will use a default string.
+ * @param {string} bookId - The unique ID of the book to display.
+ */
+export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
+  if (booksModal) {
+    booksModal.open(bookId);
+  } else {
+    console.error('Books modal is not initialized.');
   }
 }
-
-function handleQuantityDecrease(button) {
-  const container = button.closest('[data-min-quantity]');
-  const input = container.querySelector('.quantity-input');
-  const minQuantity = parseInt(container.dataset.minQuantity);
-  const currentValue = parseInt(input.value);
-
-  if (currentValue > minQuantity) input.value = currentValue - 1;
-}
-
-function handleQuantityIncrease(button) {
-  const container = button.closest('[data-max-quantity]');
-  const input = container.querySelector('.quantity-input');
-  const maxQuantity = parseInt(container.dataset.maxQuantity);
-  const currentValue = parseInt(input.value);
-
-  if (currentValue < maxQuantity) input.value = currentValue + 1;
-}
-
-function handleAddToCart(button) {
-  const modalData = button.closest('[data-book-id]');
-  const bookId = modalData.dataset.bookId;
-  const quantity = parseInt(modalData.querySelector('.quantity-input').value);
-
-  addToCart(bookId, quantity);
-
-  console.log(`Book with ID'${bookId}' in q-ty '${quantity}' added to Cart`);
-  console.log(`Total ID'${bookId}' in Cart ${getFromCartByID(bookId)}`);
-}
-
-function handleBuyNow() {
-  console.log('Thanks for bying');
-}
-//#endregion books modal logic
 
 //#region @TODO delete before deployment
 window.openBooksModal = openBooksModal;
 // openBooksModal();
+// openContactsModal();
 window.openContactsModal = openContactsModal;
 //#endregion @TODO delete before deployment
