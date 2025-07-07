@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/goit-team-work-booksy/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Booksy</title>
-    <script type="module" crossorigin src="/goit-team-work-booksy/index.js"></script>
-    <link rel="modulepreload" crossorigin href="/goit-team-work-booksy/assets/vendor-DlTilzpZ.js">
-    <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/vendor-06AMjbQk.css">
-    <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-BVd9L0cw.css">
-  </head>
-  <body>
-    <header class="section">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/goit-team-work-booksy/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booksy</title>
+  <meta name="description"
+    content="Booksy is your trusted online bookstore based in Sydney, Australia. Explore bestsellers, new releases, and exclusive book deals with fast and reliable local shipping.">
+  <meta name="keywords"
+    content="Booksy Australia, Sydney bookstore, online bookstore Australia, buy books Sydney, Australian bookshop, book deals Australia, bestsellers, new releases, fast book delivery, fiction books, non-fiction books, kids books Australia">
+
+  <script type="module" crossorigin src="/goit-team-work-booksy/index.js"></script>
+  <link rel="modulepreload" crossorigin href="/goit-team-work-booksy/assets/vendor-DlTilzpZ.js">
+  <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/vendor-06AMjbQk.css">
+  <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-D9FGA6sP.css">
+</head>
+
+<body>
+  <header class="section">
   <div class="container header">
-    <a class="logo" href="./index.html">
+    <a class="logo" href="./index.html" aria-label="Booksy Logo, Home">
       <svg class="logo__icon" width="84" height="36">
         <use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-logo"></use>
       </svg> </a>
@@ -26,7 +33,7 @@
         <li><a href="#location" class="header-link">Location</a></li>
       </ul>
     </nav>
-    <button class="burger-btn" type="button" data-menu-open>
+    <button class="burger-btn" type="button" data-menu-open aria-label="Open menu">
       <svg class="burger-icon" width="24" height="24">
         <use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-menu"></use>
       </svg>
@@ -35,10 +42,10 @@
     <div class="mobile-menu">
       <div class=" wrap">
         <div class="mobile-window-header">
-          <a class="logo" href="./index.html"> <svg width="84" height="36">
+          <a class="logo" href="./index.html" aria-label="Booksy Logo, Home"> <svg width="84" height="36">
               <use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-logo"></use>
             </svg> </a>
-          <button class="close-btn" type="button" data-menu-close>
+          <button class="close-btn" type="button" data-menu-close aria-label="Close menu">
             <svg class="icon-close" width="12" height="12">
               <use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-close"></use>
             </svg>
@@ -59,9 +66,9 @@
   </div>
 </header>
 
-    <main>
-      <!-- Loads the specified .html file -->
-      <section class="section hero" id="hero">
+  <main>
+    <!-- Loads the specified .html file -->
+    <section class="section hero" id="hero">
   <div class="container hero-container">
     <div class="hero-title-container">
       <h1 class="hero-title">Discover Your Next Great Read Today!</h1>
@@ -237,19 +244,20 @@
   </div>
 </section>
 
-      <section class="section">
+    <section class="section">
   <div class="container" id="books">
+    <h2 class="visually-hidden">Trending books</h2>
     <form class="books-form">
-      <div class="categories-wrapper">
+      <div class="categories-wrapper" aria-labelledby="books-subtitle">
         <div class="books-counter">
-          <h3 class="subtitle">Books</h3>
+          <h3 class="subtitle" id="books-subtitle">Books</h3>
           <p class="counter-books">Showing <span class="visible-books"></span> of <span class="total-books"></span></p>
         </div>
         <ul class="categories-list"></ul>
         <div class="select-wrapper">
-        <select id="category-select">
+        <select id="category-select" aria-label="Select book category">
         </select>
-        <svg class="categories-arrow" width="12" height="8"><use href="../img/icons.svg#icon-chevron-down" /></svg>
+        <svg class="categories-arrow" width="12" height="8"><use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-chevron-down" /></svg>
         </div>
       </div>
       <div class="books-wrapper">
@@ -260,19 +268,19 @@
   </div>
 </section>
 
-      <section class="section">
+    <section class="section">
   <div class="container">
    
   </div>
 </section>
 
-      <section class="section">
+    <section class="section">
   <div class="container">
    
   </div>
 </section>
 
-      <section class="section" id="article" aria-labelledby="article-title">
+    <section class="section" id="article" aria-labelledby="article-title">
   <div class="container article-container">
     <div class="article-text">
       <h2 class="article-text-title" id="article-title">
@@ -316,7 +324,7 @@
   </div>
 </section>
 
-      <section id="location">
+    <section id="location">
   <div class="container">
     <div class="location-header-row">
       <div class="location-header">
@@ -381,20 +389,20 @@
   </div>
 </section>
 
-    </main>
+  </main>
 
-    <footer class="section footer">
+  <footer class="section footer">
   <div class="container">
 
   </div>
 </footer>
-    <button type="button" class="arrow scroll-top" aria-label="Back to top">
+  <button type="button" class="arrow scroll-top" aria-label="Back to top">
   <svg class="scroll-top-icon" width="20" height="20">
     <use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-up-arrow"></use>
   </svg>
 </button>
 
-    <div
+  <div
   class="modal modal-books"
   role="dialog"
   aria-modal="true"
@@ -510,7 +518,7 @@
   </div>
 </div>
 
-    <div
+  <div
   class="modal modal-contacts"
   role="dialog"
   aria-modal="true"
@@ -573,5 +581,6 @@
   </div>
 </div>
 
-  </body>
+</body>
+
 </html>
