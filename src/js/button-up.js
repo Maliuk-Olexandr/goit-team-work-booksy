@@ -33,7 +33,7 @@ export function initScrollToTopBtn(selector = '.scroll-top') {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  toggleButtonVisibility(); // Ініціалізація після завантаження
+  toggleButtonVisibility(); // Initialization after page load
 }
 
 initScrollToTopBtn() // Виклик функції для ініціалізації кнопки "Повернутися вгору"
