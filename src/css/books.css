@@ -218,7 +218,7 @@
     }
 
     .gallery {
-        width: 980px;
+        max-width: 980px;
         gap: 40px 24px;
     }
 
