@@ -8,6 +8,12 @@ function initHeroSlider() {
     console.warn('Swiper-контейнер не знайдено');
     return;
   }
+  const wrapper = document.querySelector('.swiper-wrapper');
+  [...wrapper.childNodes].forEach(node => {
+    if (node.nodeType !== Node.ELEMENT_NODE || node.nodeName !== 'LI') {
+      wrapper.removeChild(node);
+    }
+  });
 
   const prevBtn = document.querySelector('.hero-swiper-btn-prev');
   const nextBtn = document.querySelector('.hero-swiper-btn-next');
