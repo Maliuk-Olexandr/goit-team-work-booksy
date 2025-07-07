@@ -290,7 +290,7 @@ class BooksModal extends Modal {
       iconUrl: '/img/icons.svg',
       theme: 'light',
       progressBar: true,
-      message: `Book (qty: ${quantity}) added`,
+      message: `Book (${quantity} pcs) added`,
       target: '.modal-books_message-container',
       timeout: 3000,
       // replace izitost image tag to use sprite
