@@ -33,7 +33,12 @@ export async function getCategoryList() {
  * @returns {Promise<Object>} Object of book categories, each containing details about the 5 books within that category
  */
 export async function getTopBooks() {
-  return await fetchURL(`/top-books`);
+  const response = await fetchURL(`/top-books`);
+  const uniqueBooks = response.map(list => ({
+    ...list,
+    books: filterUniqueBooksByImage(list.books),
+  }));
+  return uniqueBooks;
 }
 
 /**
@@ -47,7 +52,29 @@ export async function getBooksByCategory(category) {
     console.error(error);
     throw error;
   }
-  return await fetchURL(`/category?category=${category}`);
+  const response = await fetchURL(`/category?category=${category}`);
+  const uniqueBooks = filterUniqueBooksByImage(response);
+  return uniqueBooks;
+}
+
+/**
+ * Filters an array of books to keep only those with unique book_image URLs
+ * @param {Array<Object>} books - Array of book objects
+ * @returns {Array<Object>} Filtered array of books with unique book_image
+ */
+// function filterUniqueBooksByImage(books) {
+//   return books.filter(
+//     (book, index, self) =>
+//       index === self.findIndex(b => b.book_image === book.book_image)
+//   );
+// }
+function filterUniqueBooksByImage(books) {
+  const seen = new Set();
+  return books.filter(book => {
+    if (seen.has(book.book_image)) return false;
+    seen.add(book.book_image);
+    return true;
+  });
 }
 
 /**
