@@ -237,6 +237,10 @@
     line-height: 1.5;
     text-align: left;
   }
+    .category-btn:hover {
+        color: #5a2502;
+        text-shadow: var(--btn-background) 0 0 3px;
+    }
 
   .active-category {
     transform: scale(1.25);
