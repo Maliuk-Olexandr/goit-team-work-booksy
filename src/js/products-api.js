@@ -64,24 +64,3 @@ export async function getBookByID(id) {
   return await fetchURL(`/${id}`);
 }
 
-// start TODO: Remove this test code before production deployment.
-export async function testAPI() {
-  try {
-    const catList = await getCategoryList();
-    const topBooks = await getTopBooks();
-    const booksByCategory = await getBooksByCategory(catList[0]);
-    const id = booksByCategory[0]._id;
-    console.log('\x1b[32mtestAPI() start ------------\x1b[0m');
-    console.log('\x1b[32m1. getCategoryList():\x1b[0m', catList);
-    console.log('\x1b[32m2. getTopBooks():\x1b[0m', topBooks);
-    console.log(
-      `\x1b[32m3. getBooksByCategory('${catList[0]}'):\x1b[0m`,
-      booksByCategory
-    );
-    console.log(`\x1b[32m4. getBookByID("${id}"):`, await getBookByID(id));
-    console.log('\x1b[32mtestAPI() end ------------\x1b[\x1b[0m');
-  } catch (error) {
-    console.error('API test failed:', error);
-  }
-}
-// end TODO: Remove this test code before production deployment.

@@ -8,41 +8,61 @@ export function debounce(func, delay) {
   };
 }
 
-
 // Ініціалізація слайдера Swiper
 import Swiper from 'swiper/bundle';
 import 'swiper/css/bundle';
+
 /**
- * Ініціалізує слайдер Swiper з вказаними селекторами для контейнера, кнопок попереднього та наступного слайдів.
+ * Ініціалізує слайдер Swiper з підтримкою пагінації, навігації та брейкпоінтів.
  * @param {Object} options - Налаштування слайдера.
- * @param {string} options.containerSelector - CSS-селектор для контейнера слайдера.
- * @param {string} options.prevSelector - CSS-селектор для кнопки "Попередній".
- * @param {string} options.nextSelector - CSS-селектор для кнопки "Наступний".
- * @returns {Swiper} Повертає екземпляр Swiper.
+ * @param {string} options.containerSelector - CSS-селектор контейнера слайдера.
+ * @param {string} [options.prevSelector] - CSS-селектор кнопки "Попередній".
+ * @param {string} [options.nextSelector] - CSS-селектор кнопки "Наступний".
+ * @param {string} [options.paginationSelector] - CSS-селектор контейнера пагінації.
+ * @param {Function} [options.customBullet] - Функція кастомного bullet-рендера.
+ * @param {Object} [options.breakpoints] - Налаштування брейкпоінтів.
+ * @param {Object} [options.options] - Додаткові налаштування Swiper.
+ * @returns {Swiper|null}
  */
 export function initSlider({
   containerSelector,
   prevSelector,
   nextSelector,
+  paginationSelector,
+  customBullet,
+  breakpoints,
+  options = {},
 }) {
   const root = document.querySelector(containerSelector);
   if (!root) {
     console.warn(`Swiper контейнер ${containerSelector} не знайдено`);
-    return;
+    return null;
   }
 
-  const prevBtn = document.querySelector(prevSelector);
-  const nextBtn = document.querySelector(nextSelector);
+  const prevBtn = prevSelector ? document.querySelector(prevSelector) : null;
+  const nextBtn = nextSelector ? document.querySelector(nextSelector) : null;
+  const paginationEl = paginationSelector
+    ? document.querySelector(paginationSelector)
+    : null;
 
-  // ініціалізація Swiper
+  // Формуємо налаштування пагінації лише якщо елемент існує
+  let pagination;
+  if (paginationEl) {
+    pagination = {
+      el: paginationEl,
+      clickable: true,
+    };
+
+    if (typeof customBullet === 'function') {
+      pagination.renderBullet = customBullet;
+    }
+  }
+
   const swiper = new Swiper(root, {
     loop: false,
-    effect: 'slide',
+    slidesPerView: 1,
+    slidesPerGroup: 1,
     parallax: true,
-    navigation: {
-      nextEl: nextBtn,
-      prevEl: prevBtn,
-    },
     autoplay: {
       delay: 10000,
       disableOnInteraction: true,
@@ -52,8 +72,23 @@ export function initSlider({
       enabled: true,
       onlyInViewport: true,
     },
-    slidesPerView: 1,
-    slidesPerGroup: 1,
+    navigation:
+      prevBtn && nextBtn
+        ? {
+            nextEl: nextBtn,
+            prevEl: prevBtn,
+          }
+        : undefined,
+    ...(paginationEl && {
+      pagination: {
+        el: paginationEl,
+        clickable: true,
+        ...(typeof customBullet === 'function' && {
+          renderBullet: customBullet,
+        }),
+      },
+    }),
+    breakpoints,
     on: {
       init(sw) {
         updateArrows(sw);
@@ -62,6 +97,7 @@ export function initSlider({
         updateArrows(sw);
       },
     },
+    ...options,
   });
 
   function updateArrows(sw) {

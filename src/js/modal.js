@@ -394,10 +394,3 @@ export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
     console.error('Books modal is not initialized.');
   }
 }
-
-//#region @TODO delete before deployment
-window.openBooksModal = openBooksModal;
-// openBooksModal();
-// openContactsModal();
-window.openContactsModal = openContactsModal;
-//#endregion @TODO delete before deployment

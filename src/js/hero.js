@@ -1,13 +1,13 @@
 import { initSlider } from "./helpers";
 
-const heroSlider = {
-  containerSelector: '.swiper',
+initSlider({
+  containerSelector: '.swiper-hero',
   prevSelector: '.hero-swiper-btn-prev',
   nextSelector: '.hero-swiper-btn-next',
-}
+});
 
 
-initSlider(heroSlider);
+
 
   // Плавний скрол по кліку на "Shop now!"
   document.querySelectorAll('.slide-btn[href="#books"]').forEach(btn => {

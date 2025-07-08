@@ -1,4 +1,4 @@
-<section class="section events">
+<section class="section " id="events">
   <div class="container">
     <p class="section-name">Events</p>
     <h2 class="events-title">Upcoming Events at Booksy</h2>
@@ -6,9 +6,8 @@
       Discover readings, workshops, and bookish gatherings — online and offline.
       Everyone’s welcome.
     </p>
-    <div class="swiper">
+    <div class="swiper events-swiper">
       <ul class="swiper-wrapper events-list">
-        <!-- slide 1 -->
         <li class="swiper-slide events-item">
           <picture class="events-image">
             <source srcset="
@@ -46,7 +45,6 @@
             </button>
           </div>
         </li>
-        <!-- slide 2 -->
         <li class="swiper-slide events-item">
           <alt= class="events-image">
             <source srcset="
@@ -84,20 +82,22 @@
               </button>
             </div>
         </li>
-        <!-- slide 3 -->
         <li class="swiper-slide events-item">
           <picture class="events-image">
             <source srcset="
                                     /img/pc-events-workshop.webp    1x,
-                                    /img/pc-events-workshop@2x.webp 2x" media="(min-width: 1440px)" width="421" height="277" />
+                                    /img/pc-events-workshop@2x.webp 2x" media="(min-width: 1440px)" width="421"
+              height="277" />
             <source srcset="
                                 /img/tab-events-workshop.webp    1x,
-                                /img/tab-events-workshop@2x.webp 2x" media="(min-width: 768px)" width="340" height="277" />
+                                /img/tab-events-workshop@2x.webp 2x" media="(min-width: 768px)" width="340"
+              height="277" />
             <img src="/img/mob-events-workshop.webp" srcset="
                                               
                                               /img/mob-events-workshop.webp    1x,
                                               /img/mob-events-workshop@2x.webp 2x
-                                            " width="343" height="248" loading="lazy" decoding="async" alt="Children’s Story Hour" />
+                                            " width="343" height="248" loading="lazy" decoding="async"
+              alt="Children’s Story Hour" />
           </picture>
           <div class="events-content-wrapper">
             <div>
@@ -120,11 +120,10 @@
           </div>
         </li>
       </ul>
-      <!-- Navigation buttons -->
       <div class="events-controls-wrapper">
         <div class="swiper-pagination events-pagination"></div>
         <div class="events-buttons-wrapper">
-          <button class="events-swiper-btn-prev arrow btn btn-size" type="button" aria-label="Previous slide">
+          <button class="events-swiper-btn-prev arrow btn btn-size" type="button" aria-label="Previous slide" disabled>
             <svg class="arrow-icon" width="14" height="14">
               <use href="/img/icons.svg#icon-left-arrow"></use>
             </svg>
