@@ -18,13 +18,30 @@
   flex-direction: column;
   gap: 32px;
 }
-
+.logo-icon-link {
+  display: block;
+}
+.logo-icon-link:hover,
+.logo-icon-link:focus {
+  transform: scale(1.25);
+}
 .nav-links-list {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   gap: 32px;
+}
+.nav-link {
+  display: block;
+  /* transform: scale(1);
+  transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease; */
+}
+.nav-link:hover {
+  transform: scale(1.25);
+  color: #5a2502;
+  text-shadow: var(--btn-background) 0 0 3px;
+  text-decoration: underline;
 }
 
 .join-label {
@@ -41,6 +58,7 @@
 }
 .email-input {
   min-width: auto;
+  width: 100%;
   min-height: 48px;
   border-radius: 4px;
   background-color: var(--foraground);
@@ -49,12 +67,20 @@
 .email-input::placeholder {
   color: #0b050099;
 }
+.email-input:hover,
+.email-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--btn-background);
+}
 
 .join-btn {
   min-width: 106px;
   min-height: 48px;
-  border: 1px solid #0b0500;
   border-radius: 4px;
+}
+.join-btn:hover,
+.join-btn:focus {
+  background-color: var(--btn-background);
 }
 .required-note {
   font-size: 12px;
@@ -69,6 +95,11 @@
 }
 .license-text {
   font-size: 14px;
+}
+.license-text:hover,
+.license-text:focus {
+  color: var(--btn-background);
+  text-decoration: underline;
 }
 
 @media screen and (min-width: 768px) {
@@ -89,5 +120,4 @@
     flex-direction: row;
     justify-content: space-between;
   }
-    
 }

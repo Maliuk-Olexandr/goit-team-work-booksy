@@ -6,14 +6,14 @@
 >
   <div class="container">
     <div class="modal-content">
-      <!-- render func injection  -->
+      <!-- start render func injection  -->
       <button class="modal_close-btn" aria-label="Close book details modal">
         <svg>
           <use xlink:href="/img/icons.svg#icon-close"></use>
         </svg>
       </button>
       <picture class="modal-books_picture" id="bookPicture">
-        <img class="modal-books_img" src="" alt="" />
+        <img class="modal-books_img" src="/img/mob-menu.webp" alt="not empty need" width="316" height="467"/>
       </picture>
       <div
         class="modal-books_data"
@@ -21,7 +21,7 @@
         data-book-price=""
         data-book-title=""
       >
-        <h2 class="modal-books_title" id="bookModalTitle"></h2>
+        <p class="modal-books_title" id="bookModalTitle"></p>
         <p class="modal-books_author"></p>
         <p class="modal-books_price"></p>
 
@@ -43,7 +43,7 @@
               >Book quantity</label
             >
 
-            <input class="quantity-input" id="bookQuantity" value="" min="1" />
+            <input class="quantity-input" id="bookQuantity" value="" min="1" type="number"/>
             <button
               class="btn btn-secondary"
               type="button"
@@ -109,7 +109,7 @@
           </div>
         </div>
       </div>
-      <!-- --- -->
+      <!-- end render func injection  -->
     </div>
   </div>
 </div>

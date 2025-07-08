@@ -15,18 +15,12 @@
   margin-bottom: 32px;
 }
 
-body .list-feedbacks {
-  display: flex;
-  min-height: 314px;
-}
+.list-feedbacks {
+  display: flex;}
 
-body .item-feedbacks {
-  width: 341px;
+.item-feedbacks {
+  min-height: 314px;
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 24px;
   padding: 32px;
   border: 1px solid rgba(11, 5, 0, 0.15);
   border-radius: 16px;
@@ -34,6 +28,7 @@ body .item-feedbacks {
 
 .text-item-feedbacks {
   font-size: 18px;
+  margin-bottom: 24px;
 }
 
 .icon-text-feedbacks {
@@ -62,10 +57,6 @@ body .item-feedbacks {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.list-feedbacks .swiper-slide {
-  height: auto;
 }
 
 .swiper-pagination-feedbacks .swiper-pagination-bullet-active {
@@ -100,8 +91,9 @@ body .item-feedbacks {
 
 /* media --------------------------------------------------*/
 @media (min-width: 768px) {
-  .list-feedbacks .item-feedbacks {
+  .item-feedbacks {
     width: 340px;
+    min-height: 244px;
   }
 
   .list-feedbacks .feedbacks-show-on-tablet {
@@ -112,6 +104,7 @@ body .item-feedbacks {
 @media screen and (min-width: 1440px) {
   .list-feedbacks .item-feedbacks {
     width: 421px;
+    min-height: 217px;
   }
 
   .list-feedbacks .feedbacks-show-on-desktop {

@@ -101,7 +101,9 @@ textarea:focus {
   --arrow-disabled-background: var(--btn-background); /* need opacity: 0.2; */
 }
 .arrow {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: var(--arrow-background);
   fill: var(--color-white);
 }
