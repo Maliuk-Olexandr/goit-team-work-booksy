@@ -13,7 +13,7 @@
   <script type="module" crossorigin src="/goit-team-work-booksy/index.js"></script>
   <link rel="modulepreload" crossorigin href="/goit-team-work-booksy/assets/vendor-DlTilzpZ.js">
   <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/vendor-06AMjbQk.css">
-  <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-dWf-ZJeP.css">
+  <link rel="stylesheet" crossorigin href="/goit-team-work-booksy/assets/index-DZRlFTlT.css">
 </head>
 
 <body>
@@ -154,7 +154,8 @@
   </div>
 </section>
     <section class="section" id="books">
-  <div class="container">
+  <div class="container" >
+    <h2 class="visually-hidden">Trending books</h2>
     <form class="books-form">
       <div class="categories-wrapper">
         <div class="books-counter">
@@ -163,9 +164,12 @@
         </div>
         <ul class="categories-list"></ul>
         <div class="select-wrapper">
-        <select id="category-select" aria-label="Book category">
-        </select>
-        <svg class="categories-arrow" width="12" height="8"><use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-chevron-down" /></svg>
+          <label for="category-select" class="visually-hidden">Choose category</label>
+          <select id="category-select" aria-label="Select book category">
+          </select>
+          <svg class="categories-arrow" width="12" height="8">
+            <use href="/goit-team-work-booksy/assets/icons-DcFOpkaY.svg#icon-chevron-down" />
+          </svg>
         </div>
       </div>
       <div class="books-wrapper">
