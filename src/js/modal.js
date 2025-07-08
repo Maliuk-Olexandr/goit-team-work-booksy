@@ -242,7 +242,7 @@ class BooksModal extends Modal {
       bookPicture: response.book_image,
       bookTitle: response.title,
       bookAuthor: response.author,
-      bookPrice: response.price,
+      bookPrice: Number(response.price) || '9.99',
       bookQuantity: 1,
       details: response.details || DEFAULT_BOOK_DETAILS.details,
       shipping: response.shipping || DEFAULT_BOOK_DETAILS.shipping,
