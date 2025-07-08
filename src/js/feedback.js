@@ -1,8 +1,5 @@
 import { initSlider } from './helpers';
 
-
-
-
 const feedbacksSwiper = initSlider({
   containerSelector: '.slider-feedbacks',
   prevSelector: '.swiper-button-prev-feedbacks',
@@ -12,9 +9,21 @@ const feedbacksSwiper = initSlider({
     if (index > 3) return '';
     return `<span class="${className}" tabindex="0"></span>`;
   },
+
   breakpoints: {
-    768: { slidesPerView: 2 },
-    1440: { slidesPerView: 3 },
+    320: {
+      slidesPerView: 1,
+      spaceBetween: 24, // замість gap
+    },
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 24, // замість gap
+    },
+
+    1440: {
+      slidesPerView: 3,
+      spaceBetween: 24, // замість gap
+    },
   },
   options: {
     a11y: {
@@ -28,7 +37,8 @@ const feedbacksSwiper = initSlider({
 });
 
 const slider = document.querySelector('.slider-feedbacks');
-const desktopOnlyItems = slider?.querySelectorAll('.feedbacks-desktop-only')?? [];
+const desktopOnlyItems =
+  slider?.querySelectorAll('.feedbacks-desktop-only') ?? [];
 
 function updateDesktopOnlySlides() {
   const isDesktop = window.innerWidth >= 1440;
@@ -37,7 +47,6 @@ function updateDesktopOnlySlides() {
   });
 }
 updateDesktopOnlySlides();
-
 
 let wasDesktop = window.innerWidth >= 1440;
 
