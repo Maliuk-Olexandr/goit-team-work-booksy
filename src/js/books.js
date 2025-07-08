@@ -171,17 +171,28 @@ gallery.addEventListener("click", event => {
   openBooksModal(bookId);
 });
 
-// SVG стрілка обертання при фокусі
-select.addEventListener("focus", () => {
+let selectIsOpen = false;
+
+select.addEventListener("mousedown", () => {
+  // Меню щойно відкривається
   arrow.style.transform = "translateY(-50%) rotate(180deg)";
+  selectIsOpen = true;
 });
 
-select.addEventListener("blur", () => {
-  arrow.style.transform = "translateY(-50%)";
-});
-
+// При зміні — закривається
 select.addEventListener("change", () => {
-  arrow.style.transform = "translateY(-50%)";
+  if (selectIsOpen) {
+    arrow.style.transform = "translateY(-50%)";
+    selectIsOpen = false;
+  }
+});
+
+// На всякий випадок, коли клацнули поза select
+document.addEventListener("click", (e) => {
+  if (selectIsOpen && !select.contains(e.target)) {
+    arrow.style.transform = "translateY(-50%)";
+    selectIsOpen = false;
+  }
 });
 
 function createMarkup(data) {
