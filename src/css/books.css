@@ -50,6 +50,10 @@
   z-index: 2;
 }
 
+.select-wrapper:focus-within .categories-arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
 .books-wrapper {
     display: flex;
     flex-direction: column;
