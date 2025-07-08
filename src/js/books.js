@@ -96,8 +96,19 @@ select.addEventListener('change', e => {
 });
 
 list.addEventListener('click', e => {
-  if (e.target.tagName !== 'BUTTON') return;
-  const category = e.target.value;
+  const btn = e.target.closest('.category-btn');
+  if (!btn) return;
+
+  // оновлення aria-pressed
+  list.querySelectorAll('.category-btn').forEach(b => {
+    b.classList.remove('active-category');
+    b.setAttribute('aria-pressed', 'false');
+  });
+
+  btn.classList.add('active-category');
+  btn.setAttribute('aria-pressed', 'true');
+
+  const category = btn.value;
   selectCategory(category);
 });
 
