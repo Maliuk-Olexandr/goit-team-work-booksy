@@ -51,6 +51,19 @@
   height: 32px;
   padding: 8px 0 8px 0;
 }
+
+.event-register-btn:hover {
+  background-color: transparent;
+}
+
+.event-register-btn .icon-chevron-right {
+  transition: transform 0.3s ease;
+}
+
+.event-register-btn:hover .icon-chevron-right {
+  transform: translateX(3px);
+}
+
 .events-controls-wrapper {
   position: relative;
   height: 48px;
