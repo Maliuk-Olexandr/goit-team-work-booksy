@@ -205,30 +205,83 @@ document.addEventListener('click', e => {
   }
 });
 
+// function createMarkup(data) {
+//   return data
+//     .map(({ title, author, book_image, price, _id }) => {
+//       let displayPrice;
+
+//       if (typeof price === 'string' && price.trim() !== '0.00') {
+//         displayPrice = price.trim();
+//       } else if (typeof price === 'number') {
+//         displayPrice = price.toFixed(2);
+//       } else {
+//         displayPrice = '9.99';
+//       }
+
+//       return `<li class="book-card">
+//       <img  loading="lazy" class="book-cover" src="${book_image}" alt="${title}" width="150" />
+//       <div class="book-card-info">
+//         <div class="book-card-descriptions">
+//           <h3 class="book-card-title">${title.toLowerCase()}</h3>
+//           <h4 class="book-card-author">${author}</h4>
+//         </div>
+//         <p class="book-price">$${displayPrice}</p>
+//       </div>
+//       <button type="button" class="btn-secondary btn-book" data-id="${_id}">Learn more</button>
+//     </li>`;
+//     })
+//     .join('');
+// }
 function createMarkup(data) {
   return data
-    .map(({ title, author, book_image, price, _id }) => {
-      let displayPrice;
+    .map(({ title, author, book_image, price, _id },index) => {
+      const displayPrice =
+        typeof price === 'number'
+          ? price.toFixed(2)
+          : typeof price === 'string' && price.trim() !== '0.00'
+          ? price.trim()
+          : '9.99';
 
-      if (typeof price === 'string' && price.trim() !== '0.00') {
-        displayPrice = price.trim();
-      } else if (typeof price === 'number') {
-        displayPrice = price.toFixed(2);
-      } else {
-        displayPrice = '9.99';
-      }
+      const safeTitle = escapeHtml(title);
+      const safeAuthor = escapeHtml(author);
+      const loadingAttribute =index < 3 ? 'eager' : 'lazy';
 
-      return `<li class="book-card">
-      <img  loading="lazy" class="book-cover" src="${book_image}" alt="${title}" width="150" />
-      <div class="book-card-info">
-        <div class="book-card-descriptions">
-          <h3 class="book-card-title">${title.toLowerCase()}</h3>
-          <h4 class="book-card-author">${author}</h4>
-        </div>
-        <p class="book-price">$${displayPrice}</p>
-      </div>
-      <button type="button" class="btn-secondary btn-book" data-id="${_id}">Learn more</button>
-    </li>`;
+      return `
+        <li class="book-card">
+          <img
+           loading="${loadingAttribute}"
+            class="book-cover"
+            src="${book_image}"
+            alt="Book cover: ${safeTitle} by ${safeAuthor}"
+            width="150"
+            height="auto"
+          />
+          <div class="book-card-info">
+            <div class="book-card-descriptions">
+              <h3 class="book-card-title">${safeTitle.toLowerCase()}</h3>
+              <h4 class="book-card-author">${safeAuthor}</h4>
+            </div>
+            <p class="book-price">$${displayPrice}</p>
+          </div>
+          <button
+            type="button"
+            class="btn-secondary btn-book"
+            data-id="${_id}"
+            aria-label="Learn more about ${safeTitle} by ${safeAuthor}"
+          >
+            Learn more
+          </button>
+        </li>`;
     })
     .join('');
+}
+function escapeHtml(text = '') {
+  const map = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;',
+  };
+  return text.replace(/[&<>"']/g, m => map[m]);
 }
