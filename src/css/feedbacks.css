@@ -12,12 +12,12 @@
 }
 
 .slider-feedbacks {
-  /* overflow: hidden; */
   margin-bottom: 32px;
 }
 
 body .list-feedbacks {
   display: flex;
+  min-height: 314px;
 }
 
 body .item-feedbacks {
@@ -33,7 +33,6 @@ body .item-feedbacks {
 }
 
 .text-item-feedbacks {
-  /* min-height: calc(1.5 * 4 * 1em); */
   font-size: 18px;
 }
 
@@ -54,12 +53,9 @@ body .item-feedbacks {
 .slider-bottom-feedbacks {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   flex-direction: row;
   gap: 40px;
-}
-
-.slider-pagination-feedbacks {
 }
 
 .swiper-pagination-feedbacks {
@@ -85,90 +81,12 @@ body .item-feedbacks {
   justify-content: flex-start;
   flex-direction: row;
   gap: 16px;
-  margin-left: auto;
 }
 
-.swiper-button-prev-feedbacks {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 8px;
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  padding: 12px;
-  width: 48px;
-  height: 48px;
-  background: #e15d05;
-}
-
+.swiper-button-prev-feedbacks,
 .swiper-button-next-feedbacks {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-  gap: 8px;
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  padding: 12px;
   width: 48px;
   height: 48px;
-  background: #e15d05;
-}
-
-.swiper-button-prev-feedbacks:hover,
-.swiper-button-prev-feedbacks:focus,
-.swiper-button-next-feedbacks:hover,
-.swiper-button-next-feedbacks:focus {
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  background: #fceee6;
-}
-
-.swiper-button-prev-feedbacks:hover svg path,
-.swiper-button-prev-feedbacks:focus svg path,
-.swiper-button-next-feedbacks:hover svg path,
-.swiper-button-next-feedbacks:focus svg path {
-  fill: #0b0500;
-}
-
-.swiper-button-prev-feedbacks:active,
-.swiper-button-next-feedbacks:active {
-  background: #5a2502;
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  transform: scale(0.95);
-  transition: transform 0.1s;
-}
-
-.swiper-button-prev-feedbacks:active svg path,
-.swiper-button-next-feedbacks:active svg path {
-  fill: white;
-}
-
-.slider-navigation-feedbacks .slider-button-disabled {
-  background: #e15d05;
-  opacity: 0.2;
-  /* Делает кнопку прозрачной, чтобы показать неактивность */
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  box-shadow: none;
-  cursor: not-allowed;
-  /* Курсор "запрещено" */
-  pointer-events: none;
-  /* Запретить любые действия */
-  outline: none;
-}
-
-/* Запрещаем hover и focus эффекты для disabled кнопки */
-.slider-navigation-feedbacks .slider-button-disabled:hover,
-.slider-navigation-feedbacks .slider-button-disabled:focus {
-  background: #e15d05;
-  opacity: 0.2;
-  border: 1px solid rgba(11, 5, 0, 0.15);
-  box-shadow: none;
-  outline: none;
-  cursor: not-allowed;
-}
-
-/* Цвет стрелок в disabled состоянии */
-.slider-navigation-feedbacks .slider-button-disabled svg path {
-  fill: #0b0500;
 }
 
 .feedbacks-desktop-only {

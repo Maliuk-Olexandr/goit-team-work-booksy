@@ -101,17 +101,12 @@
   gap: 16px;
   z-index: 2;
 }
-.btn-size {
+.events-swiper-btn-prev,
+.events-swiper-btn-next {
   width: 48px;
   height: 48px;
-  border: none;
-  border-radius: 0;
-  padding: 0;
 }
-.arrow-icon {
-  fill: var(--arrow-color);
-  text-align: center;
-}
+
 @media screen and (min-width: 768px) {
   .events-image img {
     width: 340px;
