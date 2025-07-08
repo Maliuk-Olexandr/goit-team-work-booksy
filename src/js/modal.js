@@ -242,7 +242,7 @@ class BooksModal extends Modal {
       bookPicture: response.book_image,
       bookTitle: response.title,
       bookAuthor: response.author,
-      bookPrice: response.price,
+      bookPrice: Number(response.price) || '9.99',
       bookQuantity: 1,
       details: response.details || DEFAULT_BOOK_DETAILS.details,
       shipping: response.shipping || DEFAULT_BOOK_DETAILS.shipping,
@@ -394,10 +394,3 @@ export function openBooksModal(bookId = '660df41ba957e5c1ae0f519e') {
     console.error('Books modal is not initialized.');
   }
 }
-
-//#region @TODO delete before deployment
-window.openBooksModal = openBooksModal;
-// openBooksModal();
-// openContactsModal();
-window.openContactsModal = openContactsModal;
-//#endregion @TODO delete before deployment

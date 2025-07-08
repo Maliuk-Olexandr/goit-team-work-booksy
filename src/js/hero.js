@@ -1,69 +1,13 @@
-import Swiper from 'swiper/bundle';
-import 'swiper/css/bundle';
+import { initSlider } from "./helpers";
 
-initHeroSlider();
-function initHeroSlider() {
-  const root = document.querySelector('.swiper');
-  if (!root) {
-    console.warn('Swiper-контейнер не знайдено');
-    return;
-  }
-  const wrapper = document.querySelector('.swiper-wrapper');
-  [...wrapper.childNodes].forEach(node => {
-    if (node.nodeType !== Node.ELEMENT_NODE || node.nodeName !== 'LI') {
-      wrapper.removeChild(node);
-    }
-  });
+initSlider({
+  containerSelector: '.swiper-hero',
+  prevSelector: '.hero-swiper-btn-prev',
+  nextSelector: '.hero-swiper-btn-next',
+});
 
-  const prevBtn = document.querySelector('.hero-swiper-btn-prev');
-  const nextBtn = document.querySelector('.hero-swiper-btn-next');
 
-  // ініціалізація Swiper
-  const swiper = new Swiper(root, {
-    loop: false,
-    effect: 'slide',
-    parallax: true,
-    navigation: {
-      nextEl: nextBtn,
-      prevEl: prevBtn,
-    },
-    autoplay: {
-      delay: 10000,
-      disableOnInteraction: true,
-      pauseOnMouseEnter: true,
-    },
-    keyboard: {
-      enabled: true,
-      onlyInViewport: true,
-    },
-    slidesPerView: 1,
-    slidesPerGroup: 1,
-    on: {
-      init(sw) {
-        updateArrows(sw);
-      },
-      slideChange(sw) {
-        updateArrows(sw);
-      },
-    },
-  });
 
-  // Функція оновлення стану стрілок
-  function updateArrows(sw) {
-    if (!prevBtn || !nextBtn) return;
-    prevBtn.disabled = sw.isBeginning;
-    nextBtn.disabled = sw.isEnd;
-    prevBtn.classList.toggle('disabled', sw.isBeginning);
-    nextBtn.classList.toggle('disabled', sw.isEnd);
-  }
-
-  // Зняття фокусу з кнопки після кліка
-  [prevBtn, nextBtn].forEach(btn => {
-    if (!btn) return;
-    btn.addEventListener('click', () => {
-      btn.blur();
-    });
-  });
 
   // Плавний скрол по кліку на "Shop now!"
   document.querySelectorAll('.slide-btn[href="#books"]').forEach(btn => {
@@ -72,4 +16,4 @@ function initHeroSlider() {
       document.querySelector('#books')?.scrollIntoView();
     });
   });
-}
+

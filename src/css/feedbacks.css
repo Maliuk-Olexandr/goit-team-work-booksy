@@ -1,0 +1,203 @@
+.title-feedbacks {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+}
+
+.title-text-feedbacks {
+  font-size: 18px;
+  margin-bottom: 80px;
+}
+
+.slider-feedbacks {
+  /* overflow: hidden; */
+  margin-bottom: 32px;
+}
+
+body .list-feedbacks {
+  display: flex;
+}
+
+body .item-feedbacks {
+  width: 341px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 32px;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  border-radius: 16px;
+}
+
+.text-item-feedbacks {
+  /* min-height: calc(1.5 * 4 * 1em); */
+  font-size: 18px;
+}
+
+.icon-text-feedbacks {
+  display: flex;
+  gap: 16px;
+}
+
+.icon-item-feedbacks {
+  width: 48px;
+  height: 48px;
+}
+
+.client-name-feedback {
+  font-weight: 600;
+}
+
+.slider-bottom-feedbacks {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.slider-pagination-feedbacks {
+}
+
+.swiper-pagination-feedbacks {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-feedbacks .swiper-slide {
+  height: auto;
+}
+
+.swiper-pagination-feedbacks .swiper-pagination-bullet-active {
+  background-color: #0b0500;
+  /* цвет активной точки */
+  opacity: 1;
+  /* чтобы была полностью непрозрачной */
+}
+
+.slider-navigation-feedbacks {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.swiper-button-prev-feedbacks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+  background: #e15d05;
+}
+
+.swiper-button-next-feedbacks {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 8px;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  padding: 12px;
+  width: 48px;
+  height: 48px;
+  background: #e15d05;
+}
+
+.swiper-button-prev-feedbacks:hover,
+.swiper-button-prev-feedbacks:focus,
+.swiper-button-next-feedbacks:hover,
+.swiper-button-next-feedbacks:focus {
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  background: #fceee6;
+}
+
+.swiper-button-prev-feedbacks:hover svg path,
+.swiper-button-prev-feedbacks:focus svg path,
+.swiper-button-next-feedbacks:hover svg path,
+.swiper-button-next-feedbacks:focus svg path {
+  fill: #0b0500;
+}
+
+.swiper-button-prev-feedbacks:active,
+.swiper-button-next-feedbacks:active {
+  background: #5a2502;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  transform: scale(0.95);
+  transition: transform 0.1s;
+}
+
+.swiper-button-prev-feedbacks:active svg path,
+.swiper-button-next-feedbacks:active svg path {
+  fill: white;
+}
+
+.slider-navigation-feedbacks .slider-button-disabled {
+  background: #e15d05;
+  opacity: 0.2;
+  /* Делает кнопку прозрачной, чтобы показать неактивность */
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  box-shadow: none;
+  cursor: not-allowed;
+  /* Курсор "запрещено" */
+  pointer-events: none;
+  /* Запретить любые действия */
+  outline: none;
+}
+
+/* Запрещаем hover и focus эффекты для disabled кнопки */
+.slider-navigation-feedbacks .slider-button-disabled:hover,
+.slider-navigation-feedbacks .slider-button-disabled:focus {
+  background: #e15d05;
+  opacity: 0.2;
+  border: 1px solid rgba(11, 5, 0, 0.15);
+  box-shadow: none;
+  outline: none;
+  cursor: not-allowed;
+}
+
+/* Цвет стрелок в disabled состоянии */
+.slider-navigation-feedbacks .slider-button-disabled svg path {
+  fill: #0b0500;
+}
+
+.feedbacks-desktop-only {
+  display: none;
+}
+
+.list-feedbacks .feedbacks-show-on-desktop,
+.list-feedbacks .feedbacks-show-on-tablet {
+  display: none;
+}
+
+/* media --------------------------------------------------*/
+@media (min-width: 768px) {
+  .list-feedbacks .item-feedbacks {
+    width: 340px;
+  }
+
+  .list-feedbacks .feedbacks-show-on-tablet {
+    display: flex;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .list-feedbacks .item-feedbacks {
+    width: 421px;
+  }
+
+  .list-feedbacks .feedbacks-show-on-desktop {
+    display: flex;
+  }
+}
+/* --------------------------------------------- */

@@ -1,16 +1,12 @@
+import { debounce } from './helpers';
+
 
 export function initScrollToTopBtn(selector = '.scroll-top') {
   const scrollBtn = document.querySelector(selector);
 
   if (!scrollBtn) return;
 
-  const debounce = (func, delay) => {
-    let timeout;
-    return (...args) => {
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func(...args), delay);
-    };
-  };
+
 
   const toggleButtonVisibility = () => {
     const isMobile = window.innerWidth < 768;
