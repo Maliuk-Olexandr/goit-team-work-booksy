@@ -26,6 +26,9 @@
   display: inline-block;
   width: 100%;
 }
+.categories-group {
+  border: none;
+}
 
 #category-select {
   appearance: none;
