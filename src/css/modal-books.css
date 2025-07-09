@@ -163,3 +163,15 @@ body .iziToast > .iziToast-body .iziToast-message {
   padding-bottom: 6px;
 }
 /*#endregion izitoast style adapation */
+
+.no-arrows::-webkit-outer-spin-button,
+.no-arrows::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.no-arrows {
+  -moz-appearance: textfield; /* Firefox */
+  -webkit-appearance: none; /* Chrome, Safari, Edge */
+  appearance: none;
+}
