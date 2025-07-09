@@ -257,12 +257,8 @@
   }
 
   .active-category {
-    /* transform: scale(1.05); */
     color: #5a2502;
     text-shadow: var(--btn-background) 0 0 3px;
   }
 
-  /* .loader {
-    left: 59%;
-  } */
 }
