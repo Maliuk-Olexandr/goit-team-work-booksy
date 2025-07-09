@@ -84,10 +84,7 @@
   display: none;
 }
 
-.list-feedbacks .feedbacks-show-on-desktop,
-.list-feedbacks .feedbacks-show-on-tablet {
-  display: none;
-}
+
 
 /* media --------------------------------------------------*/
 @media (min-width: 768px) {
@@ -96,9 +93,7 @@
     min-height: 244px;
   }
 
-  .list-feedbacks .feedbacks-show-on-tablet {
-    display: flex;
-  }
+ 
 }
 
 @media screen and (min-width: 1440px) {
@@ -107,8 +102,5 @@
     min-height: 217px;
   }
 
-  .list-feedbacks .feedbacks-show-on-desktop {
-    display: flex;
-  }
-}
+ }
 /* --------------------------------------------- */

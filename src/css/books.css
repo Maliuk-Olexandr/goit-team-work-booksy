@@ -1,3 +1,7 @@
+#books{
+  padding: 32px 0;
+}
+
 .gallery {
   display: flex;
   flex-direction: column;
