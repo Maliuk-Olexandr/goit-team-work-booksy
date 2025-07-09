@@ -7,7 +7,7 @@
   flex-direction: column;
   gap: 20px;
   padding: 24px 0;
-  min-width: 100%;
+  width: 100%;
 }
 
 .books-counter {
@@ -16,6 +16,10 @@
   align-items: center;
   margin-bottom: 24px;
 }
+
+.categories-group {
+  border: none;
+  }
 
 .categories-list {
   display: none;
@@ -255,9 +259,5 @@
   
   .loader {
     left: 60.7%;
-  }
-
-  .categories-group {
-  border: none;
   }
 }
