@@ -1,0 +1,7 @@
+{
+  "schedule": "daily",
+  "ignoredFiles": ["**/*.gif"],
+  "aggressiveCompression": true,
+  "minKBReduced": 10,
+  "imageTypes": ["png", "jpg", "jpeg", "svg", "webp"]
+}
