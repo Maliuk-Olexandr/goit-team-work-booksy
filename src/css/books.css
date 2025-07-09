@@ -252,7 +252,12 @@
     color: #5a2502;
     text-shadow: var(--btn-background) 0 0 3px;
   }
+  
   .loader {
     left: 60.7%;
+  }
+
+  .categories-group {
+  border: none;
   }
 }
