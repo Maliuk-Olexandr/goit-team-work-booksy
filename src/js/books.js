@@ -96,6 +96,7 @@ select.addEventListener('change', e => {
 });
 
 list.addEventListener('click', e => {
+  e.preventDefault();
   const btn = e.target.closest('.category-btn');
   if (!btn) return;
 
@@ -245,7 +246,7 @@ document.addEventListener('click', e => {
 // }
 function createMarkup(data) {
   return data
-    .map(({ title, author, book_image, price, _id },index) => {
+    .map(({ title, author, book_image, price, _id }, index) => {
       const displayPrice =
         typeof price === 'number'
           ? price.toFixed(2)
@@ -255,7 +256,7 @@ function createMarkup(data) {
 
       const safeTitle = escapeHtml(title);
       const safeAuthor = escapeHtml(author);
-      const loadingAttribute =index < 3 ? 'eager' : 'lazy';
+      const loadingAttribute = index < 3 ? 'eager' : 'lazy';
 
       return `
         <li class="book-card">
