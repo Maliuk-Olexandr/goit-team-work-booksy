@@ -41,7 +41,6 @@
   transform: scale(1.25);
   color: #5a2502;
   text-shadow: var(--btn-background) 0 0 3px;
-  text-decoration: underline;
 }
 
 .join-label {
@@ -115,9 +114,13 @@
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1440px) {
   .footer-container {
     flex-direction: row;
     justify-content: space-between;
+  }
+  .logo-nav {
+  
+    align-items: flex-start;
   }
 }
