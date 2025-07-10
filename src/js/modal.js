@@ -33,13 +33,15 @@ class Modal {
   }
 
   trapFocusHandler = event => {
-    if (event.key === 'Tab') return;
-    const isShiftTab = event.shiftKey;
-    const activeElement = document.activeElement;
-    if (isShiftTab && activeElement === this.firstFocusableElement) {
+    if (event.key !== 'Tab') return;
+
+    const isShift = event.shiftKey;
+    const active = document.activeElement;
+
+    if (isShift && active === this.firstFocusableElement) {
       event.preventDefault();
       this.lastFocusableElement.focus();
-    } else if (!isShiftTab && activeElement === this.lastFocusableElement) {
+    } else if (!isShift && active === this.lastFocusableElement) {
       event.preventDefault();
       this.firstFocusableElement.focus();
     }
@@ -48,14 +50,17 @@ class Modal {
   open() {
     this.modalElement.classList.add('is-open');
     document.body.style.overflow = 'hidden';
-    this.focuableElements = this.modalElement.querySelectorAll(
-      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])'
-    );
-    if (this.focuableElements.length > 0) {
-      this.focuableElements[0].focus(); // Focus the first element
-    }
-    this.modalElement.querySelector('.modal_close-btn')?.focus();
 
+    const selectors =
+      'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+    this.focuableElements = this.modalElement.querySelectorAll(selectors);
+    this.firstFocusableElement = this.focuableElements[0];
+    this.lastFocusableElement =
+      this.focuableElements[this.focuableElements.length - 1];
+    this.firstFocusableElement?.focus();
+
+    document.addEventListener('keydown', this.trapFocusHandler);
     document.addEventListener('keydown', this.escapeHandler);
     this.modalElement.addEventListener('click', this.closeClickHandler);
   }
